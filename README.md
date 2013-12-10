@@ -1,4 +1,4 @@
 djinn_news
-==========
+===================
 
-News contentype for Djinn
+Djinn module for news content types
