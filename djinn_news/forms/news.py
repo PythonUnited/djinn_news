@@ -1,11 +1,12 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from djinn_contenttypes.forms.base import BaseContentForm
-from djinn_contenttypes.models.attachment import ImgAttachment
 from djinn_forms.widgets.attachment import AttachmentWidget
 from djinn_forms.fields.relate import RelateField
 from djinn_forms.forms.relate import RelateMixin
 from djinn_forms.widgets.relate import RelateWidget
+from djinn_contenttypes.forms.base import BaseContentForm
+from djinn_contenttypes.models.attachment import ImgAttachment
+from djinn_core.utils import object_to_urn
 from djinn_news.models import News
 
 
@@ -60,6 +61,10 @@ class NewsForm(BaseContentForm, RelateMixin):
     def __init__(self, *args, **kwargs):
 
         super(NewsForm, self).__init__(*args, **kwargs)
+
+        if not self.instance.get_owner():
+            self.fields['owner'].initial = self.user.profile
+            self.fields['owner'].widget.initial = True
 
         self.init_relation_fields()
 

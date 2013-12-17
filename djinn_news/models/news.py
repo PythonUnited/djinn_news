@@ -19,7 +19,6 @@ class News(PublishableContent):
 
     comments_enabled = models.BooleanField(default=True)
 
-    @property
     def documents(self):
 
         return self.get_related(relation_type="related_document")
