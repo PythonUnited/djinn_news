@@ -8,7 +8,9 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
     'django',
-    'pgintranet'
+    'pgintranet',
+    'djinn_forms',
+    'djinn_contenttypes'
     ]
 
 setup(name='djinn_news',

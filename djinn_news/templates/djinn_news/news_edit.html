@@ -1,0 +1,33 @@
+{% extends "djinn_contenttypes/base_edit.html" %}
+
+{% load i18n bootstrap auth_tags %}
+
+{% block formfields %}
+
+{{ form.title|bootstrap }}
+
+{{ form.text|bootstrap }}
+
+{{ form.documents|bootstrap }}
+
+{{ form.images|bootstrap }}
+
+{{ form.parentusergroup|bootstrap }}
+
+{{ form.comments_enabled|bootstrap }}
+
+{{ form.show_owner|bootstrap }}
+
+{{ form.owner|bootstrap }}
+
+{{ form.publish_from|bootstrap }}
+
+{{ form.publish_to|bootstrap }}
+
+{{ form.show_images|bootstrap }}
+
+{% ifpermission object request.user "djinn_news.manage_news" %}
+{{ form.is_global }}
+{% endifpermission %}
+
+{% endblock %}
