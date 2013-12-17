@@ -5,6 +5,7 @@ from pgauth.models import Role
 from pgauth.settings import USER_ROLE_ID, OWNER_ROLE_ID, ADMIN_ROLE_ID, \
     EDITOR_ROLE_ID
 from pgevents.register_events import base_event
+from pgevents.events import Events
 from djinn_news import models
 
 
