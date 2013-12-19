@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-19 16:34+0100\n"
+"POT-Creation-Date: 2013-12-19 18:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,32 +22,36 @@ msgstr ""
 msgid "Add a news item. The item will be submitted for publishing"
 msgstr ""
 
+#: forms/news.py:18
+msgid "Title"
+msgstr ""
+
 #. Translators: news text label
-#: forms/news.py:20
+#: forms/news.py:24
 msgid "News text"
 msgstr ""
 
 #. Translators: news is_global label
-#: forms/news.py:28
+#: forms/news.py:32
 msgid "Is global"
 msgstr ""
 
 #. Translators: news documents label
-#: forms/news.py:36
+#: forms/news.py:40
 msgid "Related documents"
 msgstr ""
 
 #. Translators: news documents help
-#: forms/news.py:39
+#: forms/news.py:43
 msgid "Select document(s)"
 msgstr ""
 
-#: forms/news.py:41
+#: forms/news.py:45
 msgid "Search document"
 msgstr ""
 
 #. Translators: news images label
-#: forms/news.py:53
+#: forms/news.py:57
 msgid "Images"
 msgstr ""
 

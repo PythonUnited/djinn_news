@@ -31,5 +31,6 @@ CTRegistry.register(
     "news",
     {"class": News,
      "app": "djinn_news",
+     "group_add": True,
      "label": _("News")}
     )

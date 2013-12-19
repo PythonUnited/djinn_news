@@ -3,57 +3,63 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: djinn_news\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-19 16:34+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2013-12-19 18:34+0100\n"
+"PO-Revision-Date: 2013-12-19 18:35+0100\n"
+"Last-Translator: Duco Dokter <dokter@w20e.com>\n"
+"Language-Team: nl_NL <support@pythonunited.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Dutch\n"
+"X-Poedit-Country: NETHERLANDS\n"
 
 #. Translators: news general help
 #: forms/news.py:16
 msgid "Add a news item. The item will be submitted for publishing"
 msgstr ""
 
+#: forms/news.py:18
+msgid "Title"
+msgstr ""
+
 #. Translators: news text label
-#: forms/news.py:20
+#: forms/news.py:24
 msgid "News text"
 msgstr ""
 
 #. Translators: news is_global label
-#: forms/news.py:28
+#: forms/news.py:32
 msgid "Is global"
 msgstr ""
 
 #. Translators: news documents label
-#: forms/news.py:36
+#: forms/news.py:40
 msgid "Related documents"
 msgstr ""
 
 #. Translators: news documents help
-#: forms/news.py:39
+#: forms/news.py:43
 msgid "Select document(s)"
 msgstr ""
 
-#: forms/news.py:41
+#: forms/news.py:45
 msgid "Search document"
 msgstr ""
 
 #. Translators: news images label
-#: forms/news.py:53
+#: forms/news.py:57
 msgid "Images"
 msgstr ""
 
-#: models/news.py:34 templates/djinn_news/snippets/news_viewlet.html:6
+#: models/news.py:34
+#: templates/djinn_news/snippets/news_viewlet.html:6
 msgid "News"
-msgstr ""
+msgstr "Nieuwsbericht"
 
 #: templates/djinn_news/news_detail.html:28
 msgid "Click on an image to enlarge"
@@ -70,3 +76,4 @@ msgstr ""
 #: templates/djinn_news/snippets/news_viewlet.html:44
 msgid "No news"
 msgstr ""
+

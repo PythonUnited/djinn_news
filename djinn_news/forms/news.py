@@ -15,6 +15,10 @@ class NewsForm(BaseContentForm, RelateMixin):
     # Translators: news general help
     help = _("Add a news item. The item will be submitted for publishing")
 
+    title = forms.CharField(label=_("Title"),
+                            max_length=100,
+                            widget=forms.TextInput())
+
     text = forms.CharField(
         # Translators: news text label
         label=_("News text"),
