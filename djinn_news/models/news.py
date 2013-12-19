@@ -23,6 +23,11 @@ class News(PublishableContent):
 
         return self.get_related(relation_type="related_document")
 
+    @property
+    def date(self):
+
+        return self.publish_from or self.created
+
     class Meta:
         app_label = "djinn_news"
 
@@ -31,5 +36,6 @@ CTRegistry.register(
     "news",
     {"class": News,
      "app": "djinn_news",
+     "group_add": True,
      "label": _("News")}
     )
