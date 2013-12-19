@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import signals
 from django.contrib.auth.models import Permission
+from django.conf import settings
 from pgauth.models import Role
 from pgauth.settings import USER_ROLE_ID, OWNER_ROLE_ID, ADMIN_ROLE_ID, \
     EDITOR_ROLE_ID
@@ -55,5 +56,11 @@ def register_events(**kwargs):
     Events.register("new_news", new_news)
 
 
+def set_default_settings(**kwargs):
+
+    settings.configure(SHOW_N_NEWS_ITEMS=5)
+
+
 signals.post_syncdb.connect(create_permissions, sender=models)
 signals.post_syncdb.connect(register_events, sender=models)
+#signals.post_syncdb.connect(set_default_settings, sender=models)
