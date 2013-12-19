@@ -14,6 +14,7 @@
 
 {{ form.parentusergroup|bootstrap }}
 
+<fieldset id="advanced">
 {{ form.comments_enabled|bootstrap }}
 
 {{ form.show_owner|bootstrap }}
@@ -26,8 +27,10 @@
 
 {{ form.show_images|bootstrap }}
 
+</fieldset>
+
 {% ifpermission object request.user "djinn_news.manage_news" %}
-{{ form.is_global }}
+{{ form.is_global|bootstrap }}
 {% endifpermission %}
 
 {% endblock %}

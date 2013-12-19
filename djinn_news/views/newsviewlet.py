@@ -13,7 +13,7 @@ class NewsViewlet(AcceptMixin, TemplateView):
 
     def news(self, limit=SHOW_N):
 
-        return News.objects.exclude(title=""). \
+        return News.objects.filter(is_global=True).exclude(title=""). \
             order_by('-publish_from', '-changed')[:limit]
 
     @property

@@ -2,11 +2,7 @@
 
 {% load auth_tags i18n djinn_contenttypes %}
 
-{% block header %}
-<header>
-  <h1>{{ object.title }}</h1>
-</header>
-{% endblock %}
+{% block title %}{{ object.title }}{% endblock %}
 
 {% block content %}
 
@@ -51,6 +47,5 @@
   {% endif %}
   
 </section>
-
 
 {% endblock %}
