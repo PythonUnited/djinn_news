@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-19 18:34+0100\n"
+"POT-Creation-Date: 2013-12-20 10:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,11 +55,11 @@ msgstr ""
 msgid "Images"
 msgstr ""
 
-#: models/news.py:34 templates/djinn_news/snippets/news_viewlet.html:6
+#: models/news.py:40 templates/djinn_news/snippets/news_viewlet.html:6
 msgid "News"
 msgstr ""
 
-#: templates/djinn_news/news_detail.html:28
+#: templates/djinn_news/news_detail.html:29
 msgid "Click on an image to enlarge"
 msgstr ""
 
