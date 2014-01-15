@@ -83,5 +83,5 @@ class NewsForm(BaseContentForm, RelateMixin):
     class Meta(BaseContentForm.Meta):
         model = News
         fields = ('title', 'text', 'documents', 'images', 'parentusergroup',
-                  'comments_enabled', 'show_owner', 'owner', 'publish_from',
+                  'comments_enabled', 'owner', 'publish_from',
                   'publish_to', 'show_images', 'is_global')
