@@ -25,10 +25,10 @@
 
 {{ form.show_images|bootstrap }}
 
-</fieldset>
-
 {% ifpermission object request.user "djinn_news.manage_news" %}
 {{ form.is_global|bootstrap }}
 {% endifpermission %}
+
+</fieldset>
 
 {% endblock %}
