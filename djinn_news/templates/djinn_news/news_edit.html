@@ -15,20 +15,24 @@
 {{ form.parentusergroup|bootstrap }}
 
 <fieldset id="advanced">
-{{ form.comments_enabled|bootstrap }}
 
-{{ form.owner|bootstrap }}
+  <section class="control-group" id="settings">
+    <h3>{% trans "Other settings" %}</h3>
+    {{ form.comments_enabled|bootstrap }}
+    {{ form.show_images|bootstrap }}
+    {% ifpermission object request.user "djinn_news.manage_news" %}
+    {{ form.is_global|bootstrap }}
+    {% endifpermission %}
+  </section>
 
-{{ form.publish_from|bootstrap }}
+  {{ form.owner|bootstrap }}
 
-{{ form.publish_to|bootstrap }}
-
-{{ form.show_images|bootstrap }}
-
+  <section class="control-group" id="publishing">
+    <h3>{% trans "Publishing" %}</h3>
+    {{ form.publish_from|bootstrap }}
+    {{ form.publish_to|bootstrap }}
+  </section>
+  
 </fieldset>
-
-{% ifpermission object request.user "djinn_news.manage_news" %}
-{{ form.is_global|bootstrap }}
-{% endifpermission %}
 
 {% endblock %}
