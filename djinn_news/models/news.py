@@ -17,7 +17,7 @@ class News(PublishableContent):
 
     is_global = models.BooleanField(default=False)
 
-    comments_enabled = models.BooleanField(default=True)
+    comments_enabled = models.BooleanField(_("Comments enabled"), default=True)
 
     def documents(self):
 
