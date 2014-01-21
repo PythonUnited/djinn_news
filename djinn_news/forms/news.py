@@ -24,7 +24,7 @@ class NewsForm(BaseContentForm, RelateMixin):
         label=_("News text"),
         required=True,
         widget=forms.Textarea(
-            attrs={'class': 'full wysiwyg', 'rows': '10'}
+            attrs={'class': 'full wysiwyg extended', 'rows': '10'}
             ))
 
     is_global = forms.BooleanField(
