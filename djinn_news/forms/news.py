@@ -69,6 +69,8 @@ class NewsForm(BaseContentForm, RelateMixin):
         if not self.instance.get_owner():
             self.fields['owner'].initial = self.user.profile
             self.fields['owner'].widget.initial = True
+        self.fields['show_images'].label = _("Show images")
+        self.fields['comments_enabled'].label = _("Comments enabled")
 
         self.init_relation_fields()
 
