@@ -42,7 +42,7 @@
 </section>
 {% endif %}
 
-{% if object.images.all.count %}
+{% if object.show_images and object.images.all.count %}
 <section id="images">
   
   {% if object.images.all.count > 1 %}
