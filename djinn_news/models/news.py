@@ -3,9 +3,10 @@ from django.utils.translation import ugettext_lazy as _
 from djinn_contenttypes.registry import CTRegistry
 from djinn_contenttypes.models.publishable import PublishableContent
 from djinn_contenttypes.models.attachment import ImgAttachment
+from djinn_contenttypes.models.commentable import Commentable
 
 
-class News(PublishableContent):
+class News(PublishableContent, Commentable):
 
     """ News content type """
 
@@ -16,8 +17,6 @@ class News(PublishableContent):
     show_images = models.BooleanField(default=True)
 
     is_global = models.BooleanField(default=False)
-
-    comments_enabled = models.BooleanField(_("Comments enabled"), default=True)
 
     def documents(self):
 
