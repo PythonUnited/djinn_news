@@ -26,10 +26,6 @@ def post_save_news(sender, instance, **kwargs):
         except:
             LOGGER.exception("Couldn't send notification for news")
 
-
-@receiver(pre_save, sender=News)
-def news_pre_save(sender, instance, **kwargs):
-
     if instance.id and instance.title and instance.publish_from and \
             instance.publish_from <= datetime.now():
         # We do not create activities when title is empty
