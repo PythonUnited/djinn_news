@@ -42,4 +42,10 @@ def post_save_news(sender, instance, **kwargs):
                 user=instance.changed_by,
                 context=context,
                 usergroup=instance.parentusergroup)
+
+            # Temporarily remove signal handler, and set notified to true
+            #
+            post_save.disconnect(post_save_news, sender=sender)
             instance.publish_notified = True
+            instance.save()
+            post_save.connect(post_save_news, sender=sender)
