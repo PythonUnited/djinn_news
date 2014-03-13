@@ -72,6 +72,9 @@ class NewsForm(BaseContentForm, RelateMixin):
         self.fields['show_images'].label = _("Show images")
         self.fields['comments_enabled'].label = _("Comments enabled")
 
+        if not self.user.has_perm("djinn_news.manage_news", obj=self.instance):
+            del self.fields['is_global']
+
         self.init_relation_fields()
 
     def save(self, commit=True):
