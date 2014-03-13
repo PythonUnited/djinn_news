@@ -7,9 +7,28 @@ from pgauth.models import UserGroup
 from pgevents.events import Events
 from news import News
 
-
 LOGGER = logging.getLogger("djinn_news")
 NEW_NEWS = "new_news"
+
+
+@receiver(pre_save, sender=News)
+def pre_save_news(sender, instance, **kwargs):
+    if instance.id:
+        previous_instance = News.objects.get(id=instance.id)
+        if not previous_instance.is_global and instance.is_global:
+
+            try:
+                redaction = UserGroup.objects.get(name="webredactie")
+
+                notification.send(
+                    redaction.members.all(),
+                    "added_news",
+                    {'object': instance}
+                    )
+            except:
+                LOGGER.exception("Couldn't send notification "
+                                 "for news added to homepage")
+
 
 @receiver(post_save, sender=News)
 def post_save_news(sender, instance, **kwargs):
