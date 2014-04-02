@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: djinn_news\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-23 07:10+0100\n"
-"PO-Revision-Date: 2014-01-21 14:41+0100\n"
-"Last-Translator:   <j.barkhof@provinciegroningen.nl>\n"
+"POT-Creation-Date: 2014-04-02 15:07+0200\n"
+"PO-Revision-Date: 2014-04-02 15:03+0200\n"
+"Last-Translator:   <bouma@egoactive.com>\n"
 "Language-Team: nl_NL <support@pythonunited.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Country: NETHERLANDS\n"
 "X-Poedit-Language: Dutch\n"
-"X-Translated-Using: django-rosetta 0.7.2\n"
+"X-Translated-Using: django-rosetta 0.7.3\n"
 
 #. Translators: news general help
 #: forms/news.py:16
@@ -67,11 +67,11 @@ msgstr "Afbeelding(en) toevoegen"
 msgid "Show images"
 msgstr "Toon toegevoegde afbeelding(en) onderaan deze pagina"
 
-#: forms/news.py:73 models/news.py:20
+#: forms/news.py:73
 msgid "Comments enabled"
 msgstr "Collega's mogen reageren"
 
-#: models/news.py:40 templates/djinn_news/snippets/news_viewlet.html:6
+#: models/news.py:39 templates/djinn_news/snippets/news_viewlet.html:6
 msgid "News"
 msgstr "Nieuwsbericht"
 
@@ -82,7 +82,7 @@ msgstr "Bestand(en) koppelen"
 
 #: templates/djinn_news/news_detail.html:49
 msgid "Click on an image to enlarge"
-msgstr "(Rosetta Djinn_news) Klik op de afbeelding om deze te vergroten"
+msgstr "Klik op de afbeelding om deze te vergroten"
 
 #: templates/djinn_news/news_edit.html:20
 msgid "Other settings"
@@ -103,3 +103,9 @@ msgstr "(Rosetta Djinn_news) Alle nieuwsberichten"
 #: templates/djinn_news/snippets/news_viewlet.html:44
 msgid "No news"
 msgstr "(Rosetta Djinn_news) Er zijn geen nieuwsberichten"
+
+#~ msgid "Save"
+#~ msgstr "Opslaan"
+
+#~ msgid "Savei and publish"
+#~ msgstr "Opslaan en publiceren"

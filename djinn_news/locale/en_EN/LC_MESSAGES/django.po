@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-23 07:10+0100\n"
+"POT-Creation-Date: 2014-04-02 15:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,11 +59,11 @@ msgstr ""
 msgid "Show images"
 msgstr ""
 
-#: forms/news.py:73 models/news.py:20
+#: forms/news.py:73
 msgid "Comments enabled"
 msgstr ""
 
-#: models/news.py:40 templates/djinn_news/snippets/news_viewlet.html:6
+#: models/news.py:39 templates/djinn_news/snippets/news_viewlet.html:6
 msgid "News"
 msgstr ""
 
