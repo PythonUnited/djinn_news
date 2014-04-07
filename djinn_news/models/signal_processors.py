@@ -58,7 +58,7 @@ def post_save_news(sender, instance, **kwargs):
         if not instance.publish_notified:
             Events.send(
                 NEW_NEWS,
-                user=instance.get_owner(),
+                user=instance.creator,
                 context=context,
                 usergroup=instance.parentusergroup)
 
