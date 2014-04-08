@@ -34,12 +34,16 @@ def pre_save_news(sender, instance, **kwargs):
 def post_save_news(sender, instance, **kwargs):
 
     if kwargs.get("created"):
+        if instance.is_global:
+            redactie_inbox_message_type = "added_news"
+        else:
+            redactie_inbox_message_type = "request_news"
         try:
             redaction = UserGroup.objects.get(name="webredactie")
 
             notification.send(
                 redaction.members.all(),
-                "request_news",
+                redactie_inbox_message_type,
                 {'object': instance}
                 )
         except:
