@@ -21,7 +21,7 @@ class NewsViewlet(AcceptMixin, TemplateView):
             filter(publish_from__lt=now). \
             filter(Q(publish_to__isnull=True)|Q(publish_to__lt=now)). \
             exclude(title=""). \
-            order_by('-publish_from', '-changed')
+            order_by('-publish_from', '-changed')[:limit]
 
     @property
     def show_more(self, limit=SHOW_N):
