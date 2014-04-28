@@ -18,6 +18,8 @@ class News(PublishableContent, Commentable):
 
     is_global = models.BooleanField(default=False)
 
+    create_tmp_object = True
+
     def documents(self):
 
         return self.get_related(relation_type="related_document")

@@ -3,14 +3,15 @@ from django.utils.translation import ugettext_lazy as _
 from djinn_forms.widgets.attachment import AttachmentWidget
 from djinn_forms.fields.relate import RelateField
 from djinn_forms.forms.relate import RelateMixin
+from djinn_forms.forms.richtext import RichTextMixin
 from djinn_forms.widgets.relate import RelateWidget
+from djinn_forms.widgets.richtext import RichTextWidget
 from djinn_contenttypes.forms.base import BaseContentForm
 from djinn_contenttypes.models.attachment import ImgAttachment
-from djinn_core.utils import object_to_urn
 from djinn_news.models import News
 
 
-class NewsForm(BaseContentForm, RelateMixin):
+class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
 
     # Translators: news general help
     help = _("Add a news item. The item will be submitted for publishing")
@@ -23,9 +24,10 @@ class NewsForm(BaseContentForm, RelateMixin):
         # Translators: news text label
         label=_("News text"),
         required=True,
-        widget=forms.Textarea(
-            attrs={'class': 'full wysiwyg extended', 'rows': '10'}
-            ))
+        widget=RichTextWidget(
+            img_type="djinn_contenttypes.ImgAttachment",
+            attrs={'rows': '10'}
+        ))
 
     is_global = forms.BooleanField(
         # Translators: news is_global label
@@ -76,6 +78,7 @@ class NewsForm(BaseContentForm, RelateMixin):
             del self.fields['is_global']
 
         self.init_relation_fields()
+        self.init_richtext_widgets()
 
     def save(self, commit=True):
 
