@@ -53,7 +53,11 @@ def register_events(**kwargs):
     def new_news(**kwargs):
         base_event("new_news", notify=False, **kwargs)
 
+    def delete_news(**kwargs):
+        base_event("delete_news", notify=False, **kwargs)
+
     Events.register("new_news", new_news)
+    Events.register("delete_news", delete_news)
 
 
 def set_default_settings(**kwargs):
