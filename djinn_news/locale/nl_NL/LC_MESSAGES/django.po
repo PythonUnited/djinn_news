@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: djinn_news\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-05 22:43+0200\n"
-"PO-Revision-Date: 2014-04-02 15:03+0200\n"
+"PO-Revision-Date: 2014-05-05 22:49+0200\n"
 "Last-Translator:   <bouma@egoactive.com>\n"
 "Language-Team: nl_NL <support@pythonunited.com>\n"
 "Language: \n"
@@ -60,9 +60,8 @@ msgstr "(Rosetta Djinn_news) Zoek een document"
 
 #. Translators: djinn_news documents link label
 #: forms/news.py:49
-#, fuzzy
 msgid "Search documents"
-msgstr "(Rosetta Djinn_news) Zoek een document"
+msgstr "Zoek bestanden"
 
 #. Translators: news images label
 #: forms/news.py:61
@@ -82,7 +81,6 @@ msgid "News"
 msgstr "Nieuwsbericht"
 
 #: templates/djinn_news/news_detail.html:22
-#, fuzzy
 msgid "Gekoppelde documenten"
 msgstr "Bestand(en) koppelen"
 
@@ -104,7 +102,7 @@ msgstr "(Rosetta Djinn_news) Voeg nieuws toe"
 
 #: templates/djinn_news/snippets/news_viewlet.html:37
 msgid "All news"
-msgstr "(Rosetta Djinn_news) Alle nieuwsberichten"
+msgstr "Alle nieuwsberichten"
 
 #: templates/djinn_news/snippets/news_viewlet.html:44
 msgid "No news"
