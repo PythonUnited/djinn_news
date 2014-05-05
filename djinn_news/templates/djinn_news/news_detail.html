@@ -20,25 +20,11 @@
 {% if object.documents %}
 <section id="attachments">
   <h3>{% trans "Gekoppelde documenten" %}</h3>
-  <ul class="document-list">
 
-    {% for item in object.documents %}
-    <li>
-      {% if item.attachment %}
-      <span class='docinfo' 
-            style='background-image: url({{ item.attachment.thumbnail_url }})'>
-        <a href="{{ item.attachment.download_url }}">
-          {{ item.attachment.title }}
-        </a>
-      </span>
-      {% else %}
-      <span class='docinfo'>
-        <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
-      </span>
-      {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
+  {% for modelinstance in object.documents %}
+  {% include "pgcontent/document_overview_item_small.html" %}
+  {% endfor %}
+
 </section>
 {% endif %}
 

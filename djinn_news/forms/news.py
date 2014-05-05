@@ -37,7 +37,7 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
 
     documents = RelateField(
         "related_document",
-        ["pgcontent.document", ],
+        ["pgcontent.document"],
         # Translators: news documents label
         label=_("Related documents"),
         required=False,
@@ -45,6 +45,8 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
         help_text=_("Select document(s)"),
         widget=RelateWidget(
             attrs={'hint': _("Search document"),
+                   # Translators: djinn_news documents link label
+                   'label': _("Search documents"),
                    'searchfield': 'title_auto',
                    'template_name': 'search/relate_search_widget.html',
                    'search_url': '/zoeken/zoekajaxlinkdocument/',
