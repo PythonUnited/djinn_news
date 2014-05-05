@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: djinn_news\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-02 15:07+0200\n"
+"POT-Creation-Date: 2014-05-05 22:43+0200\n"
 "PO-Revision-Date: 2014-04-02 15:03+0200\n"
 "Last-Translator:   <bouma@egoactive.com>\n"
 "Language-Team: nl_NL <support@pythonunited.com>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.7.3\n"
 
 #. Translators: news general help
-#: forms/news.py:16
+#: forms/news.py:17
 msgid "Add a news item. The item will be submitted for publishing"
 msgstr ""
 "Een nieuwsbericht verschijnt niet direct op de homepage van Gronet. De "
@@ -30,48 +30,54 @@ msgstr ""
 "begrijpelijk geschreven. Probeer minimaal één afbeelding bij je bericht te "
 "plaatsen."
 
-#: forms/news.py:18
+#: forms/news.py:19
 msgid "Title"
 msgstr "Titel"
 
 #. Translators: news text label
-#: forms/news.py:24
+#: forms/news.py:25
 msgid "News text"
 msgstr "Inhoud (verplicht)"
 
 #. Translators: news is_global label
-#: forms/news.py:32
+#: forms/news.py:34
 msgid "Is global"
 msgstr "Publiceer dit nieuwsbericht op de homepage"
 
 #. Translators: news documents label
-#: forms/news.py:40
+#: forms/news.py:42
 msgid "Related documents"
 msgstr "Bestand(en) koppelen"
 
 #. Translators: news documents help
-#: forms/news.py:43
+#: forms/news.py:45
 msgid "Select document(s)"
 msgstr "_EMPTY_"
 
-#: forms/news.py:45
+#: forms/news.py:47
 msgid "Search document"
 msgstr "(Rosetta Djinn_news) Zoek een document"
 
+#. Translators: djinn_news documents link label
+#: forms/news.py:49
+#, fuzzy
+msgid "Search documents"
+msgstr "(Rosetta Djinn_news) Zoek een document"
+
 #. Translators: news images label
-#: forms/news.py:57
+#: forms/news.py:61
 msgid "Images"
 msgstr "Afbeelding(en) toevoegen"
 
-#: forms/news.py:72
+#: forms/news.py:76
 msgid "Show images"
 msgstr "Toon toegevoegde afbeelding(en) onderaan deze pagina"
 
-#: forms/news.py:73
+#: forms/news.py:77
 msgid "Comments enabled"
 msgstr "Collega's mogen reageren"
 
-#: models/news.py:39 templates/djinn_news/snippets/news_viewlet.html:6
+#: models/news.py:41 templates/djinn_news/snippets/news_viewlet.html:6
 msgid "News"
 msgstr "Nieuwsbericht"
 
@@ -80,15 +86,15 @@ msgstr "Nieuwsbericht"
 msgid "Gekoppelde documenten"
 msgstr "Bestand(en) koppelen"
 
-#: templates/djinn_news/news_detail.html:49
+#: templates/djinn_news/news_detail.html:35
 msgid "Click on an image to enlarge"
 msgstr "Klik op de afbeelding om deze te vergroten"
 
-#: templates/djinn_news/news_edit.html:20
+#: templates/djinn_news/news_edit.html:23
 msgid "Other settings"
 msgstr "Overige instellingen"
 
-#: templates/djinn_news/news_edit.html:31
+#: templates/djinn_news/news_edit.html:34
 msgid "Publishing"
 msgstr "Publiceer nieuwsbericht op"
 

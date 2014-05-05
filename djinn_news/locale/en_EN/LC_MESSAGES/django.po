@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-02 15:07+0200\n"
+"POT-Creation-Date: 2014-05-05 22:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,52 +18,57 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Translators: news general help
-#: forms/news.py:16
+#: forms/news.py:17
 msgid "Add a news item. The item will be submitted for publishing"
 msgstr ""
 
-#: forms/news.py:18
+#: forms/news.py:19
 msgid "Title"
 msgstr ""
 
 #. Translators: news text label
-#: forms/news.py:24
+#: forms/news.py:25
 msgid "News text"
 msgstr ""
 
 #. Translators: news is_global label
-#: forms/news.py:32
+#: forms/news.py:34
 msgid "Is global"
 msgstr ""
 
 #. Translators: news documents label
-#: forms/news.py:40
+#: forms/news.py:42
 msgid "Related documents"
 msgstr ""
 
 #. Translators: news documents help
-#: forms/news.py:43
+#: forms/news.py:45
 msgid "Select document(s)"
 msgstr ""
 
-#: forms/news.py:45
+#: forms/news.py:47
 msgid "Search document"
 msgstr ""
 
+#. Translators: djinn_news documents link label
+#: forms/news.py:49
+msgid "Search documents"
+msgstr ""
+
 #. Translators: news images label
-#: forms/news.py:57
+#: forms/news.py:61
 msgid "Images"
 msgstr ""
 
-#: forms/news.py:72
+#: forms/news.py:76
 msgid "Show images"
 msgstr ""
 
-#: forms/news.py:73
+#: forms/news.py:77
 msgid "Comments enabled"
 msgstr ""
 
-#: models/news.py:39 templates/djinn_news/snippets/news_viewlet.html:6
+#: models/news.py:41 templates/djinn_news/snippets/news_viewlet.html:6
 msgid "News"
 msgstr ""
 
@@ -71,15 +76,15 @@ msgstr ""
 msgid "Gekoppelde documenten"
 msgstr ""
 
-#: templates/djinn_news/news_detail.html:49
+#: templates/djinn_news/news_detail.html:35
 msgid "Click on an image to enlarge"
 msgstr ""
 
-#: templates/djinn_news/news_edit.html:20
+#: templates/djinn_news/news_edit.html:23
 msgid "Other settings"
 msgstr ""
 
-#: templates/djinn_news/news_edit.html:31
+#: templates/djinn_news/news_edit.html:34
 msgid "Publishing"
 msgstr ""
 
