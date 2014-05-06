@@ -26,7 +26,7 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
         required=True,
         widget=RichTextWidget(
             img_type="djinn_contenttypes.ImgAttachment",
-            attrs={'rows': '10'}
+            attrs={'class': 'extended'}
         ))
 
     is_global = forms.BooleanField(
