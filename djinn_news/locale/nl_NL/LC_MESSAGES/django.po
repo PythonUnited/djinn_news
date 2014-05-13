@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: djinn_news\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-05 22:43+0200\n"
+"POT-Creation-Date: 2014-05-13 10:41+0200\n"
 "PO-Revision-Date: 2014-05-05 22:49+0200\n"
 "Last-Translator:   <bouma@egoactive.com>\n"
 "Language-Team: nl_NL <support@pythonunited.com>\n"
@@ -81,8 +81,8 @@ msgid "News"
 msgstr "Nieuwsbericht"
 
 #: templates/djinn_news/news_detail.html:22
-msgid "Gekoppelde documenten"
-msgstr "Bestand(en) koppelen"
+msgid "Attachments"
+msgstr ""
 
 #: templates/djinn_news/news_detail.html:35
 msgid "Click on an image to enlarge"
@@ -107,6 +107,9 @@ msgstr "Alle nieuwsberichten"
 #: templates/djinn_news/snippets/news_viewlet.html:44
 msgid "No news"
 msgstr "(Rosetta Djinn_news) Er zijn geen nieuwsberichten"
+
+#~ msgid "Gekoppelde documenten"
+#~ msgstr "Bestand(en) koppelen"
 
 #~ msgid "Save"
 #~ msgstr "Opslaan"
