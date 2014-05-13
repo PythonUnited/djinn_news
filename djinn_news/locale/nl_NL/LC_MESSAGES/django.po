@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: djinn_news\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-13 10:41+0200\n"
+"POT-Creation-Date: 2014-05-13 11:50+0200\n"
 "PO-Revision-Date: 2014-05-05 22:49+0200\n"
 "Last-Translator:   <bouma@egoactive.com>\n"
 "Language-Team: nl_NL <support@pythonunited.com>\n"
@@ -95,6 +95,10 @@ msgstr "Overige instellingen"
 #: templates/djinn_news/news_edit.html:34
 msgid "Publishing"
 msgstr "Publiceer nieuwsbericht op"
+
+#: templates/djinn_news/news_overview_item.html:22
+msgid "Nieuwsbericht"
+msgstr ""
 
 #: templates/djinn_news/snippets/news_viewlet.html:12
 msgid "Add news"
