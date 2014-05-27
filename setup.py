@@ -14,9 +14,9 @@ requires = [
     ]
 
 setup(name='djinn_news',
-      version="1.0.2",
+      version="1.0.3",
       description='Djinn Intranet Events',
-      long_description=README + '\n\n' +  CHANGES,
+      long_description=README + '\n\n' + CHANGES,
       classifiers=[
           "Development Status :: 5 - Production/Stable",
           "Framework :: Django",
