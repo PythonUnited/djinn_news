@@ -48,8 +48,9 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
                    # Translators: djinn_news documents link label
                    'label': _("Search documents"),
                    'searchfield': 'title_auto',
-                   'template_name': 'djinn_forms/snippets/relatesearchwidget.html',
-                   'search_url': '/zoeken/zoekajaxlinkdocument/',
+                   'template_name':
+                   'djinn_forms/snippets/relatesearchwidget.html',
+                   'search_url': '/document_search/',
                    'ct_searchfield': 'meta_type', },
             # TODO:reverse('haystack_link_popup') is mooier
             )

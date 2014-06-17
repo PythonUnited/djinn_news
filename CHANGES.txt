@@ -1,3 +1,11 @@
+1.0.5
+=====
+* Fix for related documents url
+
+1.0.4
+=====
+* dependency on djinn_forms 1.2.2
+
 1.0.3
 =====
 * Moved to djinn_forms richtext widget
