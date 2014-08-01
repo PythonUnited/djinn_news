@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-13 11:50+0200\n"
+"POT-Creation-Date: 2014-07-29 10:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,16 +80,20 @@ msgstr ""
 msgid "Click on an image to enlarge"
 msgstr ""
 
-#: templates/djinn_news/news_edit.html:23
+#: templates/djinn_news/news_edit.html:20
 msgid "Other settings"
 msgstr ""
 
-#: templates/djinn_news/news_edit.html:34
+#: templates/djinn_news/news_edit.html:31
 msgid "Publishing"
 msgstr ""
 
-#: templates/djinn_news/news_overview_item.html:22
-msgid "Nieuwsbericht"
+#: templates/djinn_news/news_overview_item.html:31
+msgid "News item"
+msgstr ""
+
+#: templates/djinn_news/news_overview_item.html:32
+msgid "Published"
 msgstr ""
 
 #: templates/djinn_news/snippets/news_viewlet.html:12

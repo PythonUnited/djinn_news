@@ -52,7 +52,6 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
                    'djinn_forms/snippets/relatesearchwidget.html',
                    'search_url': '/document_search/',
                    'ct_searchfield': 'meta_type', },
-            # TODO:reverse('haystack_link_popup') is mooier
             )
         )
 

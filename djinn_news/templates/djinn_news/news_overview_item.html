@@ -28,8 +28,8 @@
 
 {% block summary %}
     <p class="profile-content-info">
-        <span class="profile-type">{% block profiletype %}{% trans "Nieuwsbericht" %}{% endblock %}</span> -
-    Geplaatst
+        <span class="profile-type">{% block profiletype %}{% trans "News item" %}{% endblock %}</span> -
+    {% trans "Published" %}
     {% if modelinstance.publish_from %}
         op {{ modelinstance.publish_from|date }}
     {% endif %}
