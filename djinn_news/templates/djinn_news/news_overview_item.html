@@ -28,16 +28,17 @@
 
 {% block summary %}
     <p class="profile-content-info">
-        <span class="profile-type">{% block profiletype %}{% trans "News item" %}{% endblock %}</span> -
-    {% trans "Published" %}
+        <span class="profile-type">{% block profiletype %}{% trans "News" %}{% endblock %}</span> -
+
     {% if modelinstance.publish_from %}
-        op {{ modelinstance.publish_from|date }}
+        Geplaatst op: {{ modelinstance.publish_from|date }} |
     {% endif %}
     {% if modelinstance.parentusergroup %}
-        in <a href="{{ modelinstance.parentusergroup.profile.get_absolute_url }}">{{ modelinstance.parentusergroup.profile.name }}</a>
+        in: <a href="{{ modelinstance.parentusergroup.profile.get_absolute_url }}">{{ modelinstance.parentusergroup.profile.name }}</a> |
     {% endif %}
+    laatst gewijzigd: {{ modelinstance.changed| date }} |
     {% if modelinstance.get_owner %}
-        door <a class="userprofile"
+        Eigenaar: <a class="userprofile"
            href="{{ modelinstance.get_owner.profile.get_absolute_url }}">
           {{ modelinstance.get_owner.profile|default:"" }}
         </a>
