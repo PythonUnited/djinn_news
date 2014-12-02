@@ -4,6 +4,7 @@ from djinn_contenttypes.registry import CTRegistry
 from djinn_contenttypes.models.publishable import PublishableContent
 from djinn_contenttypes.models.attachment import ImgAttachment
 from djinn_contenttypes.models.commentable import Commentable
+from djinn_contenttypes.models.highlight import Highlight
 
 
 class News(PublishableContent, Commentable):
@@ -28,6 +29,16 @@ class News(PublishableContent, Commentable):
     def date(self):
 
         return self.publish_from or self.created
+
+    @property
+    def highlight_from(self):
+
+        try:
+            return Highlight.objects.get(
+                object_id=self.id,
+                object_ct__name="news").date_from
+        except:
+            return None
 
     class Meta:
         app_label = "djinn_news"

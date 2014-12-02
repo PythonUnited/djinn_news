@@ -10,11 +10,11 @@ requires = [
     'django',
     'pgintranet',
     'djinn_forms',
-    'djinn_contenttypes'
+    'djinn_contenttypes>=1.3.1'
     ]
 
 setup(name='djinn_news',
-      version="1.0.5",
+      version="1.1.0",
       description='Djinn Intranet Events',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[

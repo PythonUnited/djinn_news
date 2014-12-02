@@ -1,13 +1,16 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.contenttypes.models import ContentType
 from djinn_forms.widgets.attachment import AttachmentWidget
 from djinn_forms.fields.relate import RelateField
 from djinn_forms.forms.relate import RelateMixin
 from djinn_forms.forms.richtext import RichTextMixin
 from djinn_forms.widgets.relate import RelateWidget
 from djinn_forms.widgets.richtext import RichTextWidget
+from djinn_forms.widgets.datetimewidget import DateTimeWidget
 from djinn_contenttypes.forms.base import BaseContentForm
 from djinn_contenttypes.models.attachment import ImgAttachment
+from djinn_contenttypes.models.highlight import Highlight
 from djinn_news.models import News
 
 
@@ -28,12 +31,6 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
             img_type="djinn_contenttypes.ImgAttachment",
             attrs={'class': 'extended'}
         ))
-
-    is_global = forms.BooleanField(
-        # Translators: news is_global label
-        label=_("Is global"),
-        required=False
-        )
 
     documents = RelateField(
         "related_document",
@@ -66,6 +63,18 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
             attrs={"multiple": True}
             ))
 
+    highlight_from = forms.DateTimeField(
+        # Translators: contenttypes highlight_from label
+        label=_("Highlight from"),
+        # Translators: contenttypes publish_from help
+        help_text=_("Enter a publish-from date and time"),
+        required=False,
+        widget=DateTimeWidget(
+            attrs={'date_hint': _("Date"),
+                   'time_hint': _("Time")}
+            )
+        )
+
     def __init__(self, *args, **kwargs):
 
         super(NewsForm, self).__init__(*args, **kwargs)
@@ -77,12 +86,30 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
         self.fields['comments_enabled'].label = _("Comments enabled")
 
         if not self.user.has_perm("djinn_news.manage_news", obj=self.instance):
-            del self.fields['is_global']
+            del self.fields['highlight_from']
+        else:
+            self.fields[
+                'highlight_from'].initial = self.instance.highlight_from
 
         self.init_relation_fields()
         self.init_richtext_widgets()
 
     def save(self, commit=True):
+
+        object_ct = ContentType.objects.get_for_model(self.instance)
+
+        if self.cleaned_data.get("highlight_from"):
+            Highlight.objects.get_or_create(
+                object_id=self.instance.id,
+                object_ct=object_ct,
+                date_from=self.cleaned_data.get("highlight_from")
+            )
+
+            del self.cleaned_data['highlight_from']
+        else:
+            Highlight.objects.filter(
+                object_id=self.instance.id,
+                object_ct=object_ct).delete()
 
         res = super(NewsForm, self).save(commit=commit)
 
@@ -94,4 +121,4 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
         model = News
         fields = ('title', 'text', 'documents', 'images', 'parentusergroup',
                   'comments_enabled', 'owner', 'publish_from',
-                  'publish_to', 'show_images', 'is_global')
+                  'publish_to', 'highlight_from', 'show_images')

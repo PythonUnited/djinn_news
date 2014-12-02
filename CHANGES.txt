@@ -1,3 +1,11 @@
+1.1.0
+=====
+* made news use the new djinn_contenttypes.Highlight model
+
+1.0.6
+=====
+* translation fixes
+
 1.0.5
 =====
 * Fix for related documents url
