@@ -15,7 +15,7 @@ requires = [
 
 setup(name='djinn_news',
       version="1.1.0",
-      description='Djinn Intranet Events',
+      description='Djinn Intranet News',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
           "Development Status :: 5 - Production/Stable",
