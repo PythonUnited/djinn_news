@@ -98,18 +98,19 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
 
         object_ct = ContentType.objects.get_for_model(self.instance)
 
-        if self.cleaned_data.get("highlight_from"):
-            Highlight.objects.get_or_create(
-                object_id=self.instance.id,
-                object_ct=object_ct,
-                date_from=self.cleaned_data.get("highlight_from")
-            )
+        if commit:
+            if self.cleaned_data.get("highlight_from"):
+                Highlight.objects.get_or_create(
+                    object_id=self.instance.id,
+                    object_ct=object_ct,
+                    date_from=self.cleaned_data.get("highlight_from")
+                )
 
-            del self.cleaned_data['highlight_from']
-        else:
-            Highlight.objects.filter(
-                object_id=self.instance.id,
-                object_ct=object_ct).delete()
+                #del self.cleaned_data['highlight_from']
+            else:
+                Highlight.objects.filter(
+                    object_id=self.instance.id,
+                    object_ct=object_ct).delete()
 
         res = super(NewsForm, self).save(commit=commit)
 
