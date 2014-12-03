@@ -79,7 +79,7 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
 
         super(NewsForm, self).__init__(*args, **kwargs)
 
-        if not self.instance.get_owner():
+        if not self.instance.get_owner(fail_silently=True):
             self.fields['owner'].initial = self.user.profile
             self.fields['owner'].widget.initial = True
         self.fields['show_images'].label = _("Show images")
