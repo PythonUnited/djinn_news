@@ -100,13 +100,14 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
 
         if commit:
             if self.cleaned_data.get("highlight_from"):
-                Highlight.objects.get_or_create(
+                hlight, created = Highlight.objects.get_or_create(
                     object_id=self.instance.id,
-                    object_ct=object_ct,
-                    date_from=self.cleaned_data.get("highlight_from")
-                )
+                    object_ct=object_ct)
 
-                #del self.cleaned_data['highlight_from']
+                hlight.date_from = self.cleaned_data.get("highlight_from")
+                hlight.save()
+
+                # del self.cleaned_data['highlight_from']
             else:
                 Highlight.objects.filter(
                     object_id=self.instance.id,

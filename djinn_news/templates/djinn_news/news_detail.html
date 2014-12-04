@@ -4,8 +4,6 @@
 {% load pu_in_favorites_tags %}
 {% load contentaction_tags %}
 
-{% block title %}{{ object.title }}{% endblock %}
-
 {% block extra_actions %}
     {% favorite_action object %}
     {% retweet_content object %}
