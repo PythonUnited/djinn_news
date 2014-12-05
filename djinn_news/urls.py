@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, include, url
 from models.news import News
 from forms.news import NewsForm
 from views.newsviewlet import NewsViewlet

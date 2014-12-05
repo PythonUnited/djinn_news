@@ -1,6 +1,7 @@
 1.1.0
 =====
 * made news use the new djinn_contenttypes.Highlight model
+* Move to Django 1.6.x
 
 1.0.6
 =====
