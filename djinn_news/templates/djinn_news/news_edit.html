@@ -28,6 +28,7 @@
     <h3>{% trans "Publishing" %}</h3>
     {{ form.publish_from|bootstrap }}
     {{ form.publish_to|bootstrap }}
+    {{ form.remove_after_publish_to|bootstrap }}
 
     {% ifpermission object request.user "djinn_news.manage_news" %}
     {{ form.highlight_from|bootstrap }}
