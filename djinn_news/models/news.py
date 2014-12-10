@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from djinn_contenttypes.registry import CTRegistry
@@ -29,6 +30,16 @@ class News(PublishableContent, Commentable):
     def date(self):
 
         return self.publish_from or self.created
+
+    @property
+    def human_date(self):
+
+        delta = datetime.now() - self.date
+
+        if delta.days == 0:
+            return self.date.strftime('%H:%M')
+        else:
+            return self.date.strftime('%d-%m')
 
     @property
     def highlight_from(self):
