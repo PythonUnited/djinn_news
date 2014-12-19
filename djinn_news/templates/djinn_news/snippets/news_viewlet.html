@@ -21,13 +21,13 @@
   {% if view.news|length > 0 %}
 
   <ul id="newslist">
-    {% for news in view.news %}
+    {% for highlight in view.news %}
     <li class="news">
-      <a href="{% url 'djinn_news_view_news' news.id news.slug %}">
-        {{ news.title|abbreviate:50 }}
+      <a href="{% url 'djinn_news_view_news' highlight.content_object.id highlight.content_object.slug %}">
+        {{ highlight.content_object.title|abbreviate:50 }}
       </a>
       
-      <p>{{ news.text|safe|abbreviate:100 }}</p>
+      <p>{{ highlight.content_object.text|safe|abbreviate:100 }}</p>
     </li>
     {% endfor %}
   </ul>
