@@ -26,7 +26,7 @@
 {{ modelinstance.text|default:""|striptags|replace:"'&nbsp;',' '"|truncatechars:80|safe }}
 {% endblock %}
 
-{% block summary %}
+{% block summaryOFF %}
     <p class="profile-content-info">
         <span class="profile-type">{% block profiletype %}{% trans "Nieuws" %}{% endblock %}</span> -
 
@@ -41,7 +41,7 @@
         </a>
     {% endif %}
     </p>
-{% endblock %}
+{% endblock summaryOFF %}
 
 {% block actions %}
     <div class="overviewactions">
