@@ -24,6 +24,11 @@
 
   {{ form.owner|bootstrap }}
 
+  <section class="control-group">  
+    <h3>{% trans "Display" %}</h3>
+    {{ form.state|bootstrap }}
+  </section>
+
   <section class="control-group" id="publishing">
     <h3>{% trans "Publishing" %}</h3>
     {{ form.publish_from|bootstrap }}
