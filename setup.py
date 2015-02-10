@@ -10,7 +10,7 @@ requires = [
     'django',
     'pgintranet',
     'djinn_forms',
-    'djinn_contenttypes>=1.3.1'
+    'djinn_contenttypes>=1.4.0'
     ]
 
 setup(name='djinn_news',
