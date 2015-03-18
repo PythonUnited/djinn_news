@@ -1,3 +1,7 @@
+1.1.1
+=====
+* small modification to highlights: no removal of highlight after owner-edit
+
 1.1.0
 =====
 * made news use the new djinn_contenttypes.Highlight model
