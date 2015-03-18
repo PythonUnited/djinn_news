@@ -105,10 +105,14 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
                 hlight.save()
 
                 # del self.cleaned_data['highlight_from']
-            else:
-                Highlight.objects.filter(
-                    object_id=self.instance.id,
-                    object_ct=object_ct).delete()
+
+            # deleten doen we niet meer, want dan is de oorspronkelijke
+            # highlight datum weg.
+            # Zie http://support.pythonunited.com/view_issue/638
+            #else:
+            #    Highlight.objects.filter(
+            #        object_id=self.instance.id,
+            #        object_ct=object_ct).delete()
 
         res = super(NewsForm, self).save(commit=commit)
 
