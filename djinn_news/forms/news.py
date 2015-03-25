@@ -109,10 +109,12 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
             # deleten doen we niet meer, want dan is de oorspronkelijke
             # highlight datum weg.
             # Zie http://support.pythonunited.com/view_issue/638
-            #else:
-            #    Highlight.objects.filter(
-            #        object_id=self.instance.id,
-            #        object_ct=object_ct).delete()
+            # als highlight is leeg dan doe wel delete, mits gebruiker permissie heeft
+            elif self.user.has_perm("djinn_news.manage_news", obj=self.instance):
+                if self.fields['highlight_from'].empty_values:
+                    Highlight.objects.filter(
+                        object_id=self.instance.id,
+                        object_ct=object_ct).delete()
 
         res = super(NewsForm, self).save(commit=commit)
 
