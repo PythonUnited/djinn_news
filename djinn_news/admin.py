@@ -8,5 +8,6 @@ class NewsAdmin(admin.ModelAdmin):
     list_filter = ['publish_from', 'is_global']
     search_fields = ['title', 'changed_by__userprofile__name', 'text']
 
+    readonly_fields = ['highlight_from']
 
 admin.site.register(News, NewsAdmin)
