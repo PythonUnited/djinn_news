@@ -3,6 +3,7 @@
 * Fixed override option for news form for group
 * Fixed url for group add and some other typos...
 * Fixed call to super of news on homepage
+* Fix for proper display of embedded video
 
 1.1.1
 =====
