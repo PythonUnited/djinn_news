@@ -1,3 +1,9 @@
+1.1.2
+=====
+* Fixed override option for news form for group
+* Fixed url for group add and some other typos...
+* Fixed call to super of news on homepage
+
 1.1.1
 =====
 * small modification to highlights: no removal of highlight after owner-edit

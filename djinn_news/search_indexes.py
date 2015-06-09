@@ -1,7 +1,7 @@
 from djinn_news.models.news import News
 from haystack import indexes
 from pgsearch.base import ContentSearchIndex
-from datetime import datetime
+
 
 class NewsIndex(ContentSearchIndex, indexes.Indexable):
 

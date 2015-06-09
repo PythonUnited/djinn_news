@@ -5,7 +5,7 @@ from djinn_contenttypes.models.highlight import Highlight
 
 
 @receiver(post_delete, sender=News)
-def product_post_delete(sender, instance, **kwargs):
+def news_post_delete(sender, instance, **kwargs):
 
     Highlight.objects.filter(
         object_id=instance.id,
