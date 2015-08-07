@@ -1,9 +1,13 @@
 1.1.2
 =====
+* added userkeywords
+
+1.1.2
+=====
 * Fixed override option for news form for group
 * Fixed url for group add and some other typos...
 * Fixed call to super of news on homepage
-* Fix for proper display of embedded video - deleted, the user adds ?wmode=transparent in the youtube url himself
+* Fix for proper display of embedded video - deleted, the user adds ?wmode=transparent in the youtube url himself.
 
 1.1.1
 =====
