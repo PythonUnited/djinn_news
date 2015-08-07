@@ -3,6 +3,7 @@
 {% load auth_tags i18n djinn_contenttypes %}
 {% load pu_in_favorites_tags %}
 {% load contentaction_tags %}
+{% load contentblock_tags %}
 
 {% block extra_actions %}
     {% favorite_action object %}
@@ -53,5 +54,7 @@
   
 </section>
 {% endif %}
+
+{% showuserkeywords object %}
 
 {% endblock %}
