@@ -127,4 +127,4 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
         fields = ('title', 'text', 'documents', 'images', 'parentusergroup',
                   'comments_enabled', 'owner', 'publish_from',
                   'remove_after_publish_to',
-                  'publish_to', 'highlight_from', 'show_images')
+                  'publish_to', 'highlight_from', 'show_images', 'userkeywords')
