@@ -6,9 +6,10 @@ from djinn_contenttypes.models.publishable import PublishableContent
 from djinn_contenttypes.models.attachment import ImgAttachment
 from djinn_contenttypes.models.commentable import Commentable
 from djinn_contenttypes.models.highlight import Highlight
+from djinn_likes.models.likeable import LikeableMixin
 
 
-class News(PublishableContent, Commentable):
+class News(PublishableContent, Commentable, LikeableMixin):
 
     """ News content type """
 

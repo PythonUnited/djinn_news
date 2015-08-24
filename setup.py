@@ -10,6 +10,7 @@ requires = [
     'django',
     'pgintranet',
     'djinn_forms',
+    'djinn_likes',
     'djinn_contenttypes>=1.4.0'
     ]
 
