@@ -34,7 +34,7 @@ class NewsViewlet(AcceptMixin, TemplateView):
             self.news_list = []
             for hl in highlighted:
                 news = hl.content_object
-                if (not news.publish_from or news.publish_from <= now) and \
+                if news and (not news.publish_from or news.publish_from <= now) and \
                         (not news.publish_to or news.publish_to > now) and \
                         news.title:
                     self.news_list.append(hl)
