@@ -15,7 +15,7 @@ requires = [
     ]
 
 setup(name='djinn_news',
-      version="1.1.3",
+      version="1.1.4",
       description='Djinn Intranet News',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
