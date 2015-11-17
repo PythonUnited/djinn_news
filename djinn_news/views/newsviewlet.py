@@ -2,7 +2,6 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from djinn_contenttypes.views.base import AcceptMixin
 from djinn_contenttypes.models.highlight import Highlight
-from djinn_news.models.news import News
 from datetime import datetime
 from django.db.models.query import Q
 
@@ -16,6 +15,7 @@ class NewsViewlet(AcceptMixin, TemplateView):
 
     news_list = None
     has_more = False
+    sticky_item = None
 
     def news(self, limit=SHOW_N):
 
@@ -24,7 +24,7 @@ class NewsViewlet(AcceptMixin, TemplateView):
         if not self.news_list:
 
             highlighted = Highlight.objects.filter(
-                object_ct__name="news"
+                object_ct__model="news"
             ).filter(
                 Q(date_from__isnull=True) | Q(date_from__lte=now)
             ).filter(
@@ -37,10 +37,13 @@ class NewsViewlet(AcceptMixin, TemplateView):
                 if news and (not news.publish_from or news.publish_from <= now) and \
                         (not news.publish_to or news.publish_to > now) and \
                         news.title:
-                    self.news_list.append(hl)
-                    if len(self.news_list) == limit:
-                        self.has_more = True
-                        break
+                    if news.is_sticky:
+                        self.sticky_item = news
+                    else:
+                        self.news_list.append(hl)
+                        if len(self.news_list) == limit:
+                            self.has_more = True
+                            break
         return self.news_list
 
 

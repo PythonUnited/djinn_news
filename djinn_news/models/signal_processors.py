@@ -9,4 +9,4 @@ def news_post_delete(sender, instance, **kwargs):
 
     Highlight.objects.filter(
         object_id=instance.id,
-        object_ct__name="news").delete()
+        object_ct__model="news").delete()

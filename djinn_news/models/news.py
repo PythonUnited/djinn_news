@@ -17,9 +17,15 @@ class News(PublishableContent, Commentable, LikeableMixin):
 
     images = models.ManyToManyField(ImgAttachment)
 
+    home_image = models.ForeignKey(ImgAttachment,
+                                   related_name='news_home_image',
+                                   null=True, blank=True)
+
     show_images = models.BooleanField(default=True)
 
     is_global = models.BooleanField(default=False)
+
+    is_sticky = models.BooleanField(default=False)
 
     create_tmp_object = True
 
@@ -48,9 +54,16 @@ class News(PublishableContent, Commentable, LikeableMixin):
         try:
             return Highlight.objects.get(
                 object_id=self.id,
-                object_ct__name="news").date_from
+                object_ct__model="news").date_from
         except:
             return None
+
+    def save(self, *args, **kwargs):
+
+        if self.is_sticky:
+            News.objects.filter(is_sticky=True).exclude(id=self.id).\
+                update(is_sticky=False)
+        return super(News, self).save(*args, **kwargs)
 
     class Meta:
         app_label = "djinn_news"

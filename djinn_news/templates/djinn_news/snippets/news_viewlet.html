@@ -1,9 +1,23 @@
-{% load i18n humanize auth_tags djinn_contenttypes %}
+{% load i18n humanize auth_tags djinn_contenttypes contentblock_tags %}
 
-<article id="news" class="editable">
+{% if view.news|length > 0 and view.sticky_item %}
+<a href="{% url 'djinn_news_view_news' view.sticky_item.id view.sticky_item.slug %}" title="" class="sticky">
+
+    <div class="sticky-image" style="background-image: url('{% fetch_image_url view.sticky_item.home_image 'news_home_sticky' 'news' %}')"></div>
+
+    <div href="{% url 'djinn_news_view_news' view.sticky_item.id view.sticky_item.slug %}" title="" class="sticky-link">
+        {{ view.sticky_item.title|abbreviate:50 }}
+    </div>
+
+</a>
+{% endif %}
+
+<div class="widget">
+
+<article id="aside-news" class="editable">
   
   <header>
-    <h2>{% trans "News" %}
+    <h1>{% trans "News from the organisation" %}
 
       {% ifpermission "" request.user 'djinn_news.add_news' %}
       <span class="controls">
@@ -15,19 +29,22 @@
         </a>
       </span>
       {% endifpermission %}
-    </h2>
+    </h1>
   </header>
 
   {% if view.news|length > 0 %}
 
-  <ul id="newslist">
+  <ul class="simple-list simple-list-thumbs">
     {% for highlight in view.news %}
-    <li class="news">
+    <li>
       <a href="{% url 'djinn_news_view_news' highlight.content_object.id highlight.content_object.slug %}">
+        <div class="simple-list-thumb-container">
+          <div class="simple-list-thumb" style="background-image: url('{% fetch_image_url highlight.content_object.home_image 'news_home_list' 'news' %}')"></div>
+        </div>
         {{ highlight.content_object.title|abbreviate:50 }}
       </a>
       
-      <p>{{ highlight.content_object.text|safe|abbreviate:100 }}</p>
+      {% comment %}<p>{{ highlight.content_object.text|safe|abbreviate:100 }}</p> {% endcomment %}
     </li>
     {% endfor %}
   </ul>
@@ -47,3 +64,5 @@
   {% endif %}
   
 </article>
+
+</div>
