@@ -1,3 +1,6 @@
+1.1.5
+=====
+* changes in presentation 
 1.1.4
 =====
 * bugfix in newsviewlet for highlights pointing to removed news
