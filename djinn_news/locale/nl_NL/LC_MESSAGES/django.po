@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: djinn_news\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-21 15:45+0100\n"
+"POT-Creation-Date: 2015-11-24 10:36+0100\n"
 "PO-Revision-Date: 2015-01-21 15:45+0100\n"
 "Last-Translator:   <bouma@egoactive.com>\n"
 "Language-Team: nl_NL <support@pythonunited.com>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.7.3\n"
 
 #. Translators: news general help
-#: forms/news.py:20
+#: forms/news.py:23
 msgid "Add a news item. The item will be submitted for publishing"
 msgstr ""
 "Een nieuwsbericht verschijnt niet direct op de homepage van Gronet. De "
@@ -30,86 +30,95 @@ msgstr ""
 "begrijpelijk geschreven. Probeer minimaal één afbeelding bij je bericht te "
 "plaatsen."
 
-#: forms/news.py:22
+#: forms/news.py:25
 msgid "Title"
 msgstr "Titel"
 
 #. Translators: news text label
-#: forms/news.py:28
+#: forms/news.py:31
 msgid "News text"
 msgstr "Inhoud (verplicht)"
 
 #. Translators: news documents label
-#: forms/news.py:39
+#: forms/news.py:42
 msgid "Related documents"
 msgstr "Bestand(en) koppelen"
 
 #. Translators: news documents help
-#: forms/news.py:42
+#: forms/news.py:45
 msgid "Select document(s)"
 msgstr "_EMPTY_"
 
-#: forms/news.py:44
+#: forms/news.py:47
 msgid "Search document"
 msgstr "(Rosetta Djinn_news) Zoek een document"
 
 #. Translators: djinn_news documents link label
-#: forms/news.py:46
+#: forms/news.py:49
 msgid "Search documents"
 msgstr "Zoek bestanden"
 
 #. Translators: news images label
-#: forms/news.py:58
+#: forms/news.py:61
 msgid "Images"
 msgstr "Afbeelding(en) toevoegen"
 
+#. Translators: Homepage news image label
+#: forms/news.py:72
+msgid "Add homepage image"
+msgstr ""
+
 #. Translators: contenttypes highlight_from label
-#: forms/news.py:68
+#: forms/news.py:83
 msgid "Highlight from"
 msgstr ""
 
 #. Translators: contenttypes publish_from help
-#: forms/news.py:70
+#: forms/news.py:85
 msgid "Enter a publish-from date and time"
 msgstr ""
 
-#: forms/news.py:73
+#: forms/news.py:88
 msgid "Date"
 msgstr "Datum"
 
-#: forms/news.py:74
+#: forms/news.py:89
 msgid "Time"
 msgstr "Tijd"
 
-#: forms/news.py:82
+#: forms/news.py:98
 msgid "Show images"
 msgstr "Toon toegevoegde afbeelding(en) onderaan deze pagina"
 
-#: forms/news.py:83
+#: forms/news.py:99
 msgid "Comments enabled"
 msgstr "Collega's mogen reageren"
 
-#: models/news.py:63 templates/djinn_news/snippets/news_viewlet.html:6
+#: forms/news.py:100
+msgid "Important homepage item"
+msgstr ""
+
+#: models/news.py:77
 msgid "News"
 msgstr "Nieuwsbericht"
 
-#: templates/djinn_news/news_detail.html:20
+#: templates/djinn_news/news_detail.html:21
 msgid "Attachments"
 msgstr "Bestand(en)"
 
-#: templates/djinn_news/news_detail.html:33
+#: templates/djinn_news/news_detail.html:34
 msgid "Click on an image to enlarge"
 msgstr "Klik op de afbeelding om deze te vergroten"
 
-#: templates/djinn_news/news_edit.html:20
+#: templates/djinn_news/news_edit.html:22
 msgid "Other settings"
 msgstr "Overige instellingen"
 
-#: templates/djinn_news/news_edit.html:28
+#: templates/djinn_news/news_edit.html:30
 msgid "Display"
 msgstr "Weergave"
 
-#: templates/djinn_news/news_edit.html:33
+#: templates/djinn_news/news_edit.html:35
 msgid "Publishing"
 msgstr "Publiceer nieuwsbericht op"
 
@@ -117,14 +126,18 @@ msgstr "Publiceer nieuwsbericht op"
 msgid "Nieuws"
 msgstr ""
 
-#: templates/djinn_news/snippets/news_viewlet.html:12
+#: templates/djinn_news/snippets/news_viewlet.html:20
+msgid "News from the organisation"
+msgstr ""
+
+#: templates/djinn_news/snippets/news_viewlet.html:26
 msgid "Add news"
 msgstr "(Rosetta Djinn_news) Voeg nieuws toe"
 
-#: templates/djinn_news/snippets/news_viewlet.html:37
+#: templates/djinn_news/snippets/news_viewlet.html:55
 msgid "All news"
 msgstr "Alle nieuwsberichten"
 
-#: templates/djinn_news/snippets/news_viewlet.html:44
+#: templates/djinn_news/snippets/news_viewlet.html:62
 msgid "No news"
 msgstr "(Rosetta Djinn_news) Er zijn geen nieuwsberichten"
