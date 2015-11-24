@@ -40,6 +40,7 @@
     {% ifpermission object request.user "djinn_news.manage_news" %}
     {{ form.highlight_from|bootstrap }}
     {{ form.home_image|bootstrap }}
+    <div><br></div>
     {{ form.is_sticky|bootstrap }}
     {% endifpermission %}
 
