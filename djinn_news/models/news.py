@@ -58,13 +58,6 @@ class News(PublishableContent, Commentable, LikeableMixin):
         except:
             return None
 
-    def save(self, *args, **kwargs):
-
-        if self.is_sticky:
-            News.objects.filter(is_sticky=True).exclude(id=self.id).\
-                update(is_sticky=False)
-        return super(News, self).save(*args, **kwargs)
-
     class Meta:
         app_label = "djinn_news"
 
