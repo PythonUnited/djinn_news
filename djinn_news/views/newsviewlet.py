@@ -37,7 +37,7 @@ class NewsViewlet(AcceptMixin, TemplateView):
                 if news and (not news.publish_from or news.publish_from <= now) and \
                         (not news.publish_to or news.publish_to > now) and \
                         news.title:
-                    if news.is_sticky:
+                    if news.is_sticky and not self.sticky_item:
                         self.sticky_item = news
                     else:
                         self.news_list.append(hl)
