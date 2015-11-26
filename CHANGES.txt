@@ -1,3 +1,7 @@
+1.1.7
+=====
+* multiple newsitems may be sticky
+
 1.1.6
 =====
 * date/time formats
