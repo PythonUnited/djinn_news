@@ -4,7 +4,7 @@ from djinn_contenttypes.views.base import AcceptMixin
 from djinn_contenttypes.models.highlight import Highlight
 from datetime import datetime
 from django.db.models.query import Q
-
+from djinn_workflow.utils import get_state
 
 SHOW_N = getattr(settings, "DJINN_SHOW_N_NEWS_ITEMS", 5)
 
@@ -34,6 +34,9 @@ class NewsViewlet(AcceptMixin, TemplateView):
             self.news_list = []
             for hl in highlighted:
                 news = hl.content_object
+                state = get_state(news)
+                if news and state.name == "private":
+                    continue
                 if news and (not news.publish_from or news.publish_from <= now) and \
                         (not news.publish_to or news.publish_to > now) and \
                         news.title:
