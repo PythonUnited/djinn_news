@@ -11,11 +11,11 @@ requires = [
     'pgintranet',
     'djinn_forms',
     'djinn_likes',
-    'djinn_contenttypes>=1.4.7'
+    'djinn_contenttypes>=1.4.9'
     ]
 
 setup(name='djinn_news',
-      version="1.1.8",
+      version="1.1.9",
       description='Djinn Intranet News',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[

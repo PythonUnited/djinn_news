@@ -1,3 +1,7 @@
+1.1.9
+=====
+* issue 1602 homepage en nieuwsbericht als verborgen
+
 1.1.8
 =====
 * multiple newsitems may be sticky
