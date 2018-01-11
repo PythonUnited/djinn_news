@@ -19,7 +19,8 @@ class News(PublishableContent, Commentable, LikeableMixin):
 
     home_image = models.ForeignKey(ImgAttachment,
                                    related_name='news_home_image',
-                                   null=True, blank=True)
+                                   null=True, blank=True,
+                                   on_delete=models.SET_NULL)
 
     show_images = models.BooleanField(default=True)
 

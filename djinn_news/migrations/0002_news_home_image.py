@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='news',
             name='home_image',
-            field=models.ForeignKey(related_name='news_home_image', blank=True, to='djinn_contenttypes.ImgAttachment', null=True),
+            field=models.ForeignKey(related_name='news_home_image', blank=True, to='djinn_contenttypes.ImgAttachment', null=True, on_delete=models.SET_NULL),
         ),
     ]

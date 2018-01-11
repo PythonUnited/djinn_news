@@ -1,2 +1,2 @@
-from news import News
-from signal_processors import *
+from .news import News
+from .signal_processors import *

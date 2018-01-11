@@ -5,12 +5,12 @@
 {% load auth_tags %}
 {% load i18n %}
 {% load pu_in_favorites_tags %}
-
+{% load staticfiles %}
 
 {% block icon %}
 <figure class="profile-photo">
   <a href="{{ modelinstance.get_absolute_url }}">
-    <img class="search-avatar" src="{{ STATIC_URL }}img/default-news-image-90x90.png">
+    <img class="search-avatar" src="{% static 'img/default-news-image-90x90.png' %}">
   </a>
 </figure>
 {% endblock %}

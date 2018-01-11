@@ -65,6 +65,6 @@ def set_default_settings(**kwargs):
     settings.configure(SHOW_N_NEWS_ITEMS=5)
 
 
-signals.post_syncdb.connect(create_permissions, sender=models)
-signals.post_syncdb.connect(register_events, sender=models)
-#signals.post_syncdb.connect(set_default_settings, sender=models)
+signals.post_migrate.connect(create_permissions, sender=models)
+signals.post_migrate.connect(register_events, sender=models)
+#signals.post_migrate.connect(set_default_settings, sender=models)
