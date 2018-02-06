@@ -28,10 +28,12 @@ class NewsViewletTest(TestCase):
         view = response.context_data['view']
 
         self.assertEqual(0, len(view.news()))
+        view.news_list = None
 
         hl = Highlight.objects.create(content_object=news0)
 
         self.assertEqual(1, len(view.news()))
+        view.news_list = None
 
         yesterday = datetime.now() - timedelta(days=1)
         tomorrow = datetime.now() + timedelta(days=1)
@@ -40,16 +42,19 @@ class NewsViewletTest(TestCase):
         hl.save()
 
         self.assertEqual(0, len(view.news()))
+        view.news_list = None
 
         hl.date_from = yesterday
         hl.save()
 
         self.assertEqual(1, len(view.news()))
+        view.news_list = None
 
         news0.publish_to = yesterday
         news0.save()
 
         self.assertEqual(0, len(view.news()))
+        view.news_list = None
 
         news0.publish_to = tomorrow
         news0.save()
