@@ -1,3 +1,4 @@
+default_app_config = 'djinn_news.apps.DjinnNewsAppConfig'
 
 def get_urls():
 

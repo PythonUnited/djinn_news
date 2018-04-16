@@ -44,14 +44,19 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
         # Translators: news documents help
         help_text=_("Select document(s)"),
         widget=RelateWidget(
-            attrs={'hint': _("Search document"),
-                   # Translators: djinn_news documents link label
-                   'label': _("Search documents"),
-                   'searchfield': 'title_auto',
-                   'template_name':
-                   'djinn_forms/snippets/relatesearchwidget.html',
-                   'search_url': '/document_search/',
-                   'ct_searchfield': 'meta_type', },
+            attrs={
+                'hint': _("Search document"),
+                # Translators: djinn_news documents link label
+                'label': _("Search documents"),
+                'searchfield': 'title_auto',
+                'template_name':
+                'djinn_forms/snippets/relatesearchwidget.html',
+                'search_url': '/document_search/',
+                'ct_searchfield': 'meta_type',
+                'allow_add_relation': True,
+                'add_relation_url': '/content/add_ajax/document/',
+                'add_relation_label': _("Add document")
+                },
             )
         )
 

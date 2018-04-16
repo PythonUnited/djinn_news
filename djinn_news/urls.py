@@ -15,6 +15,10 @@ _urlpatterns = [
         NewsViewlet.as_view(),
         name="djinn_news"),
 
+    url(r"^(?P<parentusergroup>[\d]*)/?$",
+        NewsViewlet.as_view(),
+        name="djinn_news_pug"),
+
     url(r"^add/news/(?P<parentusergroup>[\d]*)/$",
         CreateView.as_view(model=News, form_class=news_form,
                            fk_fields=["parentusergroup"]),

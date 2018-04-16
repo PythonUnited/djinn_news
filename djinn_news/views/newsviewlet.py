@@ -5,6 +5,7 @@ from djinn_contenttypes.models.highlight import Highlight
 from datetime import datetime
 from django.db.models.query import Q
 from djinn_workflow.utils import get_state
+from pgprofile.models import GroupProfile
 
 SHOW_N = getattr(settings, "DJINN_SHOW_N_NEWS_ITEMS", 5)
 
@@ -16,9 +17,23 @@ class NewsViewlet(AcceptMixin, TemplateView):
     news_list = None
     has_more = False
     sticky_item = None
+    limit = SHOW_N
 
-    def news(self, limit=SHOW_N):
+    def parentusergroup(self):
 
+        return self.kwargs.get('parentusergroup', None)
+
+    def groupprofile(self):
+
+        pugid = self.parentusergroup()
+        if pugid:
+            return GroupProfile.objects.filter(usergroup__id=pugid).last()
+        return None
+
+    def news(self):
+
+        if self.parentusergroup():
+            self.limit = 3
         now = datetime.now()
 
         if not self.news_list:
@@ -32,26 +47,37 @@ class NewsViewlet(AcceptMixin, TemplateView):
             ).order_by("-date_from")
 
             self.news_list = []
+            pug = self.parentusergroup()
+            if pug:
+                pug = int(pug)
+
             for hl in highlighted:
                 news = hl.content_object
+
+                if news.parentusergroup_id != pug:
+                    # Only group-news in group-viewlet
+                    # only newsitems without parentusergroup on homepageviewlet
+                    continue
+
                 state = get_state(news)
                 if news and state.name == "private":
                     continue
                 if news and (not news.publish_from or news.publish_from <= now) and \
                         (not news.publish_to or news.publish_to > now) and \
                         news.title:
+
                     if news.is_sticky and not self.sticky_item:
                         self.sticky_item = news
                     else:
                         self.news_list.append(hl)
-                        if len(self.news_list) == limit:
+                        if len(self.news_list) == self.limit:
                             self.has_more = True
                             break
         return self.news_list
 
 
     @property
-    def show_more(self, limit=SHOW_N):
+    def show_more(self):
         if not self.news_list:
-            self.news(limit=limit)
+            self.news()
         return self.has_more

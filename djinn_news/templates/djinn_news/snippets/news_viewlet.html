@@ -21,7 +21,17 @@
 
       {% ifpermission "" request.user 'djinn_news.add_news' %}
       <span class="controls">
-        <a href="{% url 'djinn_news_add_news' %}"
+        <a href="{% if view.parentusergroup %}{% url 'djinn_news_add_news' view.parentusergroup %}{% else %}{% url 'djinn_news_add_news' %}{% endif %}"
+           data-toggle="tooltip"
+           title="{% trans 'Add news' %}"
+           >
+          <i class="icon-plus"></i>
+        </a>
+      </span>
+      {% endifpermission %}
+      {% ifpermission view.groupprofile request.user 'contenttypes.add_contenttype' %}
+      <span class="controls">
+        <a href="{% if view.parentusergroup %}{% url 'djinn_news_add_news' view.parentusergroup %}{% else %}{% url 'djinn_news_add_news' %}{% endif %}"
            data-toggle="tooltip"
            title="{% trans 'Add news' %}"
            >
