@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: djinn_news\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-24 10:36+0100\n"
+"POT-Creation-Date: 2018-04-19 12:04+0200\n"
 "PO-Revision-Date: 2015-01-21 15:45+0100\n"
 "Last-Translator:   <bouma@egoactive.com>\n"
 "Language-Team: nl_NL <support@pythonunited.com>\n"
@@ -47,58 +47,63 @@ msgstr "Bestand(en) koppelen"
 #. Translators: news documents help
 #: forms/news.py:45
 msgid "Select document(s)"
-msgstr "_EMPTY_"
+msgstr "Selecteer document(en)"
 
-#: forms/news.py:47
+#: forms/news.py:48
 msgid "Search document"
 msgstr "(Rosetta Djinn_news) Zoek een document"
 
 #. Translators: djinn_news documents link label
-#: forms/news.py:49
+#: forms/news.py:50
 msgid "Search documents"
 msgstr "Zoek bestanden"
 
+#: forms/news.py:58
+#| msgid "Related documents"
+msgid "Add document"
+msgstr "Bestand(en) koppelen"
+
 #. Translators: news images label
-#: forms/news.py:61
+#: forms/news.py:66
 msgid "Images"
 msgstr "Afbeelding(en) toevoegen"
 
 #. Translators: Homepage news image label
-#: forms/news.py:72
+#: forms/news.py:77
 msgid "Add homepage image"
-msgstr ""
+msgstr "Voeg homeage plaatje toe"
 
 #. Translators: contenttypes highlight_from label
-#: forms/news.py:83
+#: forms/news.py:89
 msgid "Highlight from"
-msgstr ""
+msgstr "Highlight vanaf"
 
 #. Translators: contenttypes publish_from help
-#: forms/news.py:85
+#: forms/news.py:91
 msgid "Enter a publish-from date and time"
-msgstr ""
+msgstr "Vul publiceren-vanaf datum en tijd in"
 
-#: forms/news.py:88
+#: forms/news.py:94
 msgid "Date"
 msgstr "Datum"
 
-#: forms/news.py:89
+#: forms/news.py:95
 msgid "Time"
 msgstr "Tijd"
 
-#: forms/news.py:98
+#: forms/news.py:104
 msgid "Show images"
 msgstr "Toon toegevoegde afbeelding(en) onderaan deze pagina"
 
-#: forms/news.py:99
+#: forms/news.py:105
 msgid "Comments enabled"
 msgstr "Collega's mogen reageren"
 
-#: forms/news.py:100
+#: forms/news.py:106
 msgid "Important homepage item"
-msgstr ""
+msgstr "Belangrijk homepage item"
 
-#: models/news.py:77
+#: models/news.py:71
 msgid "News"
 msgstr "Nieuwsbericht"
 
@@ -128,16 +133,17 @@ msgstr ""
 
 #: templates/djinn_news/snippets/news_viewlet.html:20
 msgid "News from the organisation"
-msgstr ""
+msgstr "Nieuws uit de organisatie"
 
 #: templates/djinn_news/snippets/news_viewlet.html:26
+#: templates/djinn_news/snippets/news_viewlet.html:36
 msgid "Add news"
 msgstr "(Rosetta Djinn_news) Voeg nieuws toe"
 
-#: templates/djinn_news/snippets/news_viewlet.html:55
+#: templates/djinn_news/snippets/news_viewlet.html:65
 msgid "All news"
 msgstr "Alle nieuwsberichten"
 
-#: templates/djinn_news/snippets/news_viewlet.html:62
+#: templates/djinn_news/snippets/news_viewlet.html:72
 msgid "No news"
 msgstr "(Rosetta Djinn_news) Er zijn geen nieuwsberichten"
