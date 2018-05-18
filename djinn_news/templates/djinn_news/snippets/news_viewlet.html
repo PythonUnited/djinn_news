@@ -17,7 +17,7 @@
 <article id="aside-news" class="editable">
   
   <header>
-    <h1>{% trans "News from the organisation" %}
+    <h1>{% if view.parentusergroup %}{% trans "News in this group" %}{% else %}{% trans "News from the organisation" %}{% endif %}
 
       {% ifpermission "" request.user 'djinn_news.add_news' %}
       <span class="controls">
