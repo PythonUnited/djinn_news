@@ -68,7 +68,11 @@
   {% else %}
   
   <div class="alert alert-info" id="news-alert">
-    {% trans "No news" %}
+    {% if not view.parentusergroup %}
+        {% trans "No news" %}
+    {% else %}
+        {% trans "No news in this group" %}
+    {% endif %}
   </div>
   
   {% endif %}

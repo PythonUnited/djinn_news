@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: djinn_news\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-18 11:46+0200\n"
+"POT-Creation-Date: 2018-05-22 17:51+0200\n"
 "PO-Revision-Date: 2015-01-21 15:45+0100\n"
 "Last-Translator:   <bouma@egoactive.com>\n"
 "Language-Team: nl_NL <support@pythonunited.com>\n"
@@ -141,12 +141,16 @@ msgstr "Nieuws uit de organisatie"
 #: templates/djinn_news/snippets/news_viewlet.html:26
 #: templates/djinn_news/snippets/news_viewlet.html:36
 msgid "Add news"
-msgstr "(Rosetta Djinn_news) Voeg nieuws toe"
+msgstr "Voeg een nieuwsbericht toe"
 
 #: templates/djinn_news/snippets/news_viewlet.html:65
 msgid "All news"
 msgstr "Alle nieuwsberichten"
 
-#: templates/djinn_news/snippets/news_viewlet.html:72
+#: templates/djinn_news/snippets/news_viewlet.html:73
 msgid "No news"
-msgstr "(Rosetta Djinn_news) Er zijn geen nieuwsberichten"
+msgstr "Er zijn geen nieuwsberichten"
+
+#: templates/djinn_news/snippets/news_viewlet.html:75
+msgid "No news in this group"
+msgstr "Er zijn geen nieuwsberichten in deze groep"
