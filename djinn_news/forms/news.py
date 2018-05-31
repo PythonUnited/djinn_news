@@ -153,4 +153,4 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
                   'parentusergroup', 'comments_enabled', 'owner',
                   'publish_from', 'remove_after_publish_to',
                   'publish_to', 'highlight_from', 'is_sticky',
-                  'show_images', 'userkeywords')
+                  'show_images', 'userkeywords', 'state')

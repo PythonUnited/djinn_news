@@ -4,10 +4,20 @@ from djinn_contenttypes.views.base import AcceptMixin
 from djinn_contenttypes.models.highlight import Highlight
 from datetime import datetime
 from django.db.models.query import Q
+
+from djinn_news.models import News
 from djinn_workflow.utils import get_state
 from pgprofile.models import GroupProfile
 
 SHOW_N = getattr(settings, "DJINN_SHOW_N_NEWS_ITEMS", 5)
+
+
+class NewsWrapper(object):
+
+    content_object = None
+
+    def __init__(self, obj):
+        self.content_object = obj
 
 
 class NewsViewlet(AcceptMixin, TemplateView):
@@ -38,18 +48,31 @@ class NewsViewlet(AcceptMixin, TemplateView):
 
         if not self.news_list:
 
-            highlighted = Highlight.objects.filter(
-                object_ct__model="news"
-            ).filter(
-                Q(date_from__isnull=True) | Q(date_from__lte=now)
-            ).filter(
-                Q(date_to__isnull=True) | Q(date_to__gte=now)
-            ).order_by("-date_from")
-
-            self.news_list = []
+            # For Homepage, the news-items must be 'highlighted'.
+            # In group, the newsitems may be returned directly
             pug = self.parentusergroup()
             if pug:
                 pug = int(pug)
+
+                highlighted = []
+                for newsitem in News.objects.filter(
+                    parentusergroup_id=pug
+                ).filter(
+                    Q(publish_from__isnull=True) | Q(publish_from__lte=now)
+                ).filter(
+                    Q(publish_to__isnull=True) | Q(publish_to__gte=now)
+                ).order_by("-created"):
+                    highlighted.append(NewsWrapper(newsitem))
+            else:
+                highlighted = Highlight.objects.filter(
+                    object_ct__model="news"
+                ).filter(
+                    Q(date_from__isnull=True) | Q(date_from__lte=now)
+                ).filter(
+                    Q(date_to__isnull=True) | Q(date_to__gte=now)
+                ).order_by("-date_from")
+
+            self.news_list = []
 
             for hl in highlighted:
                 news = hl.content_object
