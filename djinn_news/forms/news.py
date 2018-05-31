@@ -136,7 +136,8 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
             # Zie http://support.pythonunited.com/view_issue/638
             # als highlight is leeg dan doe wel delete, mits gebruiker permissie heeft
             elif self.user.has_perm("djinn_news.manage_news", obj=self.instance):
-                if self.fields['highlight_from'].empty_values:
+                if 'highlight_from' in self.fields.keys() and \
+                        self.fields['highlight_from'].empty_values:
                     Highlight.objects.filter(
                         object_id=self.instance.id,
                         object_ct=object_ct).delete()
