@@ -77,10 +77,10 @@ class NewsViewlet(AcceptMixin, TemplateView):
             for hl in highlighted:
                 news = hl.content_object
 
-                if news.parentusergroup_id != pug:
+                # if news.parentusergroup_id != pug:
                     # Only group-news in group-viewlet
                     # only newsitems without parentusergroup on homepageviewlet
-                    continue
+                #    continue
 
                 state = get_state(news)
                 if news and state.name == "private":
@@ -89,7 +89,8 @@ class NewsViewlet(AcceptMixin, TemplateView):
                         (not news.publish_to or news.publish_to > now) and \
                         news.title:
 
-                    if news.is_sticky and not self.sticky_item:
+                    if news.is_sticky and not self.sticky_item and not pug:
+                        # sticky item presentation (large picture) only on homepage
                         self.sticky_item = news
                     else:
                         self.news_list.append(hl)
