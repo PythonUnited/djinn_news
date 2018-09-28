@@ -53,7 +53,7 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
                 'djinn_forms/snippets/relatesearchwidget.html',
                 'search_url': '/document_search/',
                 'ct_searchfield': 'meta_type',
-                'allow_add_relation': True,
+                'allow_add_relation': settings.ALLOW_ADD_DOCUMENT_RELATION,
                 'add_relation_url': '/content/add_ajax/document/',
                 'add_relation_label': _("Add document")
                 },

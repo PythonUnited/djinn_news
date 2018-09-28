@@ -8,3 +8,6 @@ DEFAULT_DATE_INPUT_FORMAT = getattr(
 
 DEFAULT_NEWS_IMAGE_URL = getattr(
     settings, 'DEFAULT_NEWS_IMAGE_URL', '/')
+
+ALLOW_ADD_DOCUMENT_RELATION = getattr(
+    settings, 'ALLOW_ADD_DOCUMENT_RELATION', False)
