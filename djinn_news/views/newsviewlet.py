@@ -44,6 +44,11 @@ class NewsViewlet(AcceptMixin, TemplateView):
 
         if self.parentusergroup():
             self.limit = 3
+
+        limit_override = self.kwargs.get('limit_override', None)
+        if limit_override:
+            self.limit = limit_override
+
         now = datetime.now()
 
         if not self.news_list:
