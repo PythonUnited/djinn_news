@@ -23,6 +23,9 @@ class LatestNewsFeed(Feed):
 
     def get_object(self, request, *args, **kwargs):
 
+        self.http_host = "%s://%s" % (
+            request.scheme, request.META.get('HTTP_HOST', 'localhost:8000'))
+
         groupprofile_id = kwargs.get('groupprofile_id', None)
 
         if groupprofile_id:
@@ -54,7 +57,7 @@ class LatestNewsFeed(Feed):
     def item_description(self, item):
         img_url = fetch_image_url(item.content_object.home_image,
                               'news_feed_default', 'news')
-        img_url = "http://192.168.1.6:8000%s" % img_url
+        img_url = "%s%s" % (self.http_host, img_url)
         # print(img_url)
         desc = '<img src="%s" />' % img_url
 
