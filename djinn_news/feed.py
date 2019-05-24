@@ -40,7 +40,8 @@ class LatestNewsFeed(Feed):
         newsviewlet = NewsViewlet()
         newsviewlet.kwargs = {
             'parentusergroup': self.parentusergroup_id,
-            'limit_override': 6
+            'limit_override': 6,
+            'for_rssfeed': True
         }
 
         newslist = newsviewlet.news()
@@ -57,8 +58,7 @@ class LatestNewsFeed(Feed):
         # print(img_url)
         desc = '<img src="%s" />' % img_url
 
-        # TODO: een redacted veld pakken in plaats van het normale content veld
-        desc += '<div>%s</div>' % item.content_object.text
+        desc += '<div>%s</div>' % item.content_object.description_feed
 
         return mark_safe(desc)
 

@@ -1,6 +1,8 @@
 from datetime import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
+from djinn_contenttypes.models.feed import FeedMixin
 from djinn_contenttypes.registry import CTRegistry
 from djinn_contenttypes.models.publishable import PublishableContent
 from djinn_contenttypes.models.attachment import ImgAttachment
@@ -9,7 +11,7 @@ from djinn_contenttypes.models.highlight import Highlight
 from djinn_likes.models.likeable import LikeableMixin
 
 
-class News(PublishableContent, Commentable, LikeableMixin):
+class News(PublishableContent, Commentable, LikeableMixin, FeedMixin):
 
     """ News content type """
 

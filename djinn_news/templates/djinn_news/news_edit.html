@@ -44,6 +44,15 @@
     {{ form.is_sticky|bootstrap }}
     {% endifpermission %}
 
+    {% ifpermission None request.user "auth.manage_feeds" %}
+    <h3>{% trans "Weergave op infoscherm(en)" %}</h3>
+    <div><br></div>
+    <div>
+        {{ form.publish_for_feed|bootstrap }}
+        {{ form.description_feed|bootstrap }}
+    </div>
+    {% endifpermission %}
+
   </section>
   
 </fieldset>
