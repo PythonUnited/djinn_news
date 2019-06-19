@@ -108,9 +108,12 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
                             self.news_list.append(hl)
                     else:
                         self.news_list.append(hl)
-                    if len(self.news_list) == self.limit:
+                    if len(self.news_list) >= self.limit:
                         self.has_more = True
-                        break
+                        if self.sticky_item:
+                            # keep going if we don't have a sticky item yet.
+                            # if we are unfortunate, we need to loop over all.
+                            break
         return self.news_list
 
 
