@@ -114,7 +114,7 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
                             # keep going if we don't have a sticky item yet.
                             # if we are unfortunate, we need to loop over all.
                             break
-        return self.news_list
+        return self.news_list[:self.limit]
 
 
     @property
