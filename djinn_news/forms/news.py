@@ -32,7 +32,7 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
         required=True,
         widget=RichTextWidget(
             img_type="djinn_contenttypes.ImgAttachment",
-            attrs={'class': 'extended', 'name': 'text'}
+            attrs={'class': 'extended description_feed_src', 'name': 'text'}
         ))
 
     documents = RelateField(
