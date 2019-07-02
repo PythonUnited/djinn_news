@@ -1,5 +1,7 @@
 from django.conf.urls import url
-from django.urls import include
+from django.urls import include, path
+
+from djinn_news.feed import LatestNewsFeed
 from .models.news import News
 from .views.newsviewlet import NewsViewlet
 from djinn_contenttypes.views.base import CreateView
@@ -23,6 +25,14 @@ _urlpatterns = [
         CreateView.as_view(model=News, form_class=news_form,
                            fk_fields=["parentusergroup"]),
         name="djinn_news_add_news"),
+
+    # homepage nieuws-feed voor narrowcasting
+    path('latest/feed/', LatestNewsFeed()),
+
+    # groepspagina nieuws-feed voor narrowcasting
+    # het groupprofile_id kan gevonden worden door in een groepspagina
+    # boven de link naar 'Bekijk de content in deze groep' te bekijken
+    path('latest/feed/group/<int:groupprofile_id>/', LatestNewsFeed()),
 ]
 
 urlpatterns = [

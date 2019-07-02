@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 from django.conf import settings
-from djinn_contenttypes.views.base import AcceptMixin
+from djinn_contenttypes.views.base import AcceptMixin, FeedViewMixin
 from djinn_contenttypes.models.highlight import Highlight
 from datetime import datetime
 from django.db.models.query import Q
@@ -20,7 +20,7 @@ class NewsWrapper(object):
         self.content_object = obj
 
 
-class NewsViewlet(AcceptMixin, TemplateView):
+class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
 
     template_name = "djinn_news/snippets/news_viewlet.html"
 
@@ -44,6 +44,11 @@ class NewsViewlet(AcceptMixin, TemplateView):
 
         if self.parentusergroup():
             self.limit = 3
+
+        limit_override = self.kwargs.get('limit_override', None)
+        if limit_override:
+            self.limit = limit_override
+
         now = datetime.now()
 
         if not self.news_list:
@@ -55,7 +60,9 @@ class NewsViewlet(AcceptMixin, TemplateView):
                 pug = int(pug)
 
                 highlighted = []
-                for newsitem in News.objects.filter(
+                news_qs = self.get_queryset(News.objects.all())
+
+                for newsitem in news_qs.filter(
                     parentusergroup_id=pug
                 ).filter(
                     Q(publish_from__isnull=True) | Q(publish_from__lte=now)
@@ -85,6 +92,11 @@ class NewsViewlet(AcceptMixin, TemplateView):
                 state = get_state(news)
                 if news and state.name == "private":
                     continue
+                if self.for_rssfeed and news and not news.publish_for_feed:
+                    # highlighted news items die niet rss-feed enabled zijn
+                    # sowieso niet opnemen in de lijst.
+                    continue
+
                 if news and (not news.publish_from or news.publish_from <= now) and \
                         (not news.publish_to or news.publish_to > now) and \
                         news.title:
@@ -92,12 +104,17 @@ class NewsViewlet(AcceptMixin, TemplateView):
                     if news.is_sticky and not self.sticky_item and not pug:
                         # sticky item presentation (large picture) only on homepage
                         self.sticky_item = news
+                        if self.for_rssfeed:
+                            self.news_list.append(hl)
                     else:
                         self.news_list.append(hl)
-                        if len(self.news_list) == self.limit:
-                            self.has_more = True
+                    if len(self.news_list) >= self.limit:
+                        self.has_more = True
+                        if self.sticky_item:
+                            # keep going if we don't have a sticky item yet.
+                            # if we are unfortunate, we need to loop over all.
                             break
-        return self.news_list
+        return self.news_list[:self.limit]
 
 
     @property
