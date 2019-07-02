@@ -1,3 +1,5 @@
+1.2.0
+=====
 * added raw_id_fields to admin for performance
 
 1.1.9
