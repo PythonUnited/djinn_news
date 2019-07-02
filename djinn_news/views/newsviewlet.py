@@ -81,7 +81,10 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
 
             self.news_list = []
 
+            evaluated_item_count = 0
             for hl in highlighted:
+                evaluated_item_count += 1
+
                 news = hl.content_object
 
                 # if news.parentusergroup_id != pug:
@@ -93,6 +96,9 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
                 if news and state.name == "private":
                     continue
                 if self.for_rssfeed and news and not news.publish_for_feed:
+                    # skip looking for rss items after 100 highights
+                    if evaluated_item_count > 100:
+                        break
                     # highlighted news items die niet rss-feed enabled zijn
                     # sowieso niet opnemen in de lijst.
                     continue

@@ -1,7 +1,5 @@
 from django.contrib.syndication.views import Feed
-from django.urls import reverse
 from django.utils import feedgenerator
-from django.utils.feedgenerator import Enclosure
 from django.utils.safestring import mark_safe
 
 from djinn_news.views.newsviewlet import NewsViewlet
