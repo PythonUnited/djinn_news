@@ -1,3 +1,5 @@
+* performance repair newsviewlet
+
 1.2.0
 =====
 * added raw_id_fields to admin for performance

@@ -40,6 +40,24 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
             return GroupProfile.objects.filter(usergroup__id=pugid).last()
         return None
 
+    @staticmethod
+    def _news_published_filter(queryset, now):
+        return queryset.filter(
+            Q(publish_from__isnull=True) | Q(publish_from__lte=now)
+        ).filter(
+            Q(publish_to__isnull=True) | Q(publish_to__gte=now)
+        ).order_by("-created")
+
+    @staticmethod
+    def _highlights_published(now):
+        return Highlight.objects.filter(
+            object_ct__model="news"
+        ).filter(
+            Q(date_from__isnull=True) | Q(date_from__lte=now)
+        ).filter(
+            Q(date_to__isnull=True) | Q(date_to__gte=now)
+        ).order_by("-date_from")
+
     def news(self):
 
         if self.parentusergroup():
@@ -60,42 +78,57 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
                 pug = int(pug)
 
                 highlighted = []
-                news_qs = self.get_queryset(News.objects.all())
 
-                for newsitem in news_qs.filter(
-                    parentusergroup_id=pug
-                ).filter(
-                    Q(publish_from__isnull=True) | Q(publish_from__lte=now)
-                ).filter(
-                    Q(publish_to__isnull=True) | Q(publish_to__gte=now)
-                ).order_by("-created"):
+                news_qs = self.get_queryset(
+                    News.objects.filter(parentusergroup_id=pug))
+
+                # first max 'limit' sticky items
+                for stickyitem in NewsViewlet._news_published_filter(
+                        news_qs, now).filter(is_sticky=True):
+                    highlighted.append(NewsWrapper(stickyitem))
+                    if len(highlighted) >= self.limit:
+                        break
+
+                # then, not stick
+                for newsitem in NewsViewlet._news_published_filter(
+                        news_qs, now).filter(is_sticky=False):
                     highlighted.append(NewsWrapper(newsitem))
+                    if len(highlighted) >= 2*self.limit:
+                        break
             else:
-                highlighted = Highlight.objects.filter(
-                    object_ct__model="news"
-                ).filter(
-                    Q(date_from__isnull=True) | Q(date_from__lte=now)
-                ).filter(
-                    Q(date_to__isnull=True) | Q(date_to__gte=now)
-                ).order_by("-date_from")
+
+                sticky_ids = NewsViewlet._news_published_filter(
+                    News.objects.all(), now).filter(is_sticky=True).values_list("id")
+                highlighted_sticky = NewsViewlet._highlights_published(now).filter(
+                    object_id__in=sticky_ids
+                )
+                highlighted_not_sticky = NewsViewlet._highlights_published(now).exclude(
+                    object_id__in=sticky_ids
+                )
+                highlighted = [highlighted_sticky.first()]
+
+                [highlighted.append(not_sticky) for not_sticky in
+                 highlighted_not_sticky[:self.limit+1]]
+
 
             self.news_list = []
 
+            evaluated_item_count = 0
             for hl in highlighted:
+                evaluated_item_count += 1
+
                 news = hl.content_object
 
-                # if news.parentusergroup_id != pug:
-                    # Only group-news in group-viewlet
-                    # only newsitems without parentusergroup on homepageviewlet
-                #    continue
 
                 state = get_state(news)
                 if news and state.name == "private":
                     continue
                 if self.for_rssfeed and news and not news.publish_for_feed:
-                    # highlighted news items die niet rss-feed enabled zijn
-                    # sowieso niet opnemen in de lijst.
-                    continue
+                    # skip looking for rss items after 100 highights
+                    if evaluated_item_count < 100:
+                        # highlighted news items die niet rss-feed enabled zijn
+                        # sowieso niet opnemen in de lijst.
+                        continue
 
                 if news and (not news.publish_from or news.publish_from <= now) and \
                         (not news.publish_to or news.publish_to > now) and \
@@ -108,12 +141,12 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
                             self.news_list.append(hl)
                     else:
                         self.news_list.append(hl)
-                    if len(self.news_list) >= self.limit:
-                        self.has_more = True
-                        if self.sticky_item:
-                            # keep going if we don't have a sticky item yet.
-                            # if we are unfortunate, we need to loop over all.
-                            break
+                if len(self.news_list) >= self.limit:
+                    self.has_more = True
+                    if self.sticky_item:
+                        # keep going if we don't have a sticky item yet.
+                        # if we are unfortunate, we need to loop over all.
+                        break
         return self.news_list[:self.limit]
 
 
