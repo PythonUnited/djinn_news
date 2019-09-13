@@ -1,28 +1,24 @@
-from django.contrib.syndication.views import Feed
-from django.utils import feedgenerator
 from django.utils.safestring import mark_safe
-
+from djinn_contenttypes.base_feed import DjinnFeed
+from djinn_contenttypes.models.feed import MoreInfoFeedGenerator
 from djinn_news.views.newsviewlet import NewsViewlet
 from pgcontent.templatetags.contentblock_tags import fetch_image_url
 from pgprofile.models import GroupProfile
 
 
-class LatestNewsFeed(Feed):
+class LatestNewsFeed(DjinnFeed):
     '''
-    http://192.168.1.6:8000/news/latest/feed/
+    http://192.168.1.6xx:8000/news/latest/feed/
     '''
     title_prefix = "Gronet:"
     title = "%s laatste nieuws" % title_prefix
     link = "/news/latest/feed/"
     description = "Homepage laatste nieuws"
-    feed_type = feedgenerator.DefaultFeed
+    feed_type = MoreInfoFeedGenerator
 
     parentusergroup_id = None
 
     def get_object(self, request, *args, **kwargs):
-
-        self.http_host = "%s://%s" % (
-            request.scheme, request.META.get('HTTP_HOST', 'localhost:8000'))
 
         groupprofile_id = kwargs.get('groupprofile_id', None)
 
@@ -53,8 +49,9 @@ class LatestNewsFeed(Feed):
         return item.content_object.title
 
     def item_description(self, item):
-        img_url = fetch_image_url(item.content_object.home_image,
-                              'news_feed_default', 'news')
+
+        img_url = fetch_image_url(
+            item.content_object.home_image, 'news_feed_default', 'news')
         img_url = "%s%s" % (self.http_host, img_url)
         # print(img_url)
         desc = '<img src="%s" />' % img_url
@@ -63,12 +60,6 @@ class LatestNewsFeed(Feed):
 
         return mark_safe(desc)
 
-    # item_link is only needed if NewsItem has no get_absolute_url method.
-    def item_link(self, item):
-        # TODO: nadenken over detail pagina die niet achter inlog zit?
-        # return reverse('djinn_news_view_news', args=[
-        #     item.content_object.pk, item.content_object.slug])
-        return "/"
 
     # Dit hebben we hoogstwaarschijnlijk niet nodig.
     # Nog even laten staan vanwege het uitzoekwerk .... :-)
@@ -90,3 +81,20 @@ class LatestNewsFeed(Feed):
     #     encl = Enclosure(img_url, length=length, mime_type=mimetype)
     #
     #     return [encl]
+
+    def item_extra_kwargs(self, item):
+        info_text = None
+        if len(item.content_object.keywordslist) > 0:
+            info_text = "Zoek op: " + " + ".join(
+                item.content_object.keywordslist)
+
+        content_url = "%s%s" % (
+                self.http_host, item.content_object.get_absolute_url())
+
+        qrcode_img_url = self.get_qrcode_img_url(content_url, item.content_object)
+
+        return {
+            "more_info_class": "gronet",
+            "more_info_text": info_text,
+            "more_info_qrcode_url": qrcode_img_url
+        }
