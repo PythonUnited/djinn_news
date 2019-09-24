@@ -1,6 +1,7 @@
 {% extends "djinn_contenttypes/base_edit.html" %}
 
 {% load i18n bootstrap auth_tags %}
+{% load pusimpletext_tags %}
 
 {% block formfields %}
 
@@ -49,7 +50,24 @@
     <div><br></div>
     <div>
         {{ form.publish_for_feed|bootstrap }}
+        <div class="feed_options">
         {{ form.description_feed|bootstrap }}
+
+        {{ form.extra_media }}
+        {{ form.home_image_hidden }}
+        {{ form.home_image_feed_crop|bootstrap }}
+        <script>
+            $(document).ready(function() {
+                image_cropping.init();
+            });
+        </script>
+        <div class="control-group">
+            <label class="control-label">{% trans "feed preview" %}</label>
+            {% with preview_instance=form.instance %}
+                {% pusimpletext 'news_feed_preview' %}
+            {% endwith %}
+        </div>
+        </div>
     </div>
     {% endifpermission %}
 

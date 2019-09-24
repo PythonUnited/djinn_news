@@ -36,6 +36,9 @@
   
   <div class="imgDisplay">
     <img id="display-image" src="{{ object.images.all.0.get_display_url }}"/>
+      {% if request.user.is_superuser %}
+      <button data-url="{{ object.images.all.0.image.url }}" class="js-copy-orig-url" title="Kopieer origineel-URL naar clipboard">Kopieer URL</button>
+      {% endif %}
   </div>
   
   <script>

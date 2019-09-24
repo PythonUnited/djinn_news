@@ -1,9 +1,11 @@
 from django.utils.safestring import mark_safe
 from djinn_contenttypes.base_feed import DjinnFeed
 from djinn_contenttypes.models.feed import MoreInfoFeedGenerator
+from djinn_contenttypes.settings import FEED_HEADER_NORMAL_SIZE
 from djinn_news.views.newsviewlet import NewsViewlet
 from pgcontent.templatetags.contentblock_tags import fetch_image_url
 from pgprofile.models import GroupProfile
+from image_cropping.utils import get_backend
 
 
 class LatestNewsFeed(DjinnFeed):
@@ -93,7 +95,20 @@ class LatestNewsFeed(DjinnFeed):
 
         qrcode_img_url = self.get_qrcode_img_url(content_url, item.content_object)
 
+        background_img_url = None,
+        if item.content_object.home_image:
+            background_img_url = get_backend().get_thumbnail_url(
+                item.content_object.home_image.image,
+                {
+                    'size': FEED_HEADER_NORMAL_SIZE,
+                    'box': item.content_object.home_image_feed_crop,
+                    'crop': True,
+                    'detail': True,
+                }
+            )
+
         return {
+            "background_img_url": background_img_url,
             "more_info_class": "gronet",
             "more_info_text": info_text,
             "more_info_qrcode_url": qrcode_img_url

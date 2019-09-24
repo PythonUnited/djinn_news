@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
+from djinn_contenttypes.forms.crop import DjinnCroppingMixin
 from djinn_forms.widgets.attachment import AttachmentWidget
 from djinn_forms.widgets.image import ImageWidget
 from djinn_forms.fields.relate import RelateField
@@ -17,7 +18,9 @@ from djinn_news.models import News
 from djinn_news import settings
 
 
-class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
+class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
+
+    cropping_field_name = 'home_image'
 
     # Translators: news general help
     help = _("Add a news item. The item will be submitted for publishing")
@@ -155,4 +158,4 @@ class NewsForm(BaseContentForm, RelateMixin, RichTextMixin):
                   'publish_from', 'remove_after_publish_to',
                   'publish_to', 'highlight_from', 'is_sticky',
                   'show_images', 'userkeywords', 'state',
-                  'publish_for_feed', 'description_feed')
+                  'publish_for_feed', 'description_feed', 'home_image_feed_crop')

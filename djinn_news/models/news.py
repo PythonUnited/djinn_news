@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from image_cropping import ImageRatioField
 
 from djinn_contenttypes.models.feed import FeedMixin
 from djinn_contenttypes.registry import CTRegistry
@@ -8,6 +9,7 @@ from djinn_contenttypes.models.publishable import PublishableContent
 from djinn_contenttypes.models.attachment import ImgAttachment
 from djinn_contenttypes.models.commentable import Commentable
 from djinn_contenttypes.models.highlight import Highlight
+from djinn_contenttypes.settings import FEED_HEADER_NORMAL_SIZE
 from djinn_likes.models.likeable import LikeableMixin
 
 
@@ -23,6 +25,13 @@ class News(PublishableContent, Commentable, LikeableMixin, FeedMixin):
                                    related_name='news_home_image',
                                    null=True, blank=True,
                                    on_delete=models.SET_NULL)
+
+    home_image_feed_crop = ImageRatioField(
+        'home_image__image', "%sx%s" % (
+            FEED_HEADER_NORMAL_SIZE[0], FEED_HEADER_NORMAL_SIZE[1]),
+        help_text=_("Part of the image to use in the rss-feed"),
+        verbose_name = _("Foto uitsnede")
+    )
 
     show_images = models.BooleanField(default=True)
 
@@ -70,5 +79,6 @@ CTRegistry.register(
     {"class": News,
      "app": "djinn_news",
      "group_add": True,
+     "allow_saveandedit": True,
      "label": _("News")}
     )
