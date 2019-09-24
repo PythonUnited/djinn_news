@@ -52,13 +52,7 @@ class LatestNewsFeed(DjinnFeed):
 
     def item_description(self, item):
 
-        img_url = fetch_image_url(
-            item.content_object.home_image, 'news_feed_default', 'news')
-        img_url = "%s%s" % (self.http_host, img_url)
-        # print(img_url)
-        desc = '<img src="%s" />' % img_url
-
-        desc += '<div>%s</div>' % item.content_object.description_feed
+        desc = '<div>%s</div>' % item.content_object.description_feed
 
         return mark_safe(desc)
 
