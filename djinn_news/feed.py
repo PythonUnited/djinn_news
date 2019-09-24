@@ -108,7 +108,7 @@ class LatestNewsFeed(DjinnFeed):
             )
 
         return {
-            "background_img_url": background_img_url,
+            "background_img_url": self.http_host + background_img_url,
             "more_info_class": "gronet",
             "more_info_text": info_text,
             "more_info_qrcode_url": qrcode_img_url
