@@ -83,5 +83,5 @@ class LatestNewsFeed(DjinnFeed):
             "background_img_url": "%s%s" % (self.http_host, item.content_object.feed_bg_img_url),
             "more_info_class": item.content_object.more_info_class,
             "more_info_text": item.content_object.more_info_text,
-            "more_info_qrcode_url": item.content_object.qrcode_img_url
+            "more_info_qrcode_url": item.content_object.qrcode_img_url()
         }
