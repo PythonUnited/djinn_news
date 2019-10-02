@@ -16,6 +16,11 @@ from djinn_likes.models.likeable import LikeableMixin
 class News(PublishableContent, Commentable, LikeableMixin, FeedMixin):
 
     """ News content type """
+    # BEGIN required by FeedMixin
+    feed_bg_img_fieldname = 'home_image'
+    feed_bg_img_crop_fieldname = 'home_image_feed_crop'
+    # END required by FeedMixin
+
 
     text = models.TextField(null=True, blank=True)
 
@@ -29,7 +34,9 @@ class News(PublishableContent, Commentable, LikeableMixin, FeedMixin):
     home_image_feed_crop = ImageRatioField(
         'home_image__image', "%sx%s" % (
             FEED_HEADER_NORMAL_SIZE[0], FEED_HEADER_NORMAL_SIZE[1]),
-        help_text=_("Part of the image to use in the rss-feed"),
+        help_text=_("Part of the home-image to use in the rss-feed. Upload or "
+                    "change home_image, click 'save and edit again' and then "
+                    "you can select a region to use in the rss feed."),
         verbose_name = _("Foto uitsnede")
     )
 

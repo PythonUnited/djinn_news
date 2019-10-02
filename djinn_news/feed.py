@@ -1,7 +1,6 @@
 from django.utils.safestring import mark_safe
 from djinn_contenttypes.base_feed import DjinnFeed
 from djinn_contenttypes.models.feed import MoreInfoFeedGenerator
-from djinn_contenttypes.settings import FEED_HEADER_NORMAL_SIZE
 from djinn_news.views.newsviewlet import NewsViewlet
 from pgcontent.templatetags.contentblock_tags import fetch_image_url
 from pgprofile.models import GroupProfile
@@ -79,31 +78,10 @@ class LatestNewsFeed(DjinnFeed):
     #     return [encl]
 
     def item_extra_kwargs(self, item):
-        info_text = None
-        if len(item.content_object.keywordslist) > 0:
-            info_text = "Zoek op: " + " + ".join(
-                item.content_object.keywordslist)
-
-        content_url = "%s%s" % (
-                self.http_host, item.content_object.get_absolute_url())
-
-        qrcode_img_url = self.get_qrcode_img_url(content_url, item.content_object)
-
-        background_img_url = None,
-        if item.content_object.home_image:
-            background_img_url = get_backend().get_thumbnail_url(
-                item.content_object.home_image.image,
-                {
-                    'size': FEED_HEADER_NORMAL_SIZE,
-                    'box': item.content_object.home_image_feed_crop,
-                    'crop': True,
-                    'detail': True,
-                }
-            )
 
         return {
-            "background_img_url": "%s%s" % (self.http_host, background_img_url),
-            "more_info_class": "gronet",
-            "more_info_text": info_text,
-            "more_info_qrcode_url": qrcode_img_url
+            "background_img_url": "%s%s" % (self.http_host, item.content_object.feed_bg_img_url),
+            "more_info_class": item.content_object.more_info_class,
+            "more_info_text": item.content_object.more_info_text,
+            "more_info_qrcode_url": item.content_object.qrcode_img_url
         }
