@@ -2,19 +2,18 @@ from django.utils.safestring import mark_safe
 from djinn_contenttypes.base_feed import DjinnFeed
 from djinn_contenttypes.models.feed import MoreInfoFeedGenerator
 from djinn_news.views.newsviewlet import NewsViewlet
-from pgcontent.templatetags.contentblock_tags import fetch_image_url
 from pgprofile.models import GroupProfile
-from image_cropping.utils import get_backend
+from django.utils.translation import gettext_lazy as _
 
 
 class LatestNewsFeed(DjinnFeed):
     '''
     http://192.168.1.6xx:8000/news/latest/feed/
     '''
-    title_prefix = "Gronet:"
-    title = "%s laatste nieuws" % title_prefix
+    title_prefix = _("Gronet:")
+    title = _(f"{title_prefix} laatste nieuws")
     link = "/news/latest/feed/"
-    description = "Homepage laatste nieuws"
+    description = _("Homepage laatste nieuws")
     feed_type = MoreInfoFeedGenerator
 
     parentusergroup_id = None
@@ -25,10 +24,10 @@ class LatestNewsFeed(DjinnFeed):
 
         if groupprofile_id:
             groupprofile = GroupProfile.objects.get(id=groupprofile_id)
-            self.title = "%s nieuws van '%s'" % (
-                self.title_prefix, groupprofile.title)
-            self.description = "%s laatste nieuwsartikelen in %s" % (
-                self.title_prefix, groupprofile.title)
+            self.title = _(f"{self.title_prefix} nieuws van "
+                           f"'{groupprofile.title}'")
+            self.description = _(f"{self.title_prefix} laatste "
+                                 f"nieuwsartikelen in {groupprofile.title}")
             self.parentusergroup_id = groupprofile.usergroup_id
 
         return super().get_object(request, *args, **kwargs)
@@ -39,7 +38,9 @@ class LatestNewsFeed(DjinnFeed):
         newsviewlet.kwargs = {
             'parentusergroup': self.parentusergroup_id,
             'limit_override': 6,
-            'for_rssfeed': True
+            'for_rssfeed': True,
+            'items_no_image': self.items_no_image,
+            'items_with_image': self.items_with_image,
         }
 
         newslist = newsviewlet.news()
@@ -80,8 +81,10 @@ class LatestNewsFeed(DjinnFeed):
     def item_extra_kwargs(self, item):
 
         return {
-            "background_img_url": "%s%s" % (self.http_host, item.content_object.feed_bg_img_url),
+            "background_img_url": "%s%s" % (
+                self.http_host, item.content_object.feed_bg_img_url),
             "more_info_class": item.content_object.more_info_class,
             "more_info_text": item.content_object.more_info_text,
-            "more_info_qrcode_url": item.content_object.qrcode_img_url()
+            "more_info_qrcode_url": item.content_object.qrcode_img_url(
+                http_host=self.http_host)
         }
