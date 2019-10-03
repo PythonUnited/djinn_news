@@ -50,7 +50,7 @@
     <div><br></div>
     <div>
         {{ form.publish_for_feed|bootstrap }}
-        <div class="feed_options">
+        <div class="feed_options{% if not form.instance.publish_for_feed %} hide{% endif %}">
         {{ form.description_feed|bootstrap }}
 
         {{ form.home_image_hidden }}
