@@ -9,7 +9,7 @@ from djinn_contenttypes.models.publishable import PublishableContent
 from djinn_contenttypes.models.attachment import ImgAttachment
 from djinn_contenttypes.models.commentable import Commentable
 from djinn_contenttypes.models.highlight import Highlight
-from djinn_contenttypes.settings import FEED_HEADER_NORMAL_SIZE
+from djinn_contenttypes.settings import FEED_HEADER_SIZE
 from djinn_likes.models.likeable import LikeableMixin
 
 
@@ -33,7 +33,7 @@ class News(PublishableContent, Commentable, LikeableMixin, FeedMixin):
 
     home_image_feed_crop = ImageRatioField(
         'home_image__image', "%sx%s" % (
-            FEED_HEADER_NORMAL_SIZE[0], FEED_HEADER_NORMAL_SIZE[1]),
+            FEED_HEADER_SIZE['news'][0], FEED_HEADER_SIZE['news'][1]),
         help_text=_("Part of the home-image to use in the rss-feed. Upload or "
                     "change home_image, click 'save and edit again' and then "
                     "you can select a region to use in the rss feed."),
