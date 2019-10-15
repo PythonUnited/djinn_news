@@ -53,6 +53,7 @@
         <div class="feed_options{% if not form.instance.publish_for_feed %} hide{% endif %}">
         {{ form.description_feed|bootstrap }}
 
+        {{ form.use_default_image|bootstrap }}
         {{ form.home_image_hidden }}
         {{ form.home_image_feed_crop|bootstrap }}
         {{ form.extra_media }}
