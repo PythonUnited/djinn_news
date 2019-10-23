@@ -80,7 +80,7 @@ class LatestNewsFeed(DjinnFeed):
 
     def item_extra_kwargs(self, item):
         background_img_url = ""
-        if item.content_objecthas_feedimg:
+        if item.content_object.has_feedimg:
             background_img_url = "%s%s" % (
                 self.http_host, item.content_object.feed_bg_img_url)
 
