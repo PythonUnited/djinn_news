@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: djinn_news\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-15 11:38+0200\n"
+"POT-Creation-Date: 2019-10-23 17:57+0200\n"
 "PO-Revision-Date: 2015-01-21 15:45+0100\n"
 "Last-Translator:   <bouma@egoactive.com>\n"
 "Language-Team: nl_NL <support@pythonunited.com>\n"
@@ -93,50 +93,59 @@ msgstr "Afbeelding(en) toevoegen"
 #. Translators: Homepage news image label
 #: forms/news.py:80
 msgid "Add homepage image"
-msgstr "Voeg homeage plaatje toe"
+msgstr "Voeg homepage plaatje toe"
+
+#. Translators: Homepage news image label
+#: forms/news.py:93
+msgid "Add rss-feed image"
+msgstr "Voeg infoscherm afbeelding toe"
 
 #. Translators: contenttypes highlight_from label
-#: forms/news.py:92
+#: forms/news.py:105
 msgid "Highlight from"
 msgstr "Highlight vanaf"
 
 #. Translators: contenttypes publish_from help
-#: forms/news.py:94
+#: forms/news.py:107
 msgid "Enter a publish-from date and time"
 msgstr "Vul publiceren-vanaf datum en tijd in"
 
-#: forms/news.py:97
+#: forms/news.py:110
 msgid "Date"
 msgstr "Datum"
 
-#: forms/news.py:98
+#: forms/news.py:111
 msgid "Time"
 msgstr "Tijd"
 
-#: forms/news.py:107
+#: forms/news.py:120
 msgid "Show images"
 msgstr "Toon toegevoegde afbeelding(en) onderaan deze pagina"
 
-#: forms/news.py:108
+#: forms/news.py:121
 msgid "Comments enabled"
 msgstr "Collega's mogen reageren"
 
-#: forms/news.py:109
+#: forms/news.py:122
 msgid "Important homepage item"
 msgstr "Belangrijk homepage item"
 
-#: models/news.py:37
+#: models/news.py:39
+msgid "Image for the rss-feed. Minimal width is 1920px, minimal heigt 500px."
+msgstr ""
+
+#: models/news.py:45
 msgid ""
-"Part of the home-image to use in the rss-feed. Upload or change home_image, "
+"Part of the image_feed to use in the rss-feed. Upload or change home_image, "
 "click 'save and edit again' and then you can select a region to use in the "
 "rss feed."
-msgstr "Uitsnede van de afbeelding die gebruikt moet worden voor infoschermen."
+msgstr "Uitsnede van de afbeelding zoals die voor infoschermen gebruikt moet worden."
 
-#: models/news.py:40
+#: models/news.py:48
 msgid "Foto uitsnede"
 msgstr ""
 
-#: models/news.py:90
+#: models/news.py:98
 msgid "News"
 msgstr "Nieuwsbericht"
 
@@ -160,11 +169,21 @@ msgstr "Weergave"
 msgid "Publishing"
 msgstr "Publiceer nieuwsbericht op"
 
-#: templates/djinn_news/news_edit.html:49
+#: templates/djinn_news/news_edit.html:51
 msgid "Weergave op infoscherm(en)"
 msgstr ""
 
-#: templates/djinn_news/news_edit.html:64
+#: templates/djinn_news/news_edit.html:61
+msgid "Opgeslagen afbeelding is te klein. Moet minimaal 1920x500px zijn."
+msgstr ""
+
+#: templates/djinn_news/news_edit.html:65
+msgid ""
+"Selectie uit de afbeelding is eigenlijk te klein. Moet minimaal 1920x500px "
+"zijn."
+msgstr ""
+
+#: templates/djinn_news/news_edit.html:76
 msgid "infoscherm voorbeeld"
 msgstr ""
 

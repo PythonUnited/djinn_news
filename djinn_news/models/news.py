@@ -17,8 +17,8 @@ class News(PublishableContent, Commentable, LikeableMixin, FeedMixin):
 
     """ News content type """
     # BEGIN required by FeedMixin
-    feed_bg_img_fieldname = 'home_image'
-    feed_bg_img_crop_fieldname = 'home_image_feed_crop'
+    feed_bg_img_fieldname = 'image_feed'
+    feed_bg_img_crop_fieldname = 'image_feed_crop'
     # END required by FeedMixin
 
 
@@ -31,10 +31,18 @@ class News(PublishableContent, Commentable, LikeableMixin, FeedMixin):
                                    null=True, blank=True,
                                    on_delete=models.SET_NULL)
 
-    home_image_feed_crop = ImageRatioField(
-        'home_image__image', "%sx%s" % (
+    image_feed = models.ForeignKey(
+        ImgAttachment,
+        related_name='news_image',
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        help_text=_("Image for the rss-feed. Minimal width is 1920px, minimal heigt 500px.")
+    )
+
+    image_feed_crop = ImageRatioField(
+        'image_feed__image', "%sx%s" % (
             FEED_HEADER_SIZE['news'][0], FEED_HEADER_SIZE['news'][1]),
-        help_text=_("Part of the home-image to use in the rss-feed. Upload or "
+        help_text=_("Part of the image_feed to use in the rss-feed. Upload or "
                     "change home_image, click 'save and edit again' and then "
                     "you can select a region to use in the rss feed."),
         verbose_name = _("Foto uitsnede")

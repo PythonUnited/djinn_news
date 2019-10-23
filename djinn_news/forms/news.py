@@ -20,7 +20,7 @@ from djinn_news import settings
 
 class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
 
-    cropping_field_name = 'home_image'
+    cropping_field_name = 'image_feed'
 
     # Translators: news general help
     help = _("Add a news item. The item will be submitted for publishing")
@@ -87,6 +87,19 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
         )
     )
 
+    image_feed = ImageField(
+        model=ImgAttachment,
+        # Translators: Homepage news image label
+        label=_("Add rss-feed image"),
+        required=False,
+        widget=ImageWidget(
+            attrs={
+                'size': 'news_home_list',
+                'attachment_type': 'djinn_contenttypes.ImgAttachment',
+                }
+        )
+    )
+
     highlight_from = forms.DateTimeField(
         # Translators: contenttypes highlight_from label
         label=_("Highlight from"),
@@ -116,7 +129,6 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
             self.fields[
                 'highlight_from'].initial = self.instance.highlight_from
 
-        self.init_relation_fields()
         self.init_richtext_widgets()
 
     def save(self, commit=True):
@@ -158,4 +170,5 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
                   'publish_from', 'remove_after_publish_to',
                   'publish_to', 'highlight_from', 'is_sticky',
                   'show_images', 'userkeywords', 'state', 'use_default_image',
-                  'publish_for_feed', 'description_feed', 'home_image_feed_crop')
+                  'publish_for_feed', 'description_feed', 'image_feed',
+                  'image_feed_crop')
