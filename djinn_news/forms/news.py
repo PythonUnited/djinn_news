@@ -81,7 +81,7 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
         required=False,
         widget=ImageWidget(
             attrs={
-                'size': 'news_home_list',
+                'size': 'upload_widget_feed',
                 'attachment_type': 'djinn_contenttypes.ImgAttachment',
                 }
         )
