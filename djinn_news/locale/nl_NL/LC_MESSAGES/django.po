@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: djinn_news\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-23 17:57+0200\n"
+"POT-Creation-Date: 2019-10-24 17:57+0200\n"
 "PO-Revision-Date: 2015-01-21 15:45+0100\n"
 "Last-Translator:   <bouma@egoactive.com>\n"
 "Language-Team: nl_NL <support@pythonunited.com>\n"
@@ -139,7 +139,8 @@ msgid ""
 "Part of the image_feed to use in the rss-feed. Upload or change home_image, "
 "click 'save and edit again' and then you can select a region to use in the "
 "rss feed."
-msgstr "Uitsnede van de afbeelding zoals die voor infoschermen gebruikt moet worden."
+msgstr ""
+"Uitsnede van de afbeelding zoals die voor infoschermen gebruikt moet worden."
 
 #: models/news.py:48
 msgid "Foto uitsnede"
@@ -185,6 +186,10 @@ msgstr ""
 
 #: templates/djinn_news/news_edit.html:76
 msgid "infoscherm voorbeeld"
+msgstr ""
+
+#: templates/djinn_news/news_edit.html:80
+msgid "nog niet beschikbaar"
 msgstr ""
 
 #: templates/djinn_news/news_overview_item.html:31

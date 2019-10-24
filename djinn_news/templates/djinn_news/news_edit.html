@@ -74,7 +74,11 @@
 
         <div class="control-group">
             <label class="control-label">{% trans "infoscherm voorbeeld" %}</label>
-            <iframe width="600" height="400" src="{% url 'djinn_contenttypes_share' form.instance.ct_name form.instance.id %}" frameborder=0 name="feed_preview" id="feed_preview_id">
+            {% if form.instance.id %}
+                <iframe width="600" height="400" src="{% url 'djinn_contenttypes_preview' form.instance.ct_name form.instance.id %}" frameborder=0 name="feed_preview" id="feed_preview_id">
+            {% else %}
+                <p class="warning">{% trans "nog niet beschikbaar" %}</p>
+            {% endif %}
             </iframe>
         </div>
         </div>
