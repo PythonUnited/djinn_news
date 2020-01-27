@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from djinn_contenttypes.forms.crop import DjinnCroppingMixin
+from djinn_contenttypes.models.feed import DESCR_FEED_MAX_LENGTH
 from djinn_forms.widgets.attachment import AttachmentWidget
 from djinn_forms.widgets.image import ImageWidget
 from djinn_forms.fields.relate import RelateField
@@ -120,6 +121,8 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
         self.fields['show_images'].label = _("Show images")
         self.fields['comments_enabled'].label = _("Comments enabled")
         self.fields['is_sticky'].label = _("Important homepage item")
+        self.fields['description_feed'].widget.attrs.update(
+            {'data-maxchars': DESCR_FEED_MAX_LENGTH, 'class': 'full count_characters high'})
 
         if not self.user.has_perm("djinn_news.manage_news", obj=self.instance):
             del self.fields['highlight_from']
