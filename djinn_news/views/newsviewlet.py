@@ -43,6 +43,8 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
     @staticmethod
     def _news_published_filter(queryset, now):
         return queryset.filter(
+            is_tmp=False
+        ).filter(
             Q(publish_from__isnull=True) | Q(publish_from__lte=now)
         ).filter(
             Q(publish_to__isnull=True) | Q(publish_to__gte=now)
@@ -134,6 +136,8 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
                 evaluated_item_count += 1
 
                 news = hl.content_object
+                if news.is_tmp:
+                    continue
 
                 state = get_state(news)
                 if news:
