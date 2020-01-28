@@ -37,14 +37,14 @@ class LatestNewsFeed(DjinnFeed):
         newsviewlet = NewsViewlet()
         newsviewlet.kwargs = {
             'parentusergroup': self.parentusergroup_id,
-            'limit_override': 6,
+            'limit_override': 100,
             'for_rssfeed': True,
             'items_no_image': self.items_no_image,
             'items_with_image': self.items_with_image,
         }
 
         newslist = newsviewlet.news()
-        return newslist
+        return newslist[:6]
 
     def item_title(self, item):
 
