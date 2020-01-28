@@ -158,10 +158,11 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
                         if news.is_sticky and not self.sticky_item and not pug:
                             # sticky item presentation (large picture) only on homepage
                             self.sticky_item = news
-                            if self.for_rssfeed:
+                            if self.for_rssfeed and news.publish_for_feed:
                                 self.news_list.append(hl)
                         else:
-                            self.news_list.append(hl)
+                            if not self.for_rssfeed or news.publish_for_feed:
+                                self.news_list.append(hl)
 
                 if len(self.news_list) >= self.limit:
                     self.has_more = True
