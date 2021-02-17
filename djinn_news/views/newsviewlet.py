@@ -43,6 +43,8 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
     @staticmethod
     def _news_published_filter(queryset, now):
         return queryset.filter(
+            is_tmp=False
+        ).filter(
             Q(publish_from__isnull=True) | Q(publish_from__lte=now)
         ).filter(
             Q(publish_to__isnull=True) | Q(publish_to__gte=now)
@@ -57,6 +59,16 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
         ).filter(
             Q(date_to__isnull=True) | Q(date_to__gte=now)
         ).order_by("-date_from")
+
+    def get_queryset(self, queryset):
+        queryset = super().get_queryset(queryset)
+
+        if self.kwargs.get('items_with_image', False):
+            queryset = queryset.filter(home_image__isnull=False)
+        if self.kwargs.get('items_no_image', False):
+            queryset = queryset.filter(home_image__isnull=True)
+
+        return queryset
 
     def news(self):
 
@@ -98,14 +110,20 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
             else:
 
                 sticky_ids = NewsViewlet._news_published_filter(
-                    News.objects.all(), now).filter(is_sticky=True).values_list("id")
+                    News.objects.all(), now).filter(
+                    is_sticky=True).values_list("id")
+
                 highlighted_sticky = NewsViewlet._highlights_published(now).filter(
                     object_id__in=sticky_ids
                 )
                 highlighted_not_sticky = NewsViewlet._highlights_published(now).exclude(
                     object_id__in=sticky_ids
                 )
-                highlighted = [highlighted_sticky.first()]
+                highlighted = []
+                # bit nasty, but we do not want a list like this: [None]
+                first_highligted = highlighted_sticky.first()
+                if first_highligted:
+                    highlighted.append(first_highligted)
 
                 [highlighted.append(not_sticky) for not_sticky in
                  highlighted_not_sticky[:self.limit+1]]
@@ -118,29 +136,38 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
                 evaluated_item_count += 1
 
                 news = hl.content_object
-
+                if news.is_tmp:
+                    continue
 
                 state = get_state(news)
-                if news and state.name == "private":
-                    continue
-                if self.for_rssfeed and news and not news.publish_for_feed:
-                    # skip looking for rss items after 100 highights
-                    if evaluated_item_count < 100:
-                        # highlighted news items die niet rss-feed enabled zijn
-                        # sowieso niet opnemen in de lijst.
+                if news:
+                    if state.name == "private":
+                        continue
+                    if self.kwargs.get('items_with_image', False) and not news.home_image:
+                        continue
+                    if self.kwargs.get('items_no_image', False) and news.home_image:
                         continue
 
-                if news and (not news.publish_from or news.publish_from <= now) and \
-                        (not news.publish_to or news.publish_to > now) and \
-                        news.title:
+                    if self.for_rssfeed and not news.publish_for_feed:
+                        # skip looking for rss items after 100 highights
+                        if evaluated_item_count < 100:
+                            # highlighted news items die niet rss-feed enabled zijn
+                            # sowieso niet opnemen in de lijst.
+                            continue
 
-                    if news.is_sticky and not self.sticky_item and not pug:
-                        # sticky item presentation (large picture) only on homepage
-                        self.sticky_item = news
-                        if self.for_rssfeed:
-                            self.news_list.append(hl)
-                    else:
-                        self.news_list.append(hl)
+                    if (not news.publish_from or news.publish_from <= now) and \
+                            (not news.publish_to or news.publish_to > now) and \
+                            news.title:
+
+                        if news.is_sticky and not self.sticky_item and not pug:
+                            # sticky item presentation (large picture) only on homepage
+                            self.sticky_item = news
+                            if self.for_rssfeed and news.publish_for_feed:
+                                self.news_list.append(hl)
+                        else:
+                            if not self.for_rssfeed or news.publish_for_feed:
+                                self.news_list.append(hl)
+
                 if len(self.news_list) >= self.limit:
                     self.has_more = True
                     if self.sticky_item:

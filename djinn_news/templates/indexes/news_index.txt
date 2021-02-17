@@ -1,2 +1,5 @@
 {{ object.title }}
 {{ object.text }}
+{% for kw in object.keywordslist %}
+    {{ kw|default:"" }}
+{% endfor %}

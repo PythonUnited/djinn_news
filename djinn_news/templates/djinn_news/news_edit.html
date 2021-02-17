@@ -1,6 +1,7 @@
 {% extends "djinn_contenttypes/base_edit.html" %}
 
 {% load i18n bootstrap auth_tags %}
+{% load pusimpletext_tags %}
 
 {% block formfields %}
 
@@ -19,7 +20,7 @@
 <fieldset id="advanced">
 
   <section class="control-group" id="settings">
-    <h3>{% trans "Other settings" %}</h3>
+    <label class="control-label">{% trans "Other settings" %}</label>
     {{ form.comments_enabled|bootstrap }}
     {{ form.show_images|bootstrap }}
   </section>
@@ -27,12 +28,12 @@
   {{ form.owner|bootstrap }}
 
   <section class="control-group">
-    <h3>{% trans "Display" %}</h3>
+    <label class="control-label">{% trans "Display" %}</label>
     {{ form.state|bootstrap }}
   </section>
 
   <section class="control-group" id="publishing">
-    <h3>{% trans "Publishing" %}</h3>
+    <label class="control-label">{% trans "Publishing" %}</label>
     {{ form.publish_from|bootstrap }}
     {{ form.publish_to|bootstrap }}
     {{ form.remove_after_publish_to|bootstrap }}
@@ -45,11 +46,42 @@
     {% endifpermission %}
 
     {% ifpermission None request.user "auth.manage_feeds" %}
-    <h3>{% trans "Weergave op infoscherm(en)" %}</h3>
     <div><br></div>
-    <div>
+    <div class="control-group">
+        <label class="control-label">{% trans "Weergave op infoscherm(en)" %}</label>
+        <br>
         {{ form.publish_for_feed|bootstrap }}
+        <div class="feed-options{% if not form.instance.publish_for_feed %} hide{% endif %}">
         {{ form.description_feed|bootstrap }}
+
+        {{ form.extra_media }}
+        {{ form.image_feed_hidden }}
+        {{ form.image_feed|bootstrap }}
+        {% if form.instance.feedimg_too_small %}
+            <p class="warning">{% trans "Opgeslagen afbeelding is te klein. Moet minimaal 1920x500px zijn." %}</p>
+        {% endif %}
+        {{ form.image_feed_crop|bootstrap }}
+        {% if form.instance.feedimg_selection_too_small %}
+            <p class="warning">{% trans "Selectie uit de afbeelding is eigenlijk te klein. Moet minimaal 1920x500px zijn." %}</p>
+        {% endif %}
+        <script>
+            $(document).ready(function() {
+                image_cropping.init();
+            });
+        </script>
+
+        {{ form.use_default_image|bootstrap }}
+
+        <div class="control-group">
+            <label class="control-label">{% trans "infoscherm voorbeeld" %}</label>
+            {% if form.instance.id %}
+                <iframe width="600" height="400" src="{% url 'djinn_contenttypes_preview' form.instance.ct_name form.instance.id %}" frameborder=0 name="feed_preview" id="feed_preview_id">
+            {% else %}
+                <p class="warning">{% trans "nog niet beschikbaar" %}</p>
+            {% endif %}
+            </iframe>
+        </div>
+        </div>
     </div>
     {% endifpermission %}
 

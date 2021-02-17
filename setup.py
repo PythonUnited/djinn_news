@@ -11,7 +11,9 @@ requires = [
     'pgintranet',
     'djinn_forms',
     'djinn_likes',
-    'djinn_contenttypes>=1.4.9'
+    'djinn_contenttypes>=1.4.9',
+    'easy-thumbnails',
+    'django-image-cropping',
     ]
 
 setup(name='djinn_news',
