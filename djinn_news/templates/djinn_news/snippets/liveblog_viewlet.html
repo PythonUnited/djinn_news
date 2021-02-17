@@ -1,0 +1,88 @@
+{% load i18n humanize auth_tags djinn_contenttypes contentblock_tags %}
+
+<div class="widget">
+
+<section id="aside-liveblogs" class="editmode">
+
+  <header>
+      <h1>{% if view.parentusergroup %}{% trans "Liveblogs in this group" %}{% else %}{% trans "Liveblog(s)" %}{% endif %}</h1>
+
+      <span class="controls">
+
+      {% with view.groupprofile as permission_object %}
+          {#      add liveblog to group or to homepage (if view.parentusergroup is empty) #}
+          {% ifpermission permission_object|default:"" request.user 'djinn_news.add_liveblog' %}
+            <a href="{% if view.parentusergroup %}{% url 'djinn_news_add_liveblog' view.parentusergroup %}{% else %}{% url 'djinn_news_add_liveblog' %}{% endif %}"
+               data-toggle="tooltip"
+               class="add-no-inline"
+               title="{% trans 'Add liveblog to group' %}"
+               >
+              <i class="icon-plus"></i>
+            </a>
+          {% endifpermission %}
+      {% endwith %}
+      </span>
+  </header>
+
+  {% if view.liveblogs|length > 0 %}
+
+  <ul class="simple-list simple-list-thumbs">
+    {% for highlight in view.liveblogs %}
+    <li>
+        {# BEGIN liveblog titel regel met op rechts een 'Update toevoegen' (+)-icoontje #}
+    <div class="clearfix">
+        <div class="simple-list-thumb-container">
+            <div class="simple-list-thumb" style="background-image: url('{% fetch_image_url highlight.content_object.home_image 'liveblog_home_list' 'liveblog' %}')">
+                <span class="text_1V9MaG2L">liveblog</span> <!-- rode badge -->
+            </div>
+        </div>
+        <div>
+            <a href="{% url 'djinn_news_view_liveblog' highlight.content_object.id highlight.content_object.slug %}" class="float-left">
+                {{ highlight.content_object.title|abbreviate:50 }}
+            </a>
+
+            {#      add liveblog to group or to homepage (if view.parentusergroup is empty) #}
+            {% ifpermission highlight.content_object request.user 'djinn_news.add_liveblogupdate' %}
+            <a href="{% url 'djinn_news_add_liveblogupdate' highlight.content_object.id %}"
+               data-toggle="tooltip"
+               class="add-no-inline float-right"
+               title="{% blocktrans %}Add update to {% endblocktrans %}{{ highlight.content_object.title|abbreviate:50 }}"
+               >
+              <i class="icon-plus"></i>
+            </a>
+            {% endifpermission %}
+        </div>
+    </div>
+      {# END liveblog titel regel met op rechts een 'Update toevoegen' (+)-icoontje #}
+      <p>{{ highlight.content_object.text|safe|abbreviate:100 }}</p>
+
+        <ul>
+        {% for liveblogupdate in highlight.content_object.published_liveblogupdates.all|slice:":3" %}
+          {% include 'djinn_news/snippets/liveblogupdate_short.html' %}
+        {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+  </ul>
+
+  {% if view.show_more %}
+  <a href="{% url 'haystack_search' %}?meta_type=liveblog">
+    {% trans "All liveblogs" %}
+  </a>
+  {% endif %}
+
+  {% else %}
+  
+  <div class="alert alert-info" id="news-alert">
+    {% if not view.parentusergroup %}
+        {% trans "No liveblog" %}
+    {% else %}
+        {% trans "No liveblog in this group" %}
+    {% endif %}
+  </div>
+  
+  {% endif %}
+  
+</section>
+
+</div>

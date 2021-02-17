@@ -1,0 +1,152 @@
+{% load i18n auth_tags contentblock_tags %}
+<li id="liveblogupdate-{{ liveblog.id }}" class="liveblog__update col-max-9 js-liveblog-update">
+    <div class="liveblog__update__time meta">
+    <time datetime="2020-12-01T18:46:18+0100" class="js-update-time">4 uur geleden</time>
+    </div>
+
+<h2 class="liveblogupdate_title js-liveblog-update-title">
+    {{ liveblogupdate.title}}
+    {% ifpermission liveblogupdate request.user 'djinn_news.change_liveblogupdate' %}
+    <a href="{% url 'djinn_news_edit_liveblogupdate' liveblogupdate.id %}"
+       data-toggle="tooltip"
+       class="add-no-inline btn"
+       title="{% blocktrans %}Edit update{% endblocktrans %}"
+       >
+      <i class="icon-edit"></i>
+      {% trans "edit" %}
+    </a>
+    {% endifpermission %}
+</h2>
+
+    <div class="liveblog__elements">
+        <p>
+            {{ liveblogupdate.text|safe }}
+
+        </p>
+        <div class="block_largecenter block_slider ">
+            <div data-slider="default" class="slider slider-default rsAutoHeight rsHor rsWithThumbs rsWithThumbsHor">
+                <div class="rsOverflow" style="cursor: grab; width: 670.8px; height: 377.333px; transition: height 600ms ease-in-out 0s;">
+                    <div class="rsContainer" style="transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
+                        {% for lbu_image in liveblogupdate.images.all %}
+                        <div style="left: 0px;" class="rsSlide rsActiveSlide">
+                            <div class="slider_item slider_image" style="visibility: visible; opacity: 1; transition: opacity 400ms ease-in-out 0s;">
+                                <figure class="">
+{#                                    <img src="https://cdn.nos.nl/image/2020/12/01/696092/xxl.jpg" alt="" class="media-full">#}
+                                    <img src="{% fetch_image_url lbu_image 'display' 'liveblogupdate' %}" alt="" class="media-full">
+                                </figure>
+                                <div class="media_caption media_caption-slider ">
+                                    <div class="caption_content">
+                                        <span class="slider_count">{{ forloop.counter }}/{{ liveblogupdate.images.count }}</span>
+                                        <span class="caption_source">ANP / Hollandse Hoogte</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+{#                        <div style="left: 680.8px;" class="rsSlide ">#}
+{#                            <div class="slider_item slider_image">#}
+{#                                <figure class="">#}
+{#                                    <img src="https://cdn.nos.nl/image/2020/12/01/696093/xxl.jpg" alt="" class="media-full">#}
+{##}
+{#                                </figure>#}
+{#                                <div class="media_caption media_caption-slider ">#}
+{#                                    <div class="caption_content">#}
+{#                                        <span class="slider_count">2/4</span>#}
+{#                                        <span class="caption_source">#}
+{#                                          ANP / Hollandse Hoogte#}
+{#                                        </span>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div style="left: 1361.6px;" class="rsSlide ">#}
+{#                            <div class="slider_item slider_image">#}
+{#                                <figure class="">#}
+{#                                    <img src="https://cdn.nos.nl/image/2020/12/01/696094/xxl.jpg" alt="" class="media-full">#}
+{#                                </figure>#}
+{#                                <div class="media_caption media_caption-slider ">#}
+{#                                    <div class="caption_content">#}
+{#                                        <span class="slider_count">3/4</span>#}
+{#                                        <span class="caption_source">#}
+{#                                              ANP / Hollandse Hoogte#}
+{#                                        </span>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div style="left: 2042.4px;" class="rsSlide ">#}
+{#                            <div class="slider_item slider_image">#}
+{#                                <figure class="">#}
+{#                                    <img src="https://cdn.nos.nl/image/2020/12/01/696095/xxl.jpg" alt="" class="media-full">#}
+{#                                </figure>#}
+{#                                <div class="media_caption media_caption-slider ">#}
+{#                                    <div class="caption_content">#}
+{#                                        <span class="slider_count">4/4</span>#}
+{#                                        <span class="caption_source">#}
+{#                                              ANP / Hollandse Hoogte#}
+{#                                        </span>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+                    </div>
+                </div>
+                <div class="rsNav rsThumbs rsThumbsHor">
+                    <div class="rsThumbsContainer" style="transition-property: transform; transform: translate3d(0px, 0px, 0px); width: 568px;">
+                        {% for lbu_image in liveblogupdate.images.all %}
+                        <div style="margin-right:2px;" class="rsNavItem rsThumb rsNavSelected">
+                            <div class="rsTmb">
+{#                                <img src="https://cdn.nos.nl/image/2020/12/01/696092/s.jpg" alt="" class="media-full">#}
+                                <img src="{% fetch_image_url lbu_image 'statusupdate_inline' 'liveblogupdate' %}" alt="" class="media-full">
+                            </div>
+                        </div>
+                        {% endfor %}
+{#                        <div style="margin-right:2px;" class="rsNavItem rsThumb">#}
+{#                            <div class="rsTmb">#}
+{#                                <img src="https://cdn.nos.nl/image/2020/12/01/696093/s.jpg" alt="" class="media-full">#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div style="margin-right:2px;" class="rsNavItem rsThumb">#}
+{#                            <div class="rsTmb">#}
+{#                                <img src="https://cdn.nos.nl/image/2020/12/01/696094/s.jpg" alt="" class="media-full">#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div style="margin-right:2px;" class="rsNavItem rsThumb">#}
+{#                            <div class="rsTmb">#}
+{#                                <img src="https://cdn.nos.nl/image/2020/12/01/696095/s.jpg" alt="" class="media-full">#}
+{#                            </div>#}
+{#                        </div>#}
+                    </div>
+                </div>
+                <div class="rsArrowWrapper">
+                    <div class="rsArrow rsArrowLeft rsArrowDisabled rsHidden" style="display: block;">
+                        <div class="rsArrowIcn"></div>
+                    </div>
+                    <div class="rsArrow rsArrowRight rsHidden" style="display: block;">
+                        <div class="rsArrowIcn"></div>
+                    </div>
+                </div>
+                <div style="clear:both; float: none;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="liveblog__update__share">
+        <ul class="share__list">
+            <li class="share__list__item">
+                <a href="https://twitter.com/share?text=Nieuwe%20extra%20grote%20testlocatie%20bij%20Schiphol&amp;url=https://nos.nl/liveblog/2358813-vaccins-vanaf-4-januari-beetje-prematuur-miljoen-vaccindoses-deze-maand-verwacht%23UPDATE-container-49396356&amp;via=NOS" class="share__link share__link--padded share__twitter link-grey" title="Deel op Twitter" target="_blank">
+                    <span class="icon-twitter"></span>
+                </a>
+            </li>
+            <li class="share__list__item">
+                <a href="https://www.facebook.com/sharer.php?u=https://nos.nl/liveblog/2358813-vaccins-vanaf-4-januari-beetje-prematuur-miljoen-vaccindoses-deze-maand-verwacht%23UPDATE-container-49396356" class="share__link share__link--padded share__facebook link-grey" title="Deel op Facebook" target="_blank">
+                    <span class="icon-facebook"></span>
+                </a>
+            </li>
+            <li class="share__list__item">
+                <a href="mailto:?body=https://nos.nl/liveblog/2358813-vaccins-vanaf-4-januari-beetje-prematuur-miljoen-vaccindoses-deze-maand-verwacht%23UPDATE-container-49396356&amp;subject=Nieuwe%20extra%20grote%20testlocatie%20bij%20Schiphol" class="share__link share__link--padded share__mail link-grey" title="Delen via e-mail">
+                    <span class="icon-envelope"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</li>

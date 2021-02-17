@@ -1,0 +1,38 @@
+{% extends "djinn_contenttypes/base_detail.html" %}
+{% load i18n auth_tags djinn_contenttypes djinn_auth_tags %}
+
+{% block title %}{% title object %}
+    {% if_has_perm object request.user 'change' %}
+        <a href="{% url 'djinn_news_add_liveblogupdate' object.id %}"
+           data-toggle="tooltip"
+           class="add-no-inline"
+           title="{% trans 'Add update' %}"
+           >
+          <i class="icon-plus"></i>+
+        </a>
+    {% endif_has_perm %}
+{% endblock %}
+
+{% block content %}
+    <section class="intro">
+      <p>{{ object.text|default:""|safe }}</p>
+    </section>
+
+    {% if object.show_images and object.home_image %}
+    <section id="images">
+        <div class="imgDisplay">
+            <img id="display-image" src="{{ object.home_image.get_display_url }}"/>
+        </div>
+    </section>
+    {% endif %}
+
+    <ul>
+    {% for liveblogupdate in object.published_liveblogupdates.all %}
+        {% include 'djinn_news/snippets/liveblogupdate.html' %}
+{#    <section class="intro">#}
+{#        <p>{{ liveblogupdate.text|default:""|safe }}</p>#}
+{#        <p>Hier de liveblog updates met een auto-aanvullen ding</p>#}
+{#    </section>#}
+    {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "djinn_news/liveblog_edit.html" %}
+{% load i18n %}
+
+{% block metainfo %}{% endblock %}
+
+{% block title %}
+    {% with ct_label=view.ct_label %}
+    {% if object and not object.is_tmp %}
+    {% blocktrans %}Edit {{ ct_label }}{% endblocktrans %}
+    {% else %}
+        {% if object.parentusergroup %}
+            {% with object.parentusergroup.profile.name|safe as groupprofilename %}
+            {% blocktrans %}Add {{ ct_label }} to {{ groupprofilename }}{% endblocktrans %}
+            {% endwith %}
+        {% else %}
+            {% blocktrans %}Add {{ ct_label }}{% endblocktrans %}
+        {% endif %}
+    {% endif %}
+    {% endwith %}
+{% endblock %}
