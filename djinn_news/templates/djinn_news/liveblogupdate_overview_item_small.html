@@ -1,0 +1,18 @@
+{% extends "pgcontent/base_ct_overview_item_small.html" %}
+
+{% load i18n %}
+{% load contentblock_tags %}
+
+{% block profiletype %}{% trans "Liveblogupdate" %}{% endblock %}
+
+{% block title %}
+<a href="{% url 'djinn_news_view_liveblog' pk=modelinstance.liveblog_id slug=modelinstance.liveblog.slug %}#liveblogupdate-{{ modelinstance.id }}">
+  {{ modelinstance.title|truncatechars:80 }}
+</a>
+{% endblock %}
+
+{% block details %}
+    <p>
+        <span class="red_badge">Liveblog</span> {{ modelinstance.liveblog }}
+    </p>
+{% endblock %}

@@ -1,7 +1,7 @@
-{% load i18n auth_tags contentblock_tags %}
-<li id="liveblogupdate-{{ liveblog.id }}" class="liveblog__update col-max-9 js-liveblog-update">
+{% load i18n auth_tags contentblock_tags humanize %}
+<li id="liveblogupdate-{{ liveblogupdate.id }}" class="liveblog__update col-max-9 js-liveblog-update">
     <div class="liveblog__update__time meta">
-    <time datetime="2020-12-01T18:46:18+0100" class="js-update-time">4 uur geleden</time>
+    <time datetime="{{ liveblogupdate.changed }}" class="js-update-time">{{ liveblogupdate.changed|naturaltime }}</time>
     </div>
 
 <h2 class="liveblogupdate_title js-liveblog-update-title">

@@ -33,12 +33,12 @@
     <div class="clearfix">
         <div class="simple-list-thumb-container">
             <div class="simple-list-thumb" style="background-image: url('{% fetch_image_url highlight.content_object.home_image 'liveblog_home_list' 'liveblog' %}')">
-                <span class="text_1V9MaG2L">liveblog</span> <!-- rode badge -->
+            <span class="red_badge as_badge">Liveblog</span> <!-- rode badge -->
             </div>
         </div>
         <div>
             <a href="{% url 'djinn_news_view_liveblog' highlight.content_object.id highlight.content_object.slug %}" class="float-left">
-                {{ highlight.content_object.title|abbreviate:50 }}
+                (dit is een liveblog){{ highlight.content_object.title|abbreviate:50 }}
             </a>
 
             {#      add liveblog to group or to homepage (if view.parentusergroup is empty) #}
@@ -56,11 +56,11 @@
       {# END liveblog titel regel met op rechts een 'Update toevoegen' (+)-icoontje #}
       <p>{{ highlight.content_object.text|safe|abbreviate:100 }}</p>
 
-        <ul>
+        <div>
         {% for liveblogupdate in highlight.content_object.published_liveblogupdates.all|slice:":3" %}
           {% include 'djinn_news/snippets/liveblogupdate_short.html' %}
         {% endfor %}
-        </ul>
+        </div>
     </li>
     {% endfor %}
   </ul>
