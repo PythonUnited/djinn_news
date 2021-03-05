@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
 from django.urls import include, path
 
 from djinn_news.feed import LatestNewsFeed
@@ -44,31 +45,32 @@ _urlpatterns = [
 _urlpatterns_liveblog = [
 
     url(r"^$",
-        LiveBlogViewlet.as_view(),
+        login_required(LiveBlogViewlet.as_view()),
         name="djinn_news_liveblog"),
 
     url(r"^(?P<parentusergroup>[\d]*)/?$",
-        LiveBlogViewlet.as_view(),
+        login_required(LiveBlogViewlet.as_view()),
         name="djinn_news_liveblog_pug"),
 
     url(r"^add/liveblogupdate/(?P<liveblog>[\d]*)/$",
-        LiveBlogUpdateCreateView.as_view(
-            model=LiveBlogUpdate, form_class=liveblogupdate_form, fk_fields=["liveblog"]),
+        login_required(LiveBlogUpdateCreateView.as_view(
+            model=LiveBlogUpdate, form_class=liveblogupdate_form, fk_fields=["liveblog"])),
         name="djinn_news_add_liveblogupdate"),
 
     url(r"^edit/liveblogupdate/(?P<pk>[\d]*)/$",
-        LiveBlogUpdateUpdateView.as_view(
-            model=LiveBlogUpdate, form_class=liveblogupdate_form,),
+        login_required(LiveBlogUpdateUpdateView.as_view(
+            model=LiveBlogUpdate, form_class=liveblogupdate_form,)),
         name="djinn_news_edit_liveblogupdate"),
 
     url(r"^view/liveblogupdate/(?P<pk>[\d]*)/(?P<slug>[\-\d\w]+)/$",
-        DetailView.as_view(
-            model=LiveBlogUpdate),
+        login_required(DetailView.as_view(
+            model=LiveBlogUpdate)),
         name="djinn_news_view_liveblogupdate"),
 
     url(r"^add/(?P<parentusergroup>[\d]*)/$",
-        CreateView.as_view(model=LiveBlog, form_class=liveblog_form,
-                           fk_fields=["parentusergroup"]),
+        login_required(CreateView.as_view(
+            model=LiveBlog, form_class=liveblog_form,
+            fk_fields=["parentusergroup"])),
         name="djinn_news_add_liveblog"),
 
 ]
