@@ -1,5 +1,5 @@
 {% extends "djinn_contenttypes/base_detail_nd.html" %}
-{% load i18n auth_tags djinn_contenttypes djinn_auth_tags %}
+{% load i18n auth_tags djinn_contenttypes djinn_auth_tags contentblock_tags search_tags %}
 
 {% block title %}{% title object %}
     {% if_has_perm object request.user 'change' %}
@@ -35,4 +35,17 @@
 {#    </section>#}
     {% endfor %}
     </ul>
+{% endblock %}
+
+
+{% block right-pane-extra %}
+
+    {% showuserkeywords object %}
+
+    {% connected_items object "Kijk ook eens bij" %}
+
+    {% relatedcontent object "Misschien interessant" "article" %}
+
+    {% relatedcontent object "En verder nog op het intranet" "userprofile groupprofile product" %}
+
 {% endblock %}

@@ -64,7 +64,9 @@ CTRegistry.register(
      "app": "djinn_news",
      "group_add": True,
      "allow_saveandedit": True,
-     "label": _("LiveBlog")}
+     "label": _("LiveBlog"),
+     "name_plural": _('Liveblogs')
+     }
 )
 
 
