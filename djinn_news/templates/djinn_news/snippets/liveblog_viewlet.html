@@ -26,41 +26,44 @@
 
   {% if view.liveblogs|length > 0 %}
 
-  <ul class="simple-list simple-list-thumbs">
+  <ul class="simple-list simple-list-thumbs liveblog-list">
     {% for highlight in view.liveblogs %}
     <li>
         {# BEGIN liveblog titel regel met op rechts een 'Update toevoegen' (+)-icoontje #}
     <div class="clearfix">
         <div class="simple-list-thumb-container">
             <div class="simple-list-thumb" style="background-image: url('{% fetch_image_url highlight.content_object.home_image 'liveblog_home_list' 'liveblog' %}')">
-            <span class="red_badge as_badge">Liveblog</span> <!-- rode badge -->
             </div>
-        </div>
-        <div>
+            <span class="red_badge as_badge">Liveblog</span>
+            <h2>
             <a href="{% url 'djinn_news_view_liveblog' highlight.content_object.id highlight.content_object.slug %}" class="float-left">
-                (dit is een liveblog){{ highlight.content_object.title|abbreviate:50 }}
+                {{ highlight.content_object.title|abbreviate:50 }}
             </a>
-
-            {#      add liveblog to group or to homepage (if view.parentusergroup is empty) #}
-            {% ifpermission highlight.content_object request.user 'djinn_news.add_liveblogupdate' %}
-            <a href="{% url 'djinn_news_add_liveblogupdate' highlight.content_object.id %}"
-               data-toggle="tooltip"
-               class="add-no-inline float-right"
-               title="{% blocktrans %}Add update to {% endblocktrans %}{{ highlight.content_object.title|abbreviate:50 }}"
-               >
-              <i class="icon-plus"></i>
-            </a>
-            {% endifpermission %}
+            </h2>
         </div>
     </div>
       {# END liveblog titel regel met op rechts een 'Update toevoegen' (+)-icoontje #}
       <p>{{ highlight.content_object.text|safe|abbreviate:100 }}</p>
+    <div style="position: relative">
+    {#                  add liveblog to group or to homepage (if view.parentusergroup is empty)#}
 
-        <div>
+            {% ifpermission highlight.content_object request.user 'djinn_news.add_liveblogupdate' %}
+            <div style="position:absolute;right: 0">
+
+            <a href="{% url 'djinn_news_add_liveblogupdate' highlight.content_object.id %}"
+               data-toggle="tooltip"
+               class="add-no-inline"
+               title="{% blocktrans %}Add update to {% endblocktrans %}{{ highlight.content_object.title|abbreviate:50 }}"
+               >
+              <i class="icon-plus"></i>
+            </a>
+            </div>
+            {% endifpermission %}
+
         {% for liveblogupdate in highlight.content_object.published_liveblogupdates.all|slice:":3" %}
           {% include 'djinn_news/snippets/liveblogupdate_short.html' %}
         {% endfor %}
-        </div>
+      </div>
     </li>
     {% endfor %}
   </ul>

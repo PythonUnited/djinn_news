@@ -2,9 +2,8 @@
 {% load i18n auth_tags djinn_contenttypes djinn_auth_tags contentblock_tags search_tags %}
 
 {% block title %}{% title object %}{% endblock %}
-{% block header-actions %}
+{% block actions %}
     {% if_has_perm object request.user 'change' %}
-        <span class="controls">
         <a href="{% url 'djinn_news_add_liveblogupdate' object.id %}"
 {#           data-toggle="tooltip"#}
            class="add-inline"
@@ -12,13 +11,26 @@
            >
           <i class="icon-plus"></i>
         </a>
-        </span>
+        <a href="{% url 'djinn_news_add_liveblogupdate' object.id %}">
+          TEST
+        </a>
         {% endif_has_perm %}
+
 {% endblock %}
+
+{##}
+{##}
+{#        <a class="add-inline" #}
+{#           data-toggle="tooltip" title="Aankondiging toevoegen" data-pu_callback="djinn.hide_announcements_alert" target="#announcementlist" data-pu_targetbehavior="prepend" href="/announcements/add/announcement">#}
+{#          <i class="icon-plus"></i>#}
+{#        </a>#}
+{##}
+{#      </span>#}
 
 
 
 {% block content %}
+
     <p>{{ object.text|default:""|safe }}</p>
     <div class="liveblog-detail">
         {% for liveblogupdate in object.published_liveblogupdates.all %}
