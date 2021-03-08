@@ -1,5 +1,12 @@
 {% load i18n humanize auth_tags djinn_contenttypes contentblock_tags %}
 
+{#<script language="javascript">#}
+{#$(function(){#}
+{#  $(".js-get-articles").click(function(){#}
+{#    $(".js-add-articles").load("/includes/about-info.html");#}
+{#  });#}
+{#});#}
+{#</script>#}
 <div class="widget">
 
 <section id="aside-liveblogs" class="editmode">
@@ -60,6 +67,14 @@
             </div>
             {% endifpermission %}
 
+{#            <script language="javascript">#}
+{#            setInterval(function(){#}
+{#                  $("#get-article-{{ highlight.id }}").load({% url 'djinn_news_get_button' %});#}
+{#             },5000);#}
+{#            </script>#}
+        <div id="get-article-{{ highlight.id }}"></div>
+{#        <button class="btn btn-mini js-get-articles"><span>4</span> nieuwe berichten</button>#}
+        <div class="js-add-articles"></div>
         {% for liveblogupdate in highlight.content_object.published_liveblogupdates.all|slice:":3" %}
           {% include 'djinn_news/snippets/liveblogupdate_short.html' %}
         {% endfor %}

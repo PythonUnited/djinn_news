@@ -7,7 +7,7 @@
         <span class="controls">
         <a href="{% url 'djinn_news_add_liveblogupdate' object.id %}"
 {#           data-toggle="tooltip"#}
-           class="add-inline"
+           class="add-no-inline"
            title="{% trans 'Add update' %}"
            >
           <i class="icon-plus"></i>
@@ -25,6 +25,7 @@
         <article class="liveblogupdate">
             <time datetime="{{ liveblogupdate.publishing_date }}">{{ liveblogupdate.publishing_date|timesince }}</time>
             <h3>{{ liveblogupdate.title}}</h3>
+                <a href="{% url 'djinn_news_edit_liveblogupdate' liveblogupdate.id %}">Update</a>
             {{ liveblogupdate.text|safe }}
             {% for lbu_image in liveblogupdate.images.all %}
                 <img src="{% fetch_image_url lbu_image 'display' 'liveblogupdate' %}" class="media-full">

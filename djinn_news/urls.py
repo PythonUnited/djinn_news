@@ -6,7 +6,7 @@ from djinn_news.feed import LatestNewsFeed
 from .models import LiveBlog, LiveBlogUpdate
 from .models.news import News
 from .views.liveblogupdate import LiveBlogUpdateCreateView, \
-    LiveBlogUpdateUpdateView
+    LiveBlogUpdateUpdateView, get_new_update_button
 from .views.liveblogviewlet import LiveBlogViewlet
 from .views.newsviewlet import NewsViewlet
 from djinn_contenttypes.views.base import CreateView, UpdateView, DetailView
@@ -72,6 +72,10 @@ _urlpatterns_liveblog = [
             model=LiveBlog, form_class=liveblog_form,
             fk_fields=["parentusergroup"])),
         name="djinn_news_add_liveblog"),
+
+    # url(r"^/liveblogupdate/refresh/$",
+    #     login_required(get_new_update_button),
+    #     name="djinn_news_get_button"),
 
 ]
 

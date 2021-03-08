@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.urls import reverse
 
 from djinn_contenttypes.views.base import CreateView, UpdateView
@@ -21,3 +22,10 @@ class LiveBlogUpdateUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse("djinn_news_view_liveblog", args=[self.object.liveblog_id, self.object.liveblog.slug])
+
+
+
+def get_new_update_button(request):
+    text = """<button class="btn btn-mini js-get-articles">
+    <span>4</span> nieuwe berichten</button>"""
+    return HttpResponse(text)
