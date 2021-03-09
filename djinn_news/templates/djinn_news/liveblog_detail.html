@@ -20,13 +20,16 @@
 
 {% block content %}
     <p>{{ object.text|default:""|safe }}</p>
+    <div id="js-new-articles-button">
+    </div>
     <div class="liveblog-detail">
         {% for liveblogupdate in object.published_liveblogupdates.all %}
         <article class="liveblogupdate">
-            <time datetime="{{ liveblogupdate.publishing_date }}">{{ liveblogupdate.publishing_date|timesince }}</time>
+            <time timestamp="{{ liveblogupdate.created_as_isoformat }}" datetime="{{ liveblogupdate.publishing_date }}">{{ liveblogupdate.publishing_date|timesince }}</time>
             <h3>{{ liveblogupdate.title}}</h3>
                 <a href="{% url 'djinn_news_edit_liveblogupdate' liveblogupdate.id %}">Update</a>
             {{ liveblogupdate.text|safe }}
+
             {% for lbu_image in liveblogupdate.images.all %}
                 <img src="{% fetch_image_url lbu_image 'display' 'liveblogupdate' %}" class="media-full">
             {% endfor %}
@@ -64,5 +67,32 @@
     {% relatedcontent object "Misschien interessant" "article" %}
 
     {% relatedcontent object "En verder nog op het intranet" "userprofile groupprofile product" %}
+
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        function refresh() {
+            var newest_ts = $(".liveblog-detail .liveblogupdate").find("time").attr("timestamp");
+            var URL = '{% url "djinn_news_liveblogupdatecount_ajax" object.id %}?newerthan_ts=' + newest_ts;
+            $.ajax({
+                url: URL,
+                success: function(data) {
+                    $('#js-new-articles-button').html(data);
+                }
+            });
+        };
+        $(document).ready(function(){
+            /* nieuwe entries laden */
+            {# $('.js-get-updates').click(function(){#}
+            {# #}
+                {#$('.js-new-articles').load(URL).fadeIn(600000);#}
+            {#    location.reload();#}
+            {# }); #}
+            refresh();
+            setInterval("refresh()", 10000);
+        })
+        //
+    </script>
 
 {% endblock %}

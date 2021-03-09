@@ -190,3 +190,5 @@ class LiveBlogViewlet(AcceptMixin, FeedViewMixin, TemplateView):
         if not self.liveblog_list:
             self.liveblogs()
         return self.has_more
+
+

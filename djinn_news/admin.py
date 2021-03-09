@@ -38,3 +38,10 @@ class LiveBlogAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
 admin.site.register(LiveBlog, LiveBlogAdmin)
 
+
+class LiveBlogUpdateAdmin(admin.ModelAdmin):
+    list_display = ['liveblog', 'title']
+    search_fields = ['title', 'liveblog__title', 'liveblog__changed_by__userprofile__name', 'text']
+    raw_id_fields = ['changed_by', 'creator']
+
+admin.site.register(LiveBlogUpdate, LiveBlogUpdateAdmin)
