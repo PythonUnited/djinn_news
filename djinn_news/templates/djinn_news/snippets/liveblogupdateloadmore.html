@@ -1,0 +1,43 @@
+{% load djinn_auth_tags contentblock_tags %}
+
+{% with updates_per_page_slice=":10" updates_per_page=10 olderthan_ts=liveblogupdates_qs.9.created_as_isoformat %}
+
+{% for liveblogupdate in liveblogupdates_qs|slice:updates_per_page_slice %}
+<article class="liveblogupdate">
+    <time timestamp="{{ liveblogupdate.created_as_isoformat }}" datetime="{{ liveblogupdate.publishing_date }}">{{ liveblogupdate.publishing_date|timesince }}</time>
+    <h3>{{ liveblogupdate.title}}</h3>
+        {% if_has_perm liveblogupdate request.user 'change' %}
+            <a href="{% url 'djinn_news_edit_liveblogupdate' liveblogupdate.id %}">Update</a>
+        {% endif_has_perm %}
+    {{ liveblogupdate.text|safe }}
+
+    {% for lbu_image in liveblogupdate.images.all %}
+        <img src="{% fetch_image_url lbu_image 'display' 'liveblogupdate' %}" class="media-full">
+    {% endfor %}
+</article>
+{% endfor %}
+
+{% if liveblogupdates_qs.count > updates_per_page %}
+<button class="btn btn-mini js-get-more">Laad oudere liveblog-updates
+</button>
+    <script>
+        $(document).ready(function(){
+            /* oudere entries laden */
+             $('.js-get-more').click(function(e){
+                var tgt = e.currentTarget;
+                var URL = '{% url "djinn_news_liveblogupdateloadmore_ajax" object.id %}?olderthan_ts={{ olderthan_ts }}';
+
+                $.ajax({
+                    url: URL,
+                    success: function(data) {
+                        $(tgt).replaceWith(data);
+                    }
+                });
+             });
+        })
+        //
+
+    </script>
+{% endif %}
+
+{% endwith %}

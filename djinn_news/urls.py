@@ -6,7 +6,8 @@ from djinn_news.feed import LatestNewsFeed
 from .models import LiveBlog, LiveBlogUpdate
 from .models.news import News
 from .views.liveblogupdate import LiveBlogUpdateCreateView, \
-    LiveBlogUpdateUpdateView, LiveBlogUpdateCountAjax
+    LiveBlogUpdateUpdateView, LiveBlogUpdateCountAjax, \
+    LiveBlogUpdateLoadMoreAjax
 from .views.liveblogviewlet import LiveBlogViewlet
 from .views.newsviewlet import NewsViewlet
 from djinn_contenttypes.views.base import CreateView, UpdateView, DetailView
@@ -78,6 +79,12 @@ _urlpatterns_liveblog = [
             content_type='text/plain'
         )),
         name="djinn_news_liveblogupdatecount_ajax"),
+
+    url(r"^view/liveblogupdateloadmore_ajax/(?P<pk>[\d]+)$",
+        login_required(LiveBlogUpdateLoadMoreAjax.as_view(
+            content_type='text/plain'
+        )),
+        name="djinn_news_liveblogupdateloadmore_ajax"),
 
 ]
 

@@ -23,18 +23,11 @@
     <div id="js-new-articles-button">
     </div>
     <div class="liveblog-detail">
-        {% for liveblogupdate in object.published_liveblogupdates.all %}
-        <article class="liveblogupdate">
-            <time timestamp="{{ liveblogupdate.created_as_isoformat }}" datetime="{{ liveblogupdate.publishing_date }}">{{ liveblogupdate.publishing_date|timesince }}</time>
-            <h3>{{ liveblogupdate.title}}</h3>
-                <a href="{% url 'djinn_news_edit_liveblogupdate' liveblogupdate.id %}">Update</a>
-            {{ liveblogupdate.text|safe }}
 
-            {% for lbu_image in liveblogupdate.images.all %}
-                <img src="{% fetch_image_url lbu_image 'display' 'liveblogupdate' %}" class="media-full">
-            {% endfor %}
-        </article>
-        {% endfor %}
+        {% with object.published_liveblogupdates.all as liveblogupdates_qs %}
+            {% include "djinn_news/snippets/liveblogupdateloadmore.html" %}
+        {% endwith %}
+
     </div>
 
 {#    {% if object.show_images and object.home_image %}#}
@@ -83,12 +76,7 @@
             });
         };
         $(document).ready(function(){
-            /* nieuwe entries laden */
-            {# $('.js-get-updates').click(function(){#}
-            {# #}
-                {#$('.js-new-articles').load(URL).fadeIn(600000);#}
-            {#    location.reload();#}
-            {# }); #}
+            /* check of er nieuwe liveblog-updates zijn en toon dan de laden-button */
             refresh();
             setInterval("refresh()", 10000);
         })
