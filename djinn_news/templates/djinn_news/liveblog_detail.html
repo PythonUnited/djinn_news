@@ -1,10 +1,20 @@
 {% extends "djinn_contenttypes/base_detail_nd.html" %}
 {% load i18n auth_tags djinn_contenttypes djinn_auth_tags contentblock_tags search_tags %}
 
-{% block title %}{% title object %}{% endblock %}
-{% block header-actions %}
-    {% if_has_perm object request.user 'change' %}
-        <span class="controls">
+{% block title %}{% endblock %}
+{% block header-actions %}{% endblock %}
+
+
+{% block content %}
+    <div class="liveblog-header">
+    <div class="simple-list-thumb" style="background-image: url('{% fetch_image_url object.home_image 'display' 'liveblogupdate' %}')"></div>
+    <span class="red_badge as_badge">Liveblog</span>
+    <h2>{% title object %}</h2>
+    </div>
+    <div style="position: relative">
+        <p>{{ object.text|default:""|safe }}</p>
+        {% if_has_perm object request.user 'change' %}
+        <span class="controls" style="position: absolute;top: 0;right: 0">
         <a href="{% url 'djinn_news_add_liveblogupdate' object.id %}"
 {#           data-toggle="tooltip"#}
            class="add-no-inline"
@@ -14,12 +24,10 @@
         </a>
         </span>
         {% endif_has_perm %}
-{% endblock %}
+    </div>
 
 
 
-{% block content %}
-    <p>{{ object.text|default:""|safe }}</p>
     <div class="liveblog-detail">
         {% for liveblogupdate in object.published_liveblogupdates.all %}
         <article class="liveblogupdate">
