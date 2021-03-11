@@ -88,7 +88,7 @@ class LiveBlogUpdate(PublishableContent, Commentable, LikeableMixin):
     )
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["-created"]
 
 CTRegistry.register(
     "liveblogupdate",
