@@ -35,6 +35,7 @@
     <li>{% retweet_content modelinstance %}</li>
     {% ifpermission modelinstance request.user 'contenttypes.change_contenttype' %}
     <li>{% edit_content modelinstance 'Bewerken' '' %}</li>
+    <li>{% delete_content modelinstance 'Verwijderen' %}</li>
     {% endifpermission %}
     </ul>
     </div>

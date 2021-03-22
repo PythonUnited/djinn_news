@@ -22,7 +22,7 @@
   <section class="control-group" id="settings">
     <label class="control-label">{% trans "Other settings" %}</label>
     {{ form.comments_enabled|bootstrap }}
-    {{ form.show_images|bootstrap }}
+{#    {{ form.show_images|bootstrap }}#}
   </section>
 
   {{ form.owner|bootstrap }}
@@ -41,48 +41,48 @@
     {% ifpermission object request.user "djinn_news.manage_news" %}
     {{ form.home_image|bootstrap }}
     <div><br></div>
-    {{ form.is_sticky|bootstrap }}
+{#    {{ form.is_sticky|bootstrap }}#}
     {% endifpermission %}
 
-    {% ifpermission None request.user "auth.manage_feeds" %}
-    <div><br></div>
-    <div class="control-group">
-        <label class="control-label">{% trans "Weergave op infoscherm(en)" %}</label>
-        <br>
-        {{ form.publish_for_feed|bootstrap }}
-        <div class="feed-options{% if not form.instance.publish_for_feed %} hide{% endif %}">
-        {{ form.description_feed|bootstrap }}
-
-        {{ form.extra_media }}
-        {{ form.image_feed_hidden }}
-        {{ form.image_feed|bootstrap }}
-        {% if form.instance.feedimg_too_small %}
-            <p class="warning">{% trans "Opgeslagen afbeelding is te klein. Moet minimaal 1920x500px zijn." %}</p>
-        {% endif %}
-        {{ form.image_feed_crop|bootstrap }}
-        {% if form.instance.feedimg_selection_too_small %}
-            <p class="warning">{% trans "Selectie uit de afbeelding is eigenlijk te klein. Moet minimaal 1920x500px zijn." %}</p>
-        {% endif %}
-        <script>
-            $(document).ready(function() {
-                image_cropping.init();
-            });
-        </script>
-
-        {{ form.use_default_image|bootstrap }}
-
-        <div class="control-group">
-            <label class="control-label">{% trans "infoscherm voorbeeld" %}</label>
-            {% if form.instance.id %}
-                <iframe width="600" height="400" src="{% url 'djinn_contenttypes_preview' form.instance.ct_name form.instance.id %}" frameborder=0 name="feed_preview" id="feed_preview_id">
-            {% else %}
-                <p class="warning">{% trans "nog niet beschikbaar" %}</p>
-            {% endif %}
-            </iframe>
-        </div>
-        </div>
-    </div>
-    {% endifpermission %}
+{#    {% ifpermission None request.user "auth.manage_feeds" %}#}
+{#    <div><br></div>#}
+{#    <div class="control-group">#}
+{#        <label class="control-label">{% trans "Weergave op infoscherm(en)" %}</label>#}
+{#        <br>#}
+{#        {{ form.publish_for_feed|bootstrap }}#}
+{#        <div class="feed-options{% if not form.instance.publish_for_feed %} hide{% endif %}">#}
+{#        {{ form.description_feed|bootstrap }}#}
+{##}
+{#        {{ form.extra_media }}#}
+{#        {{ form.image_feed_hidden }}#}
+{#        {{ form.image_feed|bootstrap }}#}
+{#        {% if form.instance.feedimg_too_small %}#}
+{#            <p class="warning">{% trans "Opgeslagen afbeelding is te klein. Moet minimaal 1920x500px zijn." %}</p>#}
+{#        {% endif %}#}
+{#        {{ form.image_feed_crop|bootstrap }}#}
+{#        {% if form.instance.feedimg_selection_too_small %}#}
+{#            <p class="warning">{% trans "Selectie uit de afbeelding is eigenlijk te klein. Moet minimaal 1920x500px zijn." %}</p>#}
+{#        {% endif %}#}
+{#        <script>#}
+{#            $(document).ready(function() {#}
+{#                image_cropping.init();#}
+{#            });#}
+{#        </script>#}
+{##}
+{#        {{ form.use_default_image|bootstrap }}#}
+{##}
+{#        <div class="control-group">#}
+{#            <label class="control-label">{% trans "infoscherm voorbeeld" %}</label>#}
+{#            {% if form.instance.id %}#}
+{#                <iframe width="600" height="400" src="{% url 'djinn_contenttypes_preview' form.instance.ct_name form.instance.id %}" frameborder=0 name="feed_preview" id="feed_preview_id">#}
+{#            {% else %}#}
+{#                <p class="warning">{% trans "nog niet beschikbaar" %}</p>#}
+{#            {% endif %}#}
+{#            </iframe>#}
+{#        </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    {% endifpermission %}#}
 
   </section>
   

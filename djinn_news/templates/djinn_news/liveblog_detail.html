@@ -13,12 +13,14 @@
     </div>
     <div style="position: relative">
         <p>{{ object.text|default:""|safe }}</p>
+    </div>
+    <div style="position: relative">
         {% if_has_perm object request.user 'change' %}
         <span class="controls" style="position: absolute;top: 0;right: 0">
         <a href="{% url 'djinn_news_add_liveblogupdate' object.id %}"
 {#           data-toggle="tooltip"#}
            class="add-no-inline"
-           title="{% trans 'Add update' %}"
+           title="{% trans 'Liveblog-update toevoegen' %}"
            >
           <i class="icon-plus"></i>
         </a>

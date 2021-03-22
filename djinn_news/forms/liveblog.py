@@ -1,8 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.contenttypes.models import ContentType
 from djinn_contenttypes.forms.crop import DjinnCroppingMixin
-from djinn_contenttypes.models.feed import DESCR_FEED_MAX_LENGTH
 from djinn_forms.widgets.attachment import AttachmentWidget
 from djinn_forms.widgets.image import ImageWidget
 from djinn_forms.fields.relate import RelateField
@@ -11,15 +9,16 @@ from djinn_forms.forms.relate import RelateMixin
 from djinn_forms.forms.richtext import RichTextMixin
 from djinn_forms.widgets.relate import RelateWidget
 from djinn_forms.widgets.richtext import RichTextWidget
-from djinn_forms.widgets.datetimewidget import DateTimeWidget
 from djinn_contenttypes.forms.base import BaseContentForm
 from djinn_contenttypes.models.attachment import ImgAttachment
 from djinn_news import settings
 from djinn_news.models import LiveBlog
 from djinn_news.models.liveblog import LiveBlogUpdate
+from pgcontent.forms.base import CleanStateMixin
+from djinn_workflow.utils import get_state
 
 
-class LiveBlogForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
+class LiveBlogForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin, CleanStateMixin):
 
     cropping_field_name = 'image_feed'
 
@@ -101,19 +100,29 @@ class LiveBlogForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMix
         )
     )
 
+    state = forms.BooleanField(
+        required=False,
+        # Translators: content weergave label
+        label=_("Verberg"),
+        # Translators: content weergave help
+        help_text=_("Indien aangevinkt is dit liveblog onzichtbaar"),
+    )
+
     def __init__(self, *args, **kwargs):
 
         super(LiveBlogForm, self).__init__(*args, **kwargs)
 
-        self.fields['show_images'].label = _("Show images")
+        state = get_state(self.instance)
+
+        if state and state.name == "private":
+            self.fields['state'].initial = True
+        else:
+            self.fields['state'].initial = False
+
         self.fields['comments_enabled'].label = _("Comments enabled")
-        self.fields['is_sticky'].label = _("Important homepage item")
-        self.fields['description_feed'].widget.attrs.update(
-            {'data-maxchars': DESCR_FEED_MAX_LENGTH, 'class': 'full count_characters high'})
 
         if not self.user.has_perm("djinn_news.manage_news", obj=self.instance):
             del self.fields['home_image']
-            del self.fields['is_sticky']
 
         self.init_richtext_widgets()
 
@@ -130,13 +139,12 @@ class LiveBlogForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMix
         fields = ('title', 'text', 'documents', 'images', 'home_image',
                   'parentusergroup', 'comments_enabled', 'owner',
                   'publish_from', 'remove_after_publish_to',
-                  'publish_to', 'is_sticky',
-                  'show_images', 'userkeywords', 'state', 'use_default_image',
-                  'publish_for_feed', 'description_feed', 'image_feed',
-                  'image_feed_crop')
+                  'publish_to',
+                  'userkeywords', 'state', 'use_default_image',
+                  )
 
 
-class LiveBlogUpdateForm(BaseContentForm, RelateMixin, RichTextMixin):
+class LiveBlogUpdateForm(BaseContentForm, RelateMixin, RichTextMixin, CleanStateMixin):
 
     # Translators: liveblog general help
     help = _("Add a liveblogUpdate. The item will be submitted for publishing")
@@ -165,9 +173,24 @@ class LiveBlogUpdateForm(BaseContentForm, RelateMixin, RichTextMixin):
             attrs={"multiple": True}
             ))
 
+    state = forms.BooleanField(
+        required=False,
+        # Translators: content weergave label
+        label=_("Verberg"),
+        # Translators: content weergave help
+        help_text=_("Indien aangevinkt is deze Liveblog-update onzichtbaar"),
+    )
+
     def __init__(self, *args, **kwargs):
 
         super(LiveBlogUpdateForm, self).__init__(*args, **kwargs)
+
+        state = get_state(self.instance, assume_initial=False)
+
+        if state and state.name == "private":
+            self.fields['state'].initial = True
+        else:
+            self.fields['state'].initial = False
 
         self.fields['comments_enabled'].label = _("Comments enabled")
 
@@ -177,6 +200,7 @@ class LiveBlogUpdateForm(BaseContentForm, RelateMixin, RichTextMixin):
 
         if not self.instance.liveblog_id:
             self.instance.liveblog_id = self.initial.get('liveblog', None)
+
         res = super(LiveBlogUpdateForm, self).save(commit=commit)
 
         self.save_relations(commit=commit)
@@ -186,13 +210,7 @@ class LiveBlogUpdateForm(BaseContentForm, RelateMixin, RichTextMixin):
     class Meta(BaseContentForm.Meta):
         model = LiveBlogUpdate
         fields = ('title', 'text', 'images',
-                  # 'documents', 'parentusergroup', 'owner',
                   'comments_enabled',
-                  #'publish_from', 'remove_after_publish_to',
-                  #'publish_to', 'is_sticky',
-                  # 'show_images',
+                  'publish_from',
                   'userkeywords', 'state',
-                  # 'use_default_image',
-                  # 'publish_for_feed', 'description_feed', 'image_feed',
-                  # 'image_feed_crop'
                   )

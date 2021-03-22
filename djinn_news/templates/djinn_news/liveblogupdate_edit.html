@@ -1,0 +1,43 @@
+{% extends "djinn_contenttypes/base_edit.html" %}
+
+{% load i18n bootstrap auth_tags %}
+{% load pusimpletext_tags %}
+
+{% block formfields %}
+
+{{ form.title|bootstrap }}
+
+{{ form.text|bootstrap }}
+
+{#{{ form.documents|bootstrap }}#}
+
+{#{{ form.images|bootstrap }}#}
+
+{{ form.userkeywords|bootstrap }}
+
+{#{{ form.parentusergroup|bootstrap }}#}
+
+<fieldset id="advanced">
+
+  <section class="control-group" id="settings">
+    <label class="control-label">{% trans "Other settings" %}</label>
+    {{ form.comments_enabled|bootstrap }}
+{#    {{ form.show_images|bootstrap }}#}
+  </section>
+
+  {{ form.owner|bootstrap }}
+
+  <section class="control-group">
+    <label class="control-label">{% trans "Display" %}</label>
+    {{ form.state|bootstrap }}
+  </section>
+
+  <section class="control-group" id="publishing">
+    <label class="control-label">{% trans "Publishing" %}</label>
+    {{ form.publish_from|bootstrap }}
+    <div><br></div>
+  </section>
+  
+</fieldset>
+
+{% endblock %}

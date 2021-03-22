@@ -10,7 +10,8 @@ from .views.liveblogupdate import LiveBlogUpdateCreateView, \
     LiveBlogUpdateLoadMoreAjax
 from .views.liveblogviewlet import LiveBlogViewlet
 from .views.newsviewlet import NewsViewlet
-from djinn_contenttypes.views.base import CreateView, UpdateView, DetailView
+from djinn_contenttypes.views.base import CreateView, UpdateView, DetailView, \
+    DeleteView
 from djinn_contenttypes.views.utils import generate_model_urls, find_form_class
 
 
@@ -45,11 +46,11 @@ _urlpatterns = [
 
 _urlpatterns_liveblog = [
 
-    url(r"^$",
+    url(r"^live/$",
         login_required(LiveBlogViewlet.as_view()),
         name="djinn_news_liveblog"),
 
-    url(r"^(?P<parentusergroup>[\d]*)/?$",
+    url(r"^live/(?P<parentusergroup>[\d]*)/?$",
         login_required(LiveBlogViewlet.as_view()),
         name="djinn_news_liveblog_pug"),
 
@@ -62,6 +63,11 @@ _urlpatterns_liveblog = [
         login_required(LiveBlogUpdateUpdateView.as_view(
             model=LiveBlogUpdate, form_class=liveblogupdate_form,)),
         name="djinn_news_edit_liveblogupdate"),
+
+    url(r"^delete/liveblogupdate/(?P<pk>[\d]*)/$",
+        login_required(DeleteView.as_view(
+            model=LiveBlogUpdate, )),
+        name="djinn_news_delete_liveblogupdate"),
 
     url(r"^view/liveblogupdate/(?P<pk>[\d]*)/(?P<slug>[\-\d\w]+)/$",
         login_required(DetailView.as_view(
@@ -90,7 +96,7 @@ _urlpatterns_liveblog = [
 
 urlpatterns = [
     url(r'^news/', include(_urlpatterns)),
-    url(r'^news/live/', include(_urlpatterns_liveblog)),
+    url(r'^news/', include(_urlpatterns_liveblog)),
 
     url(r'^news/', include(generate_model_urls(News))),
     url(r'^news/', include(generate_model_urls(LiveBlog))),

@@ -87,6 +87,14 @@ class LiveBlogUpdate(PublishableContent, Commentable, LikeableMixin):
         blank=True,
     )
 
+    def save(self, *args, **kwargs):
+
+        if self.liveblog:
+            # The updates are always in the same parentusergroup
+            self.parentusergroup_id = self.liveblog.parentusergroup_id
+
+        return super().save(*args, **kwargs)
+
     class Meta:
         ordering = ["-created"]
 
