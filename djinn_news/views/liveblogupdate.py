@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime
+
 from django.urls import reverse
 from djinn_contenttypes.views.base import CreateView, UpdateView, DetailView
 from djinn_news.models import LiveBlog
@@ -37,6 +39,10 @@ class LiveBlogUpdateCountAjax(DetailView):
         ctx = super().get_context_data(**kwargs)
 
         newerthan_ts = self.request.GET.get('newerthan_ts', None)
+
+        # fallback: all of today
+        if not newerthan_ts or newerthan_ts == 'undefined':
+            newerthan_ts = datetime.now().strftime("%Y-%m-%d")
 
         updates_qs = self.object.liveblogupdates.filter(created__gt=newerthan_ts)
         new_updates_count = updates_qs.count()

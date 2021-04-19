@@ -40,7 +40,7 @@
     {% for highlight in view.liveblogs %}
     <li>
         {# BEGIN liveblog titel regel met op rechts een 'Update toevoegen' (+)-icoontje #}
-    <div class="clearfix">
+    <div class="clearfix pb-15">
         <div class="simple-list-thumb-container">
             <div class="simple-list-thumb" style="background-image: url('{% fetch_image_url highlight.content_object.home_image 'liveblog_home_list' 'liveblog' %}')">
             </div>
@@ -53,8 +53,10 @@
         </div>
     </div>
       {# END liveblog titel regel met op rechts een 'Update toevoegen' (+)-icoontje #}
-      <p>{{ highlight.content_object.text|abbreviate:500|safe }}</p>
-    <div style="position: relative">
+    {# BEGIN (09-04-2021) omschrijving-tekst niet in de viewlet maar op de detailpagina #}
+    {# <p>{{ highlight.content_object.text|abbreviate:500|safe }}</p>#}
+    {# END (09-04-2021) #}
+    <div style="position: relative;">
     {#                  add liveblog to group or to homepage (if view.parentusergroup is empty)#}
 
             {% ifpermission highlight.content_object request.user 'djinn_news.add_liveblogupdate' %}

@@ -137,7 +137,8 @@ class LiveBlogForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMix
     class Meta(BaseContentForm.Meta):
         model = LiveBlog
         fields = ('title', 'text', 'documents', 'images', 'home_image',
-                  'parentusergroup', 'comments_enabled', 'owner',
+                  # 'parentusergroup', dd 9-april-2021: geen liveblogs in groepen
+                  'comments_enabled', 'owner',
                   'publish_from', 'remove_after_publish_to',
                   'publish_to',
                   'userkeywords', 'state', 'use_default_image',
