@@ -57,8 +57,10 @@
     <div style="position: relative">
     {#                  add liveblog to group or to homepage (if view.parentusergroup is empty)#}
 
+
             {% ifpermission highlight.content_object request.user 'djinn_news.add_liveblogupdate' %}
-            <div style="position:absolute;right: 0">
+{#            <div style="position:absolute;right: 0">#}
+             <div style="float: right">
 
             <a href="{% url 'djinn_news_add_liveblogupdate' highlight.content_object.id %}"
                data-toggle="tooltip"
@@ -68,19 +70,17 @@
               <i class="icon-plus"></i>
             </a>
             </div>
-            {% endifpermission %}
 
-{#            <script language="javascript">#}
-{#            setInterval(function(){#}
-{#                  $("#get-article-{{ highlight.id }}").load({% url 'djinn_news_get_button' %});#}
-{#             },5000);#}
-{#            </script>#}
-        <div id="get-article-{{ highlight.id }}"></div>
-{#        <button class="btn btn-mini js-get-articles"><span>4</span> nieuwe berichten</button>#}
-        <div class="js-add-articles"></div>
+            {% endifpermission %}
+{#        <div id="get-article-{{ highlight.id }}"></div>#}
+{#        <div class="js-add-articles"></div>#}
+{#        #}
+
+        <div>
         {% for liveblogupdate in highlight.content_object.published_liveblogupdates.all|slice:":3" %}
           {% include 'djinn_news/snippets/liveblogupdate_short.html' %}
         {% endfor %}
+        </div>
       </div>
     </li>
     {% endfor %}

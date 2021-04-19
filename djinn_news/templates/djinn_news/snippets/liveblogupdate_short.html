@@ -1,5 +1,5 @@
 {% load humanize %}
 <article>
-    <a href="{% url 'djinn_news_view_liveblog' highlight.content_object.id highlight.content_object.slug %}">{{ liveblogupdate.title}}</a>
+    <a href="{% url 'djinn_news_view_liveblog' highlight.content_object.id highlight.content_object.slug %}" title="{{ liveblogupdate.title}}">{{ liveblogupdate.title}}</a>
     <time datetime="{{ liveblogupdate.changed }}" class="js-update-time">{{ liveblogupdate.changed|naturaltime }}</time>
 </article>
