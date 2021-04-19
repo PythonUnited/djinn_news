@@ -3,7 +3,7 @@
 {% with updates_per_page_slice=":10" updates_per_page=10 olderthan_ts=liveblogupdates_qs.9.created_as_isoformat %}
 
 {% for liveblogupdate in liveblogupdates_qs|slice:updates_per_page_slice %}
-<article class="liveblogupdate">
+<article class="liveblogupdate" id="{{ liveblogupdate.id }}">
     <time timestamp="{{ liveblogupdate.created_as_isoformat }}" datetime="{{ liveblogupdate.publishing_date }}">{{ liveblogupdate.publishing_date|timesince }}</time>
     <h3>{{ liveblogupdate.title}}</h3>
         {% if_has_perm liveblogupdate request.user 'change' %}
