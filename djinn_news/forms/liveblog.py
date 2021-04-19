@@ -1,4 +1,6 @@
 from django import forms
+from django.forms.widgets import HiddenInput
+
 from django.utils.translation import ugettext_lazy as _
 from djinn_contenttypes.forms.crop import DjinnCroppingMixin
 from djinn_forms.widgets.attachment import AttachmentWidget
@@ -193,6 +195,8 @@ class LiveBlogUpdateForm(BaseContentForm, RelateMixin, RichTextMixin, CleanState
             self.fields['state'].initial = False
 
         self.fields['comments_enabled'].label = _("Comments enabled")
+        self.fields['publish_to'].widget = HiddenInput()
+
 
         self.init_richtext_widgets()
 
@@ -214,3 +218,4 @@ class LiveBlogUpdateForm(BaseContentForm, RelateMixin, RichTextMixin, CleanState
                   'publish_from',
                   'userkeywords', 'state',
                   )
+
