@@ -81,4 +81,18 @@ class LiveBlogUpdateLoadMoreAjax(DetailView):
             "liveblogupdates_qs": liveblogupdates_qs.all()
         })
 
+        # {% with updates_per_page_slice=":10" updates_per_page=10 olderthan_ts=liveblogupdates_qs.9.created_as_isoformat %}
+        ctx.update({
+            "updates_per_page_slice": ":10",
+            "updates_per_page": 10,
+            "olderthan_ts": ""
+        })
+
+        try:
+            ctx.update({
+                "olderthan_ts": liveblogupdates_qs[9].created_as_isoformat
+            })
+        except Exception as exc:
+            pass
+
         return ctx

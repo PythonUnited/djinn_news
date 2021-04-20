@@ -1,0 +1,20 @@
+{% load contentblock_tags %}
+{% load auth_tags %}
+
+{% if not items|length_is:"0" %}
+<div class="cb">
+  {% if title %}<h3>{{ title }}</h3>{% endif %}
+
+  <ul class="related hardlinked">
+    {% for rel in items %}
+    {% ifpermission rel request.user 'contenttypes.view' %}
+    <li>
+      {% render_item_snippet rel "_related" rel.relation_type %}
+    </li>
+    {% endifpermission %}
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="cb bottom-line"></div>
+{% endif %}

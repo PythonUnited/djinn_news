@@ -1,6 +1,5 @@
 {% load djinn_auth_tags contentblock_tags %}
 
-{% with updates_per_page_slice=":10" updates_per_page=10 olderthan_ts=liveblogupdates_qs.9.created_as_isoformat %}
 
 {% for liveblogupdate in liveblogupdates_qs|slice:updates_per_page_slice %}
 <article class="liveblogupdate" id="{{ liveblogupdate.id }}">
@@ -39,5 +38,3 @@
 
     </script>
 {% endif %}
-
-{% endwith %}
