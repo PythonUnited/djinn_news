@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from django.db import models
+from django.db.models import Q
 from image_cropping import ImageRatioField
 
 from djinn_contenttypes.models import ImgAttachment
@@ -53,7 +56,13 @@ class LiveBlog(PublishableContent, Commentable, LikeableMixin, FeedMixin):
 
     def published_liveblogupdates(self):
 
-        return self.liveblogupdates.filter(is_tmp=False)
+        updates_qs = self.liveblogupdates.filter(is_tmp=False)
+
+        updates_qs = updates_qs.filter(
+            Q(publish_from__isnull=True)|Q(publish_from__lte=datetime.now())
+        )
+
+        return updates_qs
 
     class Meta:
         app_label = "djinn_news"

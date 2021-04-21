@@ -11,18 +11,15 @@
 
 {#{{ form.documents|bootstrap }}#}
 
-{#{{ form.images|bootstrap }}#}
+{{ form.images|bootstrap }}
 
 {{ form.userkeywords|bootstrap }}
-
-{#{{ form.parentusergroup|bootstrap }}#}
 
 <fieldset id="advanced">
 
   <section class="control-group" id="settings">
     <label class="control-label">{% trans "Other settings" %}</label>
     {{ form.comments_enabled|bootstrap }}
-{#    {{ form.show_images|bootstrap }}#}
   </section>
 
   {{ form.owner|bootstrap }}
