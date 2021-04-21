@@ -1,3 +1,5 @@
+* form fields for liveblogupdate + permission-check
+* show/hide liveblogupdates on publish_from value
 * changes for bypassing diazo in case of liveblog
 
 1.2.1

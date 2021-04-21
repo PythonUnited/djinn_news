@@ -15,7 +15,7 @@
         <p>{{ object.text|default:""|safe }}</p>
     </div>
     <div style="position: relative">
-        {% if_has_perm object request.user 'change' %}
+        {% if_has_perm object request.user 'djinn_news.add_liveblogupdate' %}
         <span class="controls" style="position: absolute;top: 0;right: 0">
         <a href="{% url 'djinn_news_add_liveblogupdate' object.id %}"
 {#           data-toggle="tooltip"#}
