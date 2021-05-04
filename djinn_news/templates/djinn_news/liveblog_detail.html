@@ -1,5 +1,5 @@
 {% extends "djinn_contenttypes/base_detail_nd.html" %}
-{% load i18n auth_tags djinn_contenttypes djinn_auth_tags contentblock_tags search_tags %}
+{% load i18n auth_tags djinn_contenttypes djinn_auth_tags contentblock_tags search_tags liveblog_tags %}
 
 {% block title %}{% endblock %}
 {% block header-actions %}{% endblock %}
@@ -15,7 +15,7 @@
         <p>{{ object.text|default:""|safe }}</p>
     </div>
     <div style="position: relative">
-        {% if_has_perm object request.user 'change' %}
+        {% if_has_perm object request.user 'djinn_news.add_liveblogupdate' %}
         <span class="controls" style="position: absolute;top: 0;right: 0">
         <a href="{% url 'djinn_news_add_liveblogupdate' object.id %}"
 {#           data-toggle="tooltip"#}
@@ -32,7 +32,15 @@
     <div class="liveblog-detail">
 
         {% with object.published_liveblogupdates.all as liveblogupdates_qs %}
-            {% include "djinn_news/snippets/liveblogupdateloadmore.html" %}
+            {% if request.GET.nopager == 'yes' %}
+            {% with updates_per_page_slice=":1000" updates_per_page=1000 olderthan_ts=liveblogupdates_qs.999.created_as_isoformat %}
+                {% include "djinn_news/snippets/liveblogupdateloadmore.html" %}
+            {% endwith %}
+            {% else %}
+            {% with updates_per_page_slice=":10" updates_per_page=10 olderthan_ts=liveblogupdates_qs.9.created_as_isoformat %}
+                {% include "djinn_news/snippets/liveblogupdateloadmore.html" %}
+            {% endwith %}
+            {% endif %}
         {% endwith %}
 
     </div>
@@ -62,9 +70,12 @@
 
     {% showuserkeywords object %}
 
+
+    {% all_liveblogupdates object "Alle updates in dit liveblog" %}
+
 {#    {% connected_items object "Kijk ook eens bij" %}#}
-{#    {% relatedcontent object "Misschien interessant" "article" %}#}
-{#    {% relatedcontent object "En verder nog op het intranet" "userprofile groupprofile product" %}#}
+{#    {% relatedcontent object "Misschien interessant" "liveblog news" %}#}
+{#    {% relatedcontent object "En verder nog op het intranet" "userprofile groupprofile product article" %}#}
 
 {% endblock %}
 

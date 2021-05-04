@@ -42,6 +42,10 @@
     {{ form.home_image|bootstrap }}
     <div><br></div>
 {#    {{ form.is_sticky|bootstrap }}#}
+  {{ form.shares|bootstrap }}
+
+  {{ form.related|bootstrap }}
+
     {% endifpermission %}
 
 {#    {% ifpermission None request.user "auth.manage_feeds" %}#}

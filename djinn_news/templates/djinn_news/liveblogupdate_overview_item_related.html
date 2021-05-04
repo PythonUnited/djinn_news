@@ -1,0 +1,12 @@
+{% load auth_tags %}
+
+{% block title %}
+    <a class="profile-list-title"
+       href="{% url 'djinn_news_view_liveblog' modelinstance.liveblog.id modelinstance.liveblog.slug %}?nopager=yes#{{ modelinstance.id }}"
+       title="{{ modelinstance.title}}">
+        {{ modelinstance.title}}
+    </a>
+{% endblock %}
+
+{% block actions %}
+{% endblock %}
