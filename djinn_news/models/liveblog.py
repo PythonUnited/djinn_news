@@ -96,6 +96,12 @@ class LiveBlogUpdate(PublishableContent, Commentable, LikeableMixin):
         blank=True,
     )
 
+    @property
+    def permission_authority(self):
+        # heb je permissies op de LiveBlog instance, dan ook op de
+        # onderliggende LiveBlogUpdates
+        return self.liveblog
+
     def save(self, *args, **kwargs):
 
         if self.liveblog:
