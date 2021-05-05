@@ -6,7 +6,9 @@
 <article class="liveblogupdate">
     <time timestamp="{{ liveblogupdate.created_as_isoformat }}" datetime="{{ liveblogupdate.publishing_date }}">{{ liveblogupdate.publishing_date|timesince }}</time>
     <h3>{{ liveblogupdate.title}}</h3>
-        {% if_has_perm liveblogupdate request.user 'change' %}
+{#         Men wil toch graag dat iemand die liveblog rechten heeft ook updates van anderen mag bewerken #}
+{#        {% if_has_perm liveblogupdate request.user 'change' %}#}
+        {% if_has_perm liveblogupdate.liveblog request.user 'change' %}
             <a href="{% url 'djinn_news_edit_liveblogupdate' liveblogupdate.id %}">Bewerken</a>
         {% endif_has_perm %}
     {{ liveblogupdate.text|safe }}
