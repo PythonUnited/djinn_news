@@ -13,9 +13,11 @@
         {% endif_has_perm %}
     {{ liveblogupdate.text|safe }}
 
-    {% for lbu_image in liveblogupdate.images.all %}
-        <img src="{% fetch_image_url lbu_image 'display' 'liveblogupdate' %}" class="media-full">
-    {% endfor %}
+    {% if liveblogupdate.show_images %}
+        {% for lbu_image in liveblogupdate.images.all %}
+            <img src="{% fetch_image_url lbu_image 'display' 'liveblogupdate' %}" class="media-full">
+        {% endfor %}
+    {% endif %}
 </article>
 {% endfor %}
 

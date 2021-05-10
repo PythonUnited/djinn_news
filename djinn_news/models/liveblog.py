@@ -91,6 +91,12 @@ class LiveBlogUpdate(PublishableContent, Commentable, LikeableMixin):
 
     text = models.TextField(null=True, blank=True)
 
+    show_images = models.BooleanField(
+        _("Afbeeldingen tonen"),
+        default=True,
+        help_text=_("Toon de afbeelding(en) onderaan deze update")
+    )
+
     images = models.ManyToManyField(
         ImgAttachment,
         blank=True,

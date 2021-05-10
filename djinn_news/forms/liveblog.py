@@ -214,7 +214,7 @@ class LiveBlogUpdateForm(BaseContentForm, RelateMixin, RichTextMixin, CleanState
 
     class Meta(BaseContentForm.Meta):
         model = LiveBlogUpdate
-        fields = ('title', 'text', 'images',
+        fields = ('title', 'text', 'images', 'show_images',
                   'comments_enabled',
                   'publish_from',
                   'userkeywords', 'state',
