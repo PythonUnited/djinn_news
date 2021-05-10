@@ -1,3 +1,4 @@
+* veld 'links naar gerelateerde content' verwijderd uit Liveblog en LiveblogUpdate edit-templates`
 * form fields for liveblogupdate + permission-check
 * show/hide liveblogupdates on publish_from value
 * changes for bypassing diazo in case of liveblog
