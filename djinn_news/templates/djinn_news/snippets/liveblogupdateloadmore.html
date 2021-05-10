@@ -15,7 +15,7 @@
 
     {% if liveblogupdate.show_images %}
         {% for lbu_image in liveblogupdate.images.all %}
-            <img src="{% fetch_image_url lbu_image 'display' 'liveblogupdate' %}" class="media-full">
+            <img src="{% fetch_image_url lbu_image 'liveblogupdate_img' 'liveblogupdate' %}" class="media-full">
         {% endfor %}
     {% endif %}
 </article>
