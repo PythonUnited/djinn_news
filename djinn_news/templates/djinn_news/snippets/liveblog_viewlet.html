@@ -1,5 +1,8 @@
 {% load i18n humanize auth_tags djinn_contenttypes contentblock_tags %}
 
+
+{% if view.liveblogs|length > 0 %}
+
 {#<script language="javascript">#}
 {#$(function(){#}
 {#  $(".js-get-articles").click(function(){#}
@@ -110,4 +113,6 @@
 
 {% if not view.parentusergroup %}
 </div>
+{% endif %}
+
 {% endif %}
