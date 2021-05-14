@@ -103,9 +103,11 @@ class LiveBlogViewlet(AcceptMixin, FeedViewMixin, TemplateView):
                 liveblog_qs = self.get_queryset(
                     LiveBlog.objects.filter(parentusergroup_id=None))
 
-            liveblog_qs = liveblog_qs.filter(
-                is_tmp=False
-            )
+            # liveblog_qs = liveblog_qs.filter(
+            #     is_tmp=False
+            # )
+            # fix voor reageren op publicatie-datum/tijd 14-05-2021:
+            liveblog_qs = LiveBlogViewlet._liveblog_published_filter(liveblog_qs, now)
 
             # wrap the liveblogs
             for lb in liveblog_qs:
