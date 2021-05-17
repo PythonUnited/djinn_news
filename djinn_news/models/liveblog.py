@@ -54,6 +54,7 @@ class LiveBlog(PublishableContent, Commentable, LikeableMixin, FeedMixin):
 
     create_tmp_object = True
 
+    @property
     def published_liveblogupdates(self):
 
         updates_qs = self.liveblogupdates.filter(is_tmp=False)
