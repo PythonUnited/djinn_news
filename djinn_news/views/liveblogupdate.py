@@ -44,7 +44,8 @@ class LiveBlogUpdateCountAjax(DetailView):
         if not newerthan_ts or newerthan_ts == 'undefined':
             newerthan_ts = datetime.now().strftime("%Y-%m-%d")
 
-        updates_qs = self.object.liveblogupdates.filter(created__gt=newerthan_ts)
+        # updates_qs = self.object.liveblogupdates.filter(created__gt=newerthan_ts)
+        updates_qs = self.object.published_liveblogupdates.filter(created__gt=newerthan_ts)
         new_updates_count = updates_qs.count()
         # print(f"new updates: {new_updates_count}")
 
