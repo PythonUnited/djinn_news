@@ -1,5 +1,9 @@
 {% load i18n humanize auth_tags djinn_contenttypes contentblock_tags %}
 
+
+{% comment %} LET OP: in PG zit deze template in pg_skin/templates/djinn_news/  {% endcomment %}
+
+
 {% if view.news|length > 0 and view.sticky_item %}
 <a href="{% url 'djinn_news_view_news' view.sticky_item.id view.sticky_item.slug %}" title="" class="sticky">
 

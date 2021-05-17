@@ -74,7 +74,8 @@ class LiveBlogUpdateLoadMoreAjax(DetailView):
 
         olderthan_ts = self.request.GET.get('olderthan_ts', None)
 
-        liveblogupdates_qs = self.object.liveblogupdates.filter(created__lt=olderthan_ts)
+        # liveblogupdates_qs = self.object.liveblogupdates.filter(created__lt=olderthan_ts)
+        liveblogupdates_qs = self.object.published_liveblogupdates.filter(created__lt=olderthan_ts)
         # print(f"new updates: {new_updates_count}")
 
         ctx.update({
