@@ -3,3 +3,4 @@
 {% for kw in object.keywordslist %}
     {{ kw|default:"" }}
 {% endfor %}
+{{ object.get_owner.profile }}
