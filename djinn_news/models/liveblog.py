@@ -125,6 +125,7 @@ CTRegistry.register(
     {"class": LiveBlogUpdate,
      "app": "djinn_news",
      "group_add": True,
+     "delete_permission": "djinn_news.delete_liveblogupdate",
      "allow_saveandedit": True,
      "label": _("LiveBlogUpdate")}
 )
