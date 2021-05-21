@@ -10,7 +10,7 @@ def all_liveblogupdates(context, liveblog, title=None, edit=False,
                         number_of_items=10):
 
 
-    liveblogupdates = liveblog.liveblogupdates.all()
+    liveblogupdates = liveblog.published_liveblogupdates.all()
 
     context.update({'request': context['request'],
                     'title': title,
