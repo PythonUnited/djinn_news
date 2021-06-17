@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
@@ -117,6 +119,11 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
     def __init__(self, *args, **kwargs):
 
         super(NewsForm, self).__init__(*args, **kwargs)
+        if self.instance.is_tmp:
+            if not self.instance.publish_from:
+                self['publish_from'].initial = datetime.now()
+            if not self.instance.publish_to:
+                self['publish_to'].initial = datetime.now() + timedelta(days=365)
 
         self.fields['show_images'].label = _("Show images")
         self.fields['comments_enabled'].label = _("Comments enabled")
