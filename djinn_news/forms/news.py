@@ -120,8 +120,6 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
 
         super(NewsForm, self).__init__(*args, **kwargs)
         if self.instance.is_tmp:
-            if not self.instance.publish_from:
-                self['publish_from'].initial = datetime.now()
             if not self.instance.publish_to:
                 self['publish_to'].initial = datetime.now() + timedelta(days=365)
 
