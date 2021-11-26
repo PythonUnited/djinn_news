@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
@@ -179,4 +178,6 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
                   'publish_to', 'highlight_from', 'is_sticky',
                   'show_images', 'userkeywords', 'state', 'use_default_image',
                   'publish_for_feed', 'description_feed', 'image_feed',
-                  'image_feed_crop')
+                  'image_feed_crop',
+                  'category',
+                  )

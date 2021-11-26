@@ -1,10 +1,10 @@
 from djinn_news.models.liveblog import LiveBlog, LiveBlogUpdate
 from djinn_news.models.news import News
 from haystack import indexes
-from pgsearch.base import ContentSearchIndex
+from pgsearch.base import ContentSearchIndex, CategorySearchIndexMixin
 
 
-class NewsIndex(ContentSearchIndex, indexes.Indexable):
+class NewsIndex(ContentSearchIndex, CategorySearchIndexMixin, indexes.Indexable):
 
     published = indexes.DateTimeField(model_attr='publish_from', null=True)
 

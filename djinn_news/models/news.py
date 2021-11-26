@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from djinn_contenttypes.models.category import CategoryMixin
 from image_cropping import ImageRatioField
 
 from djinn_contenttypes.models.feed import FeedMixin
@@ -13,7 +14,7 @@ from djinn_contenttypes.settings import FEED_HEADER_SIZE
 from djinn_likes.models.likeable import LikeableMixin
 
 
-class News(PublishableContent, Commentable, LikeableMixin, FeedMixin):
+class News(PublishableContent, Commentable, LikeableMixin, FeedMixin, CategoryMixin):
 
     """ News content type """
     # BEGIN required by FeedMixin

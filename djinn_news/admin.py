@@ -10,7 +10,7 @@ class NewsAdmin(ImageCroppingMixin, admin.ModelAdmin):
     filter_horizontal = ['images']
     list_display = ('title', 'changed', 'changed_by', 'get_owner', 'publish_from',
                     'publish_to', 'is_global', 'is_sticky', 'publish_for_feed')
-    list_filter = ['publish_from', 'is_global', 'publish_for_feed']
+    list_filter = ['publish_from', 'is_global', 'publish_for_feed', 'category']
     # raw_id_fields = ['creator', 'changed_by', 'parentusergroup', 'home_image']
     raw_id_fields = ['creator', 'changed_by', 'parentusergroup']
     search_fields = ['title', 'changed_by__userprofile__name', 'text']
