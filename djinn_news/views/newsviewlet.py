@@ -139,9 +139,9 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
 
             # 2. haal alle News items op, max 1 sticky item eerst
             self.sticky_item = NewsViewlet._news_published_filter(
-                self.get_queryset(News.objects.filter(is_sticky=True, id__in=highlighted_news_ids)).first(),
+                self.get_queryset(News.objects.filter(is_sticky=True, id__in=highlighted_news_ids)),
                 now
-            )
+            ).first()
             # if self.sticky_item:
             #     self.news_list.append(self.sticky_item)
 
