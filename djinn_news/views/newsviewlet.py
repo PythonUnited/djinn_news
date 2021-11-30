@@ -143,8 +143,10 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
             # if self.sticky_item:
             #     self.news_list.append(self.sticky_item)
 
-            news_qs = self.get_queryset(
-                News.objects.filter(id__in=highlighted_news_ids))
+            news_qs = NewsViewlet._news_published_filter(
+                self.get_queryset(News.objects.filter(id__in=highlighted_news_ids)),
+                now
+            )
             if self.sticky_item:
                 # don't show this one twice
                 news_qs = news_qs.exclude(id=self.sticky_item.id)
