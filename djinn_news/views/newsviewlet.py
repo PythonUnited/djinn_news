@@ -105,6 +105,10 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
 
         now = datetime.now()
 
+        # cheap ass caching
+        if self.news_list:
+            return self.news_list
+
         self.news_list = []
 
         # For Homepage, the news-items must be 'highlighted'.
@@ -151,8 +155,16 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
                 self.sticky_item = None
 
             self.has_more = news_qs.count() > self.offset + self.limit
+            unsorted_news_dict = {}
             for news_item in news_qs[self.offset:self.offset+self.limit]:
-                self.news_list.append(news_item)
+                unsorted_news_dict[news_item.id] = news_item
+                # self.news_list.append(news_item)
+
+            # sorteren op volgorde van Highlights
+            for news_item_id in highlighted_news_ids:
+                sorted_news_item = unsorted_news_dict.get(news_item_id, False)
+                if sorted_news_item:
+                    self.news_list.append(sorted_news_item)
 
             # TODO sorteren op volgorde van highlighted_news_ids (alleen igv homepage)
 
