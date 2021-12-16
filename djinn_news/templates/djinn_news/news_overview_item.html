@@ -5,12 +5,21 @@
 {% load auth_tags %}
 {% load i18n %}
 {% load pu_in_favorites_tags %}
-{% load staticfiles %}
+{% load staticfiles contentblock_tags %}
 
 {% block icon %}
 <figure class="profile-photo">
   <a href="{{ modelinstance.get_absolute_url }}">
+  {% comment %}
+    voor nieuwsitems de afbeelding ook in de zoeksnippet tonen
     <img class="search-avatar" src="{% static 'img/default-news-image-90x90.png' %}">
+  {% endcomment %}
+   {% if modelinstance.home_image %}
+    <div class="simple-list-thumb" style="background-image: url('{% fetch_image_url modelinstance.home_image 'news_home_list' 'news' %}')"></div>
+  {% else %}
+    <div class="simple-list-thumb" style="background-image: url('{% fetch_image_url modelinstance.images.first 'news_home_list' 'news' %}')"></div>
+  {% endif %}
+
   </a>
 </figure>
 {% endblock %}
