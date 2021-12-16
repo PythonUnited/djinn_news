@@ -30,6 +30,7 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
     has_more = False
     sticky_item = None
     limit = SHOW_N
+    categories_title = 'Nieuws'
 
     @property
     def parentusergroup_id(self):
@@ -55,8 +56,11 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
             queryset = queryset.filter(home_image__isnull=True)
 
         # als er om een specifieke categorie wordt gevraagd
-        if self.category_slug:
-            queryset = queryset.filter(category__slug=self.category_slug)
+        if self.category_slugs:
+            queryset = queryset.filter(category__slug__in=self.category_slugs)
+
+        if self.category_slugs_excluded:
+            queryset = queryset.exclude(category__slug__in=self.category_slugs_excluded)
 
         queryset = queryset.exclude(
             id__in=ObjectState.objects.filter(
@@ -91,9 +95,15 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
 
     def news(self):
 
-        self.category_slug = self.request.GET.get('category', False)
+        self.categories_title = self.request.GET.get('title', self.categories_title)
+        self.category_slugs = self.request.GET.get('categories', False)
+        if self.category_slugs:
+            self.category_slugs = self.category_slugs.split(',')
+        self.category_slugs_excluded = self.request.GET.get('skip', False)
+        if self.category_slugs_excluded:
+            self.category_slugs_excluded = self.category_slugs_excluded.split(',')
+
         self.offset = int(self.request.GET.get('offset', 0))
-        self.category = Category.objects.filter(slug=self.category_slug).first()
 
         pugid = self.parentusergroup_id
         if pugid:
@@ -127,7 +137,9 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
 
             # then, not stick
             news_qs = NewsViewlet._news_published_filter(news_qs, now)
-            self.has_more = news_qs.count() > self.limit
+
+            #men wil geen autoaanvulling op de homepage
+            #self.has_more = news_qs.count() > self.limit
 
             for newsitem in news_qs[self.offset:self.offset+self.limit]:
                 self.news_list.append(newsitem)
@@ -158,7 +170,8 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
                 # Hierboven wel nodig om hem uit de resultset te halen...
                 self.sticky_item = None
 
-            self.has_more = news_qs.count() > self.offset + self.limit
+            #men wil geen autoaanvulling op de homepage
+            #self.has_more = news_qs.count() > self.offset + self.limit
             unsorted_news_dict = {}
             for news_item in news_qs[self.offset:self.offset+self.limit]:
                 unsorted_news_dict[news_item.id] = news_item
