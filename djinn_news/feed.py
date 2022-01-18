@@ -20,6 +20,7 @@ class LatestNewsFeed(DjinnFeed):
 
     def get_object(self, request, *args, **kwargs):
 
+        self.request = request
         groupprofile_id = kwargs.get('groupprofile_id', None)
 
         if groupprofile_id:
@@ -35,6 +36,7 @@ class LatestNewsFeed(DjinnFeed):
     def items(self):
         # re-use the news viewlet as it is on the homepage.
         newsviewlet = NewsViewlet()
+        newsviewlet.request = self.request
         newsviewlet.kwargs = {
             'parentusergroup': self.parentusergroup_id,
             'limit_override': 100,
