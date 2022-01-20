@@ -79,7 +79,7 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
             Q(publish_from__isnull=True) | Q(publish_from__lte=now)
         ).filter(
             Q(publish_to__isnull=True) | Q(publish_to__gte=now)
-        ).order_by("-created")
+        ).order_by("-publish_from", "-created")
 
     @staticmethod
     def _highlights_published(now):
