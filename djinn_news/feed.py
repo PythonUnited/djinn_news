@@ -49,14 +49,14 @@ class LatestNewsFeed(DjinnFeed):
         return newslist[:6]
 
     def item_title(self, item):
-        if item.content_object:
+        if hasattr(item, 'content_object'):
             return item.content_object.title
         return ""
 
     def item_description(self, item):
 
         desc = "<div></div>"
-        if item.content_object:
+        if hasattr(item, 'content_object'):
             desc = '<div>%s</div>' % item.content_object.description_feed
 
         return mark_safe(desc)
