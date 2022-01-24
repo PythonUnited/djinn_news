@@ -170,20 +170,33 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
                 # Hierboven wel nodig om hem uit de resultset te halen...
                 self.sticky_item = None
 
-            #men wil geen autoaanvulling op de homepage
-            #self.has_more = news_qs.count() > self.offset + self.limit
-            unsorted_news_dict = {}
-            for news_item in news_qs[self.offset:self.offset+self.limit]:
-                unsorted_news_dict[news_item.id] = news_item
-                # self.news_list.append(news_item)
+            # de items die gehighlight zijn voor de homepage EN gepubliceerd staan
+            published_news_ids = news_qs.values_list("id", flat=True)
+            published_highlighted_news_ids = []
+            # de volgorde van van publiceren zit in highlighted_news_ids
+            # Die willen we aanhouden, maar de niet-gepubliceerden eruit gooien
+            for highlighted_news_id in highlighted_news_ids:
+                if highlighted_news_id in published_news_ids:
+                    published_highlighted_news_ids.append(highlighted_news_id)
 
-            # sorteren op volgorde van Highlights
-            for news_item_id in highlighted_news_ids:
-                sorted_news_item = unsorted_news_dict.get(news_item_id, False)
-                if sorted_news_item:
-                    self.news_list.append(sorted_news_item)
+            # En nu de instances erbij halen.
+            for sorted_published_hightlight_id in published_highlighted_news_ids[
+                                                  self.offset:self.offset+self.limit]:
+                self.news_list.append(News.objects.get(id=sorted_published_hightlight_id))
 
-            # TODO sorteren op volgorde van highlighted_news_ids (alleen igv homepage)
+            # oude constructie voor ophalen/sorteren. Met bug erin...
+            # #men wil geen autoaanvulling op de homepage
+            # #self.has_more = news_qs.count() > self.offset + self.limit
+            # unsorted_news_dict = {}
+            # for news_item in news_qs[self.offset:self.offset+self.limit]:
+            #     unsorted_news_dict[news_item.id] = news_item
+            #     # self.news_list.append(news_item)
+            #
+            # # sorteren op volgorde van Highlights
+            # for news_item_id in highlighted_news_ids:
+            #     sorted_news_item = unsorted_news_dict.get(news_item_id, False)
+            #     if sorted_news_item:
+            #         self.news_list.append(sorted_news_item)
 
         self.next_offset = self.offset + len(self.news_list)
 
