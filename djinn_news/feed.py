@@ -84,6 +84,14 @@ class LatestNewsFeed(DjinnFeed):
     #     return [encl]
 
     def item_extra_kwargs(self, item):
+        if not hasattr(item, 'content_object'):
+            return {
+                "background_img_url": "",
+                "more_info_class": "",
+                "more_info_text": "",
+                "more_info_qrcode_url": ""
+            }
+
         background_img_url = ""
         if item.content_object.has_feedimg:
             background_img_url = "%s%s" % (
