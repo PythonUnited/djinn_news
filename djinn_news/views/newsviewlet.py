@@ -1,3 +1,4 @@
+from django.db.models.functions import Coalesce
 from django.views.generic import TemplateView
 from django.conf import settings
 from djinn_contenttypes.models import Category
@@ -79,7 +80,10 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
             Q(publish_from__isnull=True) | Q(publish_from__lte=now)
         ).filter(
             Q(publish_to__isnull=True) | Q(publish_to__gte=now)
-        ).order_by("-publish_from", "-created")
+        # ).order_by("-publish_from", "-created")
+        ).annotate(
+            sort_datetime=Coalesce('publish_from', 'created')
+        ).order_by('-sort_datetime')
 
     @staticmethod
     def _highlights_published(now):
