@@ -81,6 +81,10 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
         ).filter(
             Q(publish_to__isnull=True) | Q(publish_to__gte=now)
         # ).order_by("-publish_from", "-created")
+        # Sortering moet obv published_from, maar die is leeg als het artikel
+        # niet op de Homepage staat of heeft gestaan.
+        # Daarom wordt in de DB-query de combinatie (Coalesce) van published_from
+        # en created gemaakt en daarmee de eerste 'gevulde' waarde gebruikt.
         ).annotate(
             sort_datetime=Coalesce('publish_from', 'created')
         ).order_by('-sort_datetime')
