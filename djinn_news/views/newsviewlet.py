@@ -106,6 +106,7 @@ class NewsViewlet(AcceptMixin, FeedViewMixin, TemplateView):
         self.categories_title = self.request.GET.get('title', self.categories_title)
         self.category_slugs = self.request.GET.get('categories', False)
         if self.category_slugs:
+            self.categories = self.category_slugs
             self.category_slugs = self.category_slugs.split(',')
         self.category_slugs_excluded = self.request.GET.get('skip', False)
         if self.category_slugs_excluded:
