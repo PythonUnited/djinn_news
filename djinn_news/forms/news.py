@@ -132,6 +132,7 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
             del self.fields['highlight_from']
             del self.fields['home_image']
             del self.fields['is_sticky']
+            del self.fields['category']
         else:
             self.fields[
                 'highlight_from'].initial = self.instance.highlight_from
