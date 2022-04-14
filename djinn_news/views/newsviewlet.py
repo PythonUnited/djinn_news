@@ -46,11 +46,6 @@ class NewsViewlet(DesignVersionMixin, AcceptMixin, FeedViewMixin, TemplateView):
             return GroupProfile.objects.filter(usergroup__id=pugid).last()
         return None
 
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx['categories_title'] = self.request.GET.get('title', 'Nieuws')
-        return ctx
-
     def get_queryset(self, queryset):
         queryset = super().get_queryset(queryset)
 
