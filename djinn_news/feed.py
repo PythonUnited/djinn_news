@@ -50,14 +50,18 @@ class LatestNewsFeed(DjinnFeed):
 
     def item_title(self, item):
         if hasattr(item, 'content_object'):
-            return item.content_object.title
+            item = item.content_object
+        if hasattr(item, 'title'):
+            return item.title
         return ""
 
     def item_description(self, item):
+        if hasattr(item, 'content_object'):
+            item = item.content_object
 
         desc = "<div></div>"
-        if hasattr(item, 'content_object'):
-            desc = '<div>%s</div>' % item.content_object.description_feed
+        if hasattr(item, 'description_feed'):
+            desc = '<div>%s</div>' % item.description_feed
 
         return mark_safe(desc)
 
@@ -84,7 +88,10 @@ class LatestNewsFeed(DjinnFeed):
     #     return [encl]
 
     def item_extra_kwargs(self, item):
-        if not hasattr(item, 'content_object'):
+        if hasattr(item, 'content_object'):
+            item = item.content_object
+
+        if not hasattr(item, 'background_img_url'):
             return {
                 "background_img_url": "",
                 "more_info_class": "",
@@ -93,14 +100,14 @@ class LatestNewsFeed(DjinnFeed):
             }
 
         background_img_url = ""
-        if item.content_object.has_feedimg:
+        if item.has_feedimg:
             background_img_url = "%s%s" % (
-                self.http_host, item.content_object.feed_bg_img_url)
+                self.http_host, item.feed_bg_img_url)
 
         return {
             "background_img_url": background_img_url,
-            "more_info_class": item.content_object.more_info_class,
-            "more_info_text": item.content_object.more_info_text,
-            "more_info_qrcode_url": item.content_object.qrcode_img_url(
+            "more_info_class": item.more_info_class,
+            "more_info_text": item.more_info_text,
+            "more_info_qrcode_url": item.qrcode_img_url(
                 http_host=self.http_host)
         }
