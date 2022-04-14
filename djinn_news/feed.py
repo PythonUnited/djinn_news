@@ -91,7 +91,7 @@ class LatestNewsFeed(DjinnFeed):
         if hasattr(item, 'content_object'):
             item = item.content_object
 
-        if not hasattr(item, 'background_img_url'):
+        if not hasattr(item, 'more_info_class'):
             return {
                 "background_img_url": "",
                 "more_info_class": "",
