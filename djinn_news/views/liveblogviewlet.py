@@ -1,10 +1,9 @@
 from django.views.generic import TemplateView
 from django.conf import settings
-from djinn_contenttypes.views.base import AcceptMixin, FeedViewMixin
-from djinn_contenttypes.models.highlight import Highlight
+from djinn_contenttypes.views.base import AcceptMixin, FeedViewMixin, \
+    DesignVersionMixin
 from datetime import datetime
 from django.db.models.query import Q
-
 from djinn_news.models import LiveBlog
 from djinn_workflow.utils import get_state
 from pgprofile.models import GroupProfile
@@ -21,7 +20,7 @@ class LiveBlogWrapper(object):
         self.content_object = obj
 
 
-class LiveBlogViewlet(AcceptMixin, FeedViewMixin, TemplateView):
+class LiveBlogViewlet(DesignVersionMixin, AcceptMixin, FeedViewMixin, TemplateView):
 
     template_name = "djinn_news/snippets/liveblog_viewlet.html"
 
