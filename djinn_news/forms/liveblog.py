@@ -195,7 +195,7 @@ class LiveBlogUpdateForm(BaseContentForm, RelateMixin, RichTextMixin, CleanState
         else:
             self.fields['state'].initial = False
 
-        self.fields['comments_enabled'].label = _("Comments enabled")
+        # self.fields['comments_enabled'].label = _("Comments enabled")
         self.fields['publish_to'].widget = HiddenInput()
 
 
@@ -215,7 +215,7 @@ class LiveBlogUpdateForm(BaseContentForm, RelateMixin, RichTextMixin, CleanState
     class Meta(BaseContentForm.Meta):
         model = LiveBlogUpdate
         fields = ('title', 'text', 'images', 'show_images',
-                  'comments_enabled',
+                  # 'comments_enabled',
                   'publish_from',
                   'userkeywords', 'state',
                   )
