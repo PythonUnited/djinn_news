@@ -16,12 +16,20 @@ from djinn_likes.models.likeable import LikeableMixin
 
 class News(PublishableContent, Commentable, LikeableMixin, FeedMixin, CategoryMixin):
 
+    CATEGORY_OCCURRENCE = 'occurrence'
+
     """ News content type """
     # BEGIN required by FeedMixin
     feed_bg_img_fieldname = 'image_feed'
     feed_bg_img_crop_fieldname = 'image_feed_crop'
     # END required by FeedMixin
 
+    event_dt = models.DateTimeField(
+        _('Event date/time'),
+        null=True, blank=True,
+        default=None,
+        help_text=_("Date/time of an event associated with this item.")
+    )
 
     text = models.TextField(null=True, blank=True)
 

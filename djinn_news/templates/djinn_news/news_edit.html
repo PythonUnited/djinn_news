@@ -22,6 +22,10 @@
 
   {% ifpermission object request.user "djinn_news.manage_news" %}
     {{ form.category|bootstrap }}
+
+    {% if form.instance.category.slug == 'occurrence' or form.initial.category_slug == 'occurrence' %}
+    {{ form.event_dt|bootstrap }}
+    {% endif %}
   {% endifpermission %}
 
   <section class="control-group" id="settings">

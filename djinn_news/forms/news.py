@@ -117,6 +117,19 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
             )
         )
 
+    event_dt = forms.DateTimeField(
+        # Translators: News event_dt label
+        label=_("Event date/time"),
+        # Translators: News event_dt help
+        help_text=_("Enter the date/time of the associated event"),
+        required=False,
+        widget=DateTimeWidget(
+            attrs={'date_hint': _("Date"),
+                   'time_hint': _("Time"),
+                   'date_format': settings.DEFAULT_DATE_INPUT_FORMAT}
+            )
+        )
+
     def __init__(self, *args, **kwargs):
 
         super(NewsForm, self).__init__(*args, **kwargs)
@@ -132,6 +145,12 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
         self.fields['is_sticky'].label = _("Important homepage item")
         self.fields['description_feed'].widget.attrs.update(
             {'data-maxchars': DESCR_FEED_MAX_LENGTH, 'class': 'full count_characters high'})
+
+        if self.initial.get('category_slug') == News.CATEGORY_OCCURRENCE or (
+                self.instance.category and self.instance.category.slug == News.CATEGORY_OCCURRENCE):
+            pass
+        else:
+            del self.fields['event_dt']
 
         if not self.user.has_perm("djinn_news.manage_news", obj=self.instance):
             del self.fields['highlight_from']
@@ -178,7 +197,7 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
 
     class Meta(BaseContentForm.Meta):
         model = News
-        fields = ('title', 'text', 'documents', 'images', 'home_image',
+        fields = ('title', 'text', 'event_dt', 'documents', 'images', 'home_image',
                   'parentusergroup', 'comments_enabled', 'owner',
                   'publish_from', 'remove_after_publish_to',
                   'publish_to', 'highlight_from', 'is_sticky',
