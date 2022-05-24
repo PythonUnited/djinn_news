@@ -15,7 +15,6 @@
 
 {{ form.userkeywords|bootstrap }}
 
-
 {{ form.parentusergroup|bootstrap }}
 
 <fieldset id="advanced">
@@ -23,8 +22,8 @@
   {% ifpermission object request.user "djinn_news.manage_news" %}
     {{ form.category|bootstrap }}
 
-    {% if form.instance.category.slug == 'occurrence' or form.initial.category_slug == 'occurrence' %}
-    {{ form.event_dt|bootstrap }}
+    {% if form.event_dt %}
+        {{ form.event_dt|bootstrap }}
     {% endif %}
   {% endifpermission %}
 
@@ -49,9 +48,13 @@
     <div><br></div>
     {% ifpermission object request.user "djinn_news.manage_news" %}
     {{ form.highlight_from|bootstrap }}
-    {{ form.home_image|bootstrap }}
+    {% if form.home_image %}
+        {{ form.home_image|bootstrap }}
+    {% endif %}
     <div><br></div>
-    {{ form.is_sticky|bootstrap }}
+    {% if form.home_image %}
+        {{ form.is_sticky|bootstrap }}
+    {% endif %}
     {% endifpermission %}
 
     {% ifpermission None request.user "auth.manage_feeds" %}
