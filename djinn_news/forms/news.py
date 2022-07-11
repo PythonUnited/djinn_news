@@ -155,9 +155,12 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
 
         if not self.user.has_perm("djinn_news.manage_news", obj=self.instance):
             del self.fields['highlight_from']
-            del self.fields['home_image']
-            del self.fields['is_sticky']
             del self.fields['category']
+            # zijn misschien al verwijderd:
+            if 'home_image' in self.fields:
+                del self.fields['home_image']
+            if 'is_sticky' in self.fields:
+                del self.fields['is_sticky']
         else:
             self.fields[
                 'highlight_from'].initial = self.instance.highlight_from
