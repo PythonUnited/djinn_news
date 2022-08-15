@@ -52,7 +52,7 @@
         {{ form.home_image|bootstrap }}
     {% endif %}
     <div><br></div>
-    {% if form.home_image %}
+    {% if form.home_image and form.is_sticky %}
         {{ form.is_sticky|bootstrap }}
     {% endif %}
     {% endifpermission %}

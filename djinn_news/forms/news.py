@@ -148,7 +148,7 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
 
         if self.initial.get('category_slug') == News.CATEGORY_OCCURRENCE or (
                 self.instance.category and self.instance.category.slug == News.CATEGORY_OCCURRENCE):
-            del self.fields['home_image']
+            # del self.fields['home_image']
             del self.fields['is_sticky']
         else:
             del self.fields['event_dt']
