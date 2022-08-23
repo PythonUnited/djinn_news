@@ -133,10 +133,10 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
     def __init__(self, *args, **kwargs):
 
         super(NewsForm, self).__init__(*args, **kwargs)
+
         if self.instance.is_tmp:
             if not self.instance.publish_to:
                 self['publish_to'].initial = datetime.now() + timedelta(days=365)
-
         if 'category_slug' in self.initial:
             initial_category = Category.objects.filter(slug=self.initial['category_slug']).first()
             self.initial.update({'category': initial_category.id})
@@ -146,8 +146,8 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
         self.fields['description_feed'].widget.attrs.update(
             {'data-maxchars': DESCR_FEED_MAX_LENGTH, 'class': 'full count_characters high'})
 
-        if self.initial.get('category_slug') == News.CATEGORY_OCCURRENCE or (
-                self.instance.category and self.instance.category.slug == News.CATEGORY_OCCURRENCE):
+        if self.initial.get('category_slug') == News.CATEGORY_OCCURRENCE or \
+                (self.instance.category_id and self.instance.category.slug == News.CATEGORY_OCCURRENCE):
             # del self.fields['home_image']
             del self.fields['is_sticky']
         else:
