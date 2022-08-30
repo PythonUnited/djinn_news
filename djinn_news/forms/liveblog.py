@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.forms.widgets import HiddenInput
 
 from django.utils.translation import ugettext_lazy as _
@@ -13,7 +14,7 @@ from djinn_forms.widgets.relate import RelateWidget
 from djinn_forms.widgets.richtext import RichTextWidget
 from djinn_contenttypes.forms.base import BaseContentForm
 from djinn_contenttypes.models.attachment import ImgAttachment
-from djinn_news import settings
+from djinn_news import settings as news_settings
 from djinn_news.models import LiveBlog
 from djinn_news.models.liveblog import LiveBlogUpdate
 from pgcontent.forms.base import CleanStateMixin
@@ -58,7 +59,7 @@ class LiveBlogForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMix
                 'djinn_forms/snippets/relatesearchwidget.html',
                 'search_url': '/document_search/',
                 'ct_searchfield': 'meta_type',
-                'allow_add_relation': settings.ALLOW_ADD_DOCUMENT_RELATION,
+                'allow_add_relation': news_settings.ALLOW_ADD_DOCUMENT_RELATION,
                 'add_relation_url': '/content/add_ajax/document/',
                 'add_relation_label': _("Add document")
                 },
@@ -73,12 +74,12 @@ class LiveBlogForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMix
         widget=AttachmentWidget(
             ImgAttachment,
             "djinn_forms/snippets/imageattachmentwidget.html",
-            attrs={"multiple": True}
+            attrs={"multiple": True, "show_progress": True, 'inline_edit_enabled': settings.INLINE_EDIT_ENABLED}
             ))
 
     home_image = ImageField(
         model=ImgAttachment,
-        # Translators: Homepage liveblog image label
+        # Translators: Homepage image label
         label=_("Add homepage image"),
         required=False,
         widget=ImageWidget(
@@ -88,10 +89,23 @@ class LiveBlogForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMix
                 }
         )
     )
+    # Zo zou de widget gelijk zijn aan image toevoegen aan timelinebericht
+    # home_image = forms.ModelChoiceField(
+    #     queryset=ImgAttachment.objects.all(),
+    #     # Translators: Homepage image label
+    #     label=_("Add homepage image"),
+    #     required=False,
+    #     widget = AttachmentWidget(
+    #         ImgAttachment,
+    #         "gronet_v3/djinn_forms/snippets/imageattachmentwidget.html",
+    #         attrs={"multiple": False, "show_progress": True,
+    #                'inline_edit_enabled': settings.INLINE_EDIT_ENABLED}
+    #     )
+    # )
 
     image_feed = ImageField(
         model=ImgAttachment,
-        # Translators: Homepage liveblog image label
+        # Translators: Homepage rss-feed image label
         label=_("Add rss-feed image"),
         required=False,
         widget=ImageWidget(
@@ -101,6 +115,19 @@ class LiveBlogForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMix
                 }
         )
     )
+    # Zo zou de widget gelijk zijn aan image toevoegen aan timelinebericht
+    # image_feed = forms.ModelChoiceField(
+    #     queryset=ImgAttachment.objects.all(),
+    #     # Translators: Homepage rss-feed image label
+    #     label=_("Add rss-feed image"),
+    #     required=False,
+    #     widget = AttachmentWidget(
+    #         ImgAttachment,
+    #         "gronet_v3/djinn_forms/snippets/imageattachmentwidget.html",
+    #         attrs={"multiple": False, "show_progress": True,
+    #                'inline_edit_enabled': settings.INLINE_EDIT_ENABLED}
+    #     )
+    # )
 
     state = forms.BooleanField(
         required=False,
@@ -172,9 +199,10 @@ class LiveBlogUpdateForm(BaseContentForm, RelateMixin, RichTextMixin, CleanState
         required=False,
         widget=AttachmentWidget(
             ImgAttachment,
-            "djinn_forms/snippets/imageattachmentwidget.html",
-            attrs={"multiple": True}
-            ))
+            "gronet_v3/djinn_forms/snippets/imageattachmentwidget.html",
+            attrs={"multiple": True, "show_progress": True, 'inline_edit_enabled': settings.INLINE_EDIT_ENABLED}
+        )
+    )
 
     state = forms.BooleanField(
         required=False,

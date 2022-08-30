@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from django import forms
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from djinn_contenttypes.models import Category
@@ -19,7 +20,7 @@ from djinn_contenttypes.forms.base import BaseContentForm
 from djinn_contenttypes.models.attachment import ImgAttachment
 from djinn_contenttypes.models.highlight import Highlight
 from djinn_news.models import News
-from djinn_news import settings
+from djinn_news import settings as news_settings
 
 
 class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
@@ -60,7 +61,7 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
                 'djinn_forms/snippets/relatesearchwidget.html',
                 'search_url': '/document_search/',
                 'ct_searchfield': 'meta_type',
-                'allow_add_relation': settings.ALLOW_ADD_DOCUMENT_RELATION,
+                'allow_add_relation': news_settings.ALLOW_ADD_DOCUMENT_RELATION,
                 'add_relation_url': '/content/add_ajax/document/',
                 'add_relation_label': _("Add document")
                 },
@@ -74,8 +75,8 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
         required=False,
         widget=AttachmentWidget(
             ImgAttachment,
-            "djinn_forms/snippets/imageattachmentwidget.html",
-            attrs={"multiple": True}
+            "gronet_v3/djinn_forms/snippets/imageattachmentwidget.html",
+            attrs={"multiple": True, "show_progress": True, 'inline_edit_enabled': settings.INLINE_EDIT_ENABLED}
             ))
 
     home_image = ImageField(
@@ -90,10 +91,23 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
                 }
         )
     )
+    # Zo zou de widget gelijk zijn aan image toevoegen aan timelinebericht
+    # home_image = forms.ModelChoiceField(
+    #     queryset=ImgAttachment.objects.all(),
+    #     # Translators: Homepage news image label
+    #     label=_("Add homepage image"),
+    #     required=False,
+    #     widget = AttachmentWidget(
+    #         ImgAttachment,
+    #         "gronet_v3/djinn_forms/snippets/imageattachmentwidget.html",
+    #         attrs={"multiple": False, "show_progress": True,
+    #                'inline_edit_enabled': settings.INLINE_EDIT_ENABLED}
+    #     )
+    # )
 
     image_feed = ImageField(
         model=ImgAttachment,
-        # Translators: Homepage news image label
+        # Translators: Homepage rss-feed image label
         label=_("Add rss-feed image"),
         required=False,
         widget=ImageWidget(
@@ -103,6 +117,19 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
                 }
         )
     )
+    # Zo zou de widget gelijk zijn aan image toevoegen aan timelinebericht
+    # image_feed = forms.ModelChoiceField(
+    #     queryset=ImgAttachment.objects.all(),
+    #     # Translators: Homepage rss-feed image label
+    #     label=_("Add rss-feed image"),
+    #     required=False,
+    #     widget = AttachmentWidget(
+    #         ImgAttachment,
+    #         "gronet_v3/djinn_forms/snippets/imageattachmentwidget.html",
+    #         attrs={"multiple": False, "show_progress": True,
+    #                'inline_edit_enabled': settings.INLINE_EDIT_ENABLED}
+    #     )
+    # )
 
     highlight_from = forms.DateTimeField(
         # Translators: contenttypes highlight_from label
@@ -113,7 +140,7 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
         widget=DateTimeWidget(
             attrs={'date_hint': _("Date"),
                    'time_hint': _("Time"),
-                   'date_format': settings.DEFAULT_DATE_INPUT_FORMAT}
+                   'date_format': news_settings.DEFAULT_DATE_INPUT_FORMAT}
             )
         )
 
@@ -126,7 +153,7 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
         widget=DateTimeWidget(
             attrs={'date_hint': _("Date"),
                    'time_hint': _("Time"),
-                   'date_format': settings.DEFAULT_DATE_INPUT_FORMAT}
+                   'date_format': news_settings.DEFAULT_DATE_INPUT_FORMAT}
             )
         )
 
