@@ -71,7 +71,7 @@ class NewsViewlet(DesignVersionMixin, AcceptMixin, FeedViewMixin, TemplateView):
         return queryset
 
     @staticmethod
-    def _news_published_filter(queryset, now):
+    def _news_published_filter(queryset, now, orderby="-sort_datetime"):
         return queryset.filter(
             is_tmp=False
         ).filter(
@@ -85,7 +85,7 @@ class NewsViewlet(DesignVersionMixin, AcceptMixin, FeedViewMixin, TemplateView):
         # en created gemaakt en daarmee de eerste 'gevulde' waarde gebruikt.
         ).annotate(
             sort_datetime=Coalesce('publish_from', 'created')
-        ).order_by('-sort_datetime')
+        ).order_by(orderby)
 
     @staticmethod
     def _highlights_published(now):
@@ -103,6 +103,8 @@ class NewsViewlet(DesignVersionMixin, AcceptMixin, FeedViewMixin, TemplateView):
 
         self.categories_title = self.request.GET.get('title', 'Nieuws')
         self.category_slugs = self.request.GET.get('categories', False)
+        ordering_key = "event_dt" if self.category_slugs == "occurrence" else "-sort_datetime"
+
         if self.category_slugs:
             self.categories = self.category_slugs
             self.category_slugs = self.category_slugs.split(',')
@@ -116,9 +118,10 @@ class NewsViewlet(DesignVersionMixin, AcceptMixin, FeedViewMixin, TemplateView):
         if pugid:
             self.limit = 3
 
-        limit_override = self.kwargs.get('limit_override', None)
+        limit_override = self.kwargs.get('limit_override', self.request.GET.get('limit_override', None))
         if limit_override:
-            self.limit = limit_override
+            self.limit = int(limit_override)
+
 
         now = datetime.now()
 
@@ -137,13 +140,13 @@ class NewsViewlet(DesignVersionMixin, AcceptMixin, FeedViewMixin, TemplateView):
 
             # # first max 'limit' sticky items
             # for stickynews in NewsViewlet._news_published_filter(
-            #         news_qs, now).filter(is_sticky=True):
+            #         news_qs, now, ordering_key).filter(is_sticky=True):
             #     self.news_list.append(stickynews)
             #     if len(self.news_list) >= self.limit:
             #         break
 
             # then, not stick
-            news_qs = NewsViewlet._news_published_filter(news_qs, now)
+            news_qs = NewsViewlet._news_published_filter(news_qs, now, ordering_key)
 
             #men wil geen autoaanvulling op de homepage
             #self.has_more = news_qs.count() > self.limit
@@ -159,14 +162,16 @@ class NewsViewlet(DesignVersionMixin, AcceptMixin, FeedViewMixin, TemplateView):
             # 2. haal alle News items op, max 1 sticky item eerst
             self.sticky_item = NewsViewlet._news_published_filter(
                 self.get_queryset(News.objects.filter(is_sticky=True, id__in=highlighted_news_ids)),
-                now
+                now,
+                ordering_key
             ).first()
             # if self.sticky_item:
             #     self.news_list.append(self.sticky_item)
 
             news_qs = NewsViewlet._news_published_filter(
                 self.get_queryset(News.objects.filter(id__in=highlighted_news_ids)),
-                now
+                now,
+                ordering_key
             )
             if self.sticky_item:
                 # don't show this one twice
@@ -179,12 +184,16 @@ class NewsViewlet(DesignVersionMixin, AcceptMixin, FeedViewMixin, TemplateView):
 
             # de items die gehighlight zijn voor de homepage EN gepubliceerd staan
             published_news_ids = news_qs.values_list("id", flat=True)
-            published_highlighted_news_ids = []
-            # de volgorde van van publiceren zit in highlighted_news_ids
-            # Die willen we aanhouden, maar de niet-gepubliceerden eruit gooien
-            for highlighted_news_id in highlighted_news_ids:
-                if highlighted_news_id in published_news_ids:
-                    published_highlighted_news_ids.append(highlighted_news_id)
+            if ordering_key == "event_dt":
+                # de volgorde zit al in news_qs, dus die gebruiken
+                published_highlighted_news_ids = published_news_ids
+            else:
+                # de volgorde van van publiceren zit in highlighted_news_ids
+                # Die willen we aanhouden, maar de niet-gepubliceerden eruit gooien
+                published_highlighted_news_ids = []
+                for highlighted_news_id in highlighted_news_ids:
+                    if highlighted_news_id in published_news_ids:
+                        published_highlighted_news_ids.append(highlighted_news_id)
 
             # En nu de instances erbij halen.
             for sorted_published_hightlight_id in published_highlighted_news_ids[
