@@ -166,7 +166,8 @@ class NewsForm(DjinnCroppingMixin, BaseContentForm, RelateMixin, RichTextMixin):
                 self['publish_to'].initial = datetime.now() + timedelta(days=365)
         if 'category_slug' in self.initial:
             initial_category = Category.objects.filter(slug=self.initial['category_slug']).first()
-            self.initial.update({'category': initial_category.id})
+            # self.initial.update({'category': initial_category})
+            self.instance.category = initial_category
         self.fields['show_images'].label = _("Show images")
         self.fields['comments_enabled'].label = _("Comments enabled")
         self.fields['is_sticky'].label = _("Important homepage item")
