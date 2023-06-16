@@ -94,6 +94,12 @@ class News(PublishableContent, Commentable, LikeableMixin, FeedMixin, CategoryMi
         except:
             return None
 
+    @property
+    def publishing_date(self):
+        # Als ie op de homepage staat, die publicatie-datum/tijd nemen
+        return self.highlight_from or super().publishing_date
+
+
     class Meta:
         app_label = "djinn_news"
 
