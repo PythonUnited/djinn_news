@@ -6,6 +6,7 @@
 {% load i18n %}
 {% load pu_in_favorites_tags %}
 {% load static contentblock_tags %}
+{% load djinn_contenttypes %}
 
 {% block icon %}
 <figure class="profile-photo">
@@ -32,7 +33,8 @@
 {% endblock %}
 
 {% block subtitle %}
-{{ modelinstance.text|default:""|striptags|replace:"'&nbsp;',' '"|truncatechars:80|safe }}
+    {% limited_ctx_replacement modelinstance.text as replaced_text %}
+    {{ replaced_text|default:""|striptags|replace:"'&nbsp;',' '"|truncatechars:80|safe }}
 {% endblock %}
 
 {% block summaryOFF %}
