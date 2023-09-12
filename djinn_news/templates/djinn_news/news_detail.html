@@ -1,9 +1,10 @@
 {% extends "djinn_contenttypes/base_detail.html" %}
 
-{% load auth_tags i18n djinn_contenttypes %}
+{% load auth_tags i18n %}
 {% load pu_in_favorites_tags %}
 {% load contentaction_tags %}
 {% load contentblock_tags %}
+{% load contentutil_tags %}
 
 {% block extra_actions %}
     {% favorite_action object %}
